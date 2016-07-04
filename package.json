@@ -11,7 +11,7 @@
     "build:dev": "webpack",
     "build:production": "webpack",
     "start": "node server.js",
-    "start:dev": "webpack-dev-server"
+    "start:dev": "webpack-dev-server --hot"
   },
   "repository": {
     "type": "git",
@@ -51,8 +51,8 @@
     "gulp": "^3.9.1",
     "gulp-eslint": "^3.0.0",
     "html-loader": "^0.4.3",
-    "image-loader": "0.0.1",
     "image-webpack-loader": "^1.8.0",
+    "json-loader": "^0.5.4",
     "node-sass": "^3.8.0",
     "postcss-loader": "^0.9.1",
     "resolve-url-loader": "^1.4.4",

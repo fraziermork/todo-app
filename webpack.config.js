@@ -5,9 +5,7 @@ const autoprefixer  = require('autoprefixer');
 const ExtractPlugin = require('extract-text-webpack-plugin');
 const CleanPlugin   = require('clean-webpack-plugin');
 const production    = process.env.npm_lifecycle_event === 'build:production';
-
-const API_URL       = process.env.API_URL;
-if (!API_URL) throw new Error('No API URL was provided.');
+const API_URL       = production ? process.env.npm_config_production_url : process.env.npm_config_dev_url;
 
 const PATHS = {
   entry: `${__dirname}/app/entry`, 
@@ -43,7 +41,8 @@ module.exports = {
   debug:  !production, 
   entry:  {
     bundle:     PATHS.entry,
-    vendor:     ['angular-route', 'angular']
+    // unlike loaders, this goes left to right
+    vendor:     ['angular', 'angular-route']
   },
   output: {
     path:     PATHS.build,
@@ -51,15 +50,15 @@ module.exports = {
     // pathName: 'build/'
   },
   module: {
-    preloaders: [
+    preLoaders: [
       {
-        test:   /\-directive.js/,
+        test:   /-directive\.js/,
         // only load the template into the directives 
         loader: 'baggage?[dir]-view.html=template', 
       },
       {
-        test:   /\.js/,
-        // load the styles into all of them, they should get pulled out by the extract plugin
+        test:   /index\.js$/,
+        // load the styles into all of the entry files, should be pulled out by the text extract into bundle.css
         loader: 'baggage?[dir].scss'
       }
     ], 
@@ -78,20 +77,24 @@ module.exports = {
         loader:   ExtractPlugin.extract('style', 'css!postcss!sass', { allChunks: true }),
       }, 
       {
-        test:     /\.(png|jpe?g|svg)/, 
-        loaders:   ['url?limit=10000', 'image-webpack']
+        test:     /\.(png|jpe?g|svg)$/, 
+        loaders:   ['url?limit=10000', 'image-webpack?bypassOnDebug']
       }, 
       {
-        test:     /\.html/, 
+        test:     /\.html$/, 
         loaders:  ['html']
       }, 
       {
-        test:     /\.(ttf|eot)/, 
+        test:     /\.(ttf|eot)$/, 
         loader:   'file'
       }, 
       {
         test:     /\.woff2?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
         loader:   'url'
+      },
+      {
+        test:     /\.json$/,
+        loader:   'json'
       }
     ]
   }, 
@@ -99,7 +102,6 @@ module.exports = {
     devtool:            'eval-source-map',
     contentBase:        PATHS.build, 
     historyApiFallback: true,
-    hot:                true,
     inline:             true,
     progress:           true,
     stats:              'errors-only'
