@@ -4,7 +4,10 @@ const webpack       = require('webpack');
 const autoprefixer  = require('autoprefixer');
 const ExtractPlugin = require('extract-text-webpack-plugin');
 const CleanPlugin   = require('clean-webpack-plugin');
-const production    = process.env.NODE_ENV === 'production';
+const production    = process.env.npm_lifecycle_event === 'build:production';
+
+const API_URL       = process.env.API_URL;
+if (!API_URL) throw new Error('No API URL was provided.');
 
 const PATHS = {
   entry: `${__dirname}/app/entry`, 
@@ -20,7 +23,7 @@ let plugins = [
   }),
   new webpack.optimize.OccurenceOrderPlugin(),
   new webpack.DefinePlugin({
-    __API_URL__: process.env.API_URL
+    __API_URL__: JSON.stringify(API_URL)
   }), 
   new CleanPlugin('build')
 ];
@@ -30,7 +33,7 @@ if (production) {
     new webpack.optimize.UglifyJsPlugin({
       mangle:   true, 
       compress: {
-        warnins: false
+        warnings: false
       }
     })
   ]);
