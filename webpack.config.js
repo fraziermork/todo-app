@@ -41,8 +41,6 @@ module.exports = {
   entry:  {
     bundle:     PATHS.entry,
     vendor:     ['angular-route', 'angular']
-    // , 
-    // bootstrap:  'bootstrap-loader'
   },
   output: {
     path:     PATHS.build,
@@ -53,13 +51,13 @@ module.exports = {
     preloaders: [
       {
         test:   /\-directive.js/,
-        loader: 'baggage?[dir]-view.html=template', 
         // only load the template into the directives 
+        loader: 'baggage?[dir]-view.html=template', 
       },
       {
         test:   /\.js/,
-        loader: 'baggage?[dir].scss'
         // load the styles into all of them, they should get pulled out by the extract plugin
+        loader: 'baggage?[dir].scss'
       }
     ], 
     loaders: [
@@ -71,16 +69,14 @@ module.exports = {
       {
         test:     /\.css$/, 
         loader:   ExtractPlugin.extract('style', 'css!postcss', { allChunks: true }),
-        // loaders:  ['style', 'css', 'postcss']
       }, 
       {
         test:     /\.scss$/, 
         loader:   ExtractPlugin.extract('style', 'css!postcss!sass', { allChunks: true }),
-        // loaders: ['style', 'css', 'postcss', 'resolve-url', 'sass?sourceMap']
       }, 
       {
         test:     /\.(png|jpe?g|svg)/, 
-        loaders:   ['url?limit=10000', 'image-loader']
+        loaders:   ['url?limit=10000', 'image-webpack']
       }, 
       {
         test:     /\.html/, 

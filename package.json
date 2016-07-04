@@ -50,6 +50,7 @@
     "gulp": "^3.9.1",
     "gulp-eslint": "^3.0.0",
     "html-loader": "^0.4.3",
+    "image-loader": "0.0.1",
     "image-webpack-loader": "^1.8.0",
     "node-sass": "^3.8.0",
     "postcss-loader": "^0.9.1",
