@@ -40,14 +40,13 @@ if (production) {
 module.exports = {
   debug:  !production, 
   entry:  {
-    bundle:     PATHS.entry,
+    bundle:     ['bootstrap-loader/extractStyles', PATHS.entry],
     // unlike loaders, this goes left to right
     vendor:     ['angular', 'angular-route']
   },
   output: {
     path:     PATHS.build,
     filename: '[name].js', 
-    // pathName: 'build/'
   },
   module: {
     preLoaders: [
@@ -74,7 +73,7 @@ module.exports = {
       }, 
       {
         test:     /\.scss$/, 
-        loader:   ExtractPlugin.extract('style', 'css!postcss!sass', { allChunks: true }),
+        loader:   ExtractPlugin.extract('style', 'css?sourceMap!postcss?sourceMap!sass?sourceMap', { allChunks: true }),
       }, 
       {
         test:     /\.(png|jpe?g|svg)$/, 
@@ -90,7 +89,7 @@ module.exports = {
       }, 
       {
         test:     /\.woff2?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
-        loader:   'url'
+        loader:   'url?limit=10000'
       },
       {
         test:     /\.json$/,
@@ -107,8 +106,8 @@ module.exports = {
     stats:              'errors-only'
   }, 
   stats: {
-    reasons:      true,
-    errorDetails: true
+    reasons:            true,
+    errorDetails:       true
   },
   plugins: plugins,
   postcss: function() {
