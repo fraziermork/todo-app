@@ -1,5 +1,3 @@
-// require('./entry.scss');
-
 (function() {
   angular.module('todo-entry', []);
 })();
