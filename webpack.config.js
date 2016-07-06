@@ -21,7 +21,8 @@ let plugins = [
   }),
   new webpack.optimize.OccurenceOrderPlugin(),
   new webpack.DefinePlugin({
-    __API_URL__: JSON.stringify(API_URL)
+    __API_URL__: JSON.stringify(API_URL), 
+    __DEVONLY__: !production
   }), 
   new CleanPlugin('build')
 ];
@@ -73,7 +74,7 @@ module.exports = {
       }, 
       {
         test:     /\.scss$/, 
-        loader:   ExtractPlugin.extract('style', 'css?sourceMap!postcss?sourceMap!sass?sourceMap', { allChunks: true }),
+        loader:   ExtractPlugin.extract('style', 'css?sourceMap!postcss?sourceMap!resolve-url?sourceMap!sass?sourceMap', { allChunks: true }),
       }, 
       {
         test:     /\.(png|jpe?g|svg)$/, 

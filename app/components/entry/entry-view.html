@@ -1,47 +1,200 @@
-<section class="Entry container-fluid">
+<section class="Entry container-fluid" data-ng-init="entryCtrl.initialize()">
   
-  <div class="Entry-wrapper row">
+  <div class="Entry-wrapper container">
     
-    
-    <button 
-    type="button" 
-    name="button"
-    data-ng-click=""
-    data-ng-bind=""
-    ></button>
-    <button 
-    type="button" 
-    name="button"
-    data-ng-click=""
-    data-ng-bind=""
-    ></button>
-    
-    <form 
-    class="col-xs-12 col-md-3 col-md-offset-3" 
-    data-ng-show=""
-    novalidate>
-      <div class="form-group">
-        <label for=""></label>
-        <input 
-        id="" 
-        class=""
-        type="text" 
-        name="name" 
-        placeholder="username">
-      </div>
-      
-      <div class="form-group">
-        <label for=""></label>
-        <input id="" type="password" name="name" value="">
-      </div>
+    <div class="Entry-formSelectOptions row hidden-md" role="tablist">
+      <button 
+      id="Entry-showLoginForm"
+      type="button" 
+      name="Entry-showLoginForm"
+      class="Entry-formSelect btn btn-default col-xs-6"
+      data-ng-class="{ 'is-functional': !entryCtrl.loginVisible }"
+      data-ng-click="entryCtrl.toggleWhichFormIsVisible(entryCtrl.loginVisible)"
+      form="Entry-loginForm"
+      role="tab"
+      tabindex="0"
+      aria-controls="Entry-loginForm"
+      aria-selected="{{ entryCtrl.loginVisible }}"
+      aria-disabled="{{ entryCtrl.loginVisible }}"
+      aria-hidden="{{ !entryCtrl.checkAriaHidden() }}"
+      >Log in</button>
       
       <button 
+      id="Entry-showCreateNewAccountForm"
       type="button" 
-      name="button" 
-      class=""
-      data-ng-click=""
-      >Log in</button>
-    </form>
+      name="Entry-showCreateNewAccountForm"
+      class="Entry-formSelect btn btn-default col-xs-6"
+      data-ng-class="{ 'is-functional': !entryCtrl.createAccountVisible }"
+      data-ng-click="entryCtrl.toggleWhichFormIsVisible(entryCtrl.createAccountVisible)"
+      form="Entry-createAccountForm"
+      role="tab"
+      tabindex="0"
+      aria-controls="Entry-createAccountForm"
+      aria-selected="{{ entryCtrl.createAccountVisible }}"
+      aria-disabled="{{ entryCtrl.createAccountVisible }}"
+      aria-hidden="{{ !entryCtrl.checkAriaHidden() }}"
+      >Create account</button>
+    </div>
+    
+    
+    <!-- login/new-account forms -->
+    <div 
+    class="Entry-formWrapper row"
+    data-ng-class="{ 'is-fullscreen': !entryCtrl.checkAriaHidden() }"
+    >
+      <!-- CREATE ACCOUNT -->
+      <form 
+      id="Entry-createAccountForm"
+      novalidate
+      action="javascript:void(0);"
+      class="Entry-createAccountForm Entry-form col-xs-12 col-md-4 col-md-offset-2" 
+      data-ng-class="{ 
+        hidden:           entryCtrl.checkAriaHidden(entryCtrl.createAccountVisible), 
+        'is-fullscreen':  !entryCtrl.checkAriaHidden() 
+      }"
+      aria-labelledby="Entry-showCreateAccountForm"
+      aria-hidden="{{ entryCtrl.checkAriaHidden(entryCtrl.createAccountVisible) }}"
+      >
+        <h1 class="Entry-formHeader visible-md-block hidden-xs">Create account</h1>
+        <div class="Entry-formControlWrapper">
+          <!-- USERNAME -->
+          <div class="form-group">
+            <label 
+            for="createAccountForm-username" 
+            class="Entry-formLabel"
+            >username</label>
+            
+            <input 
+            id="createAccountForm-username" 
+            class="form-control"
+            type="text" 
+            name="createAccountForm-username" 
+            placeholder="Username"
+            data-ng-model="entryCtrl.create.username"
+            autofocus
+            >  
+          </div>
+          
+          <!-- EMAIL -->
+          <div class="form-group">
+            <label 
+            for="createAccountForm-email" 
+            class="Entry-formLabel"
+            >email</label>
+            
+            <input 
+            id="createAccountForm-email" 
+            class="form-control"
+            type="text" 
+            name="createAccountForm-email" 
+            placeholder="Username"
+            data-ng-model="entryCtrl.create.email"
+            >  
+          </div>
+          
+          <!-- PASSWORD -->
+          <div class="form-group">
+            <label 
+            for="createAccountForm-password" 
+            class="Entry-formLabel"
+            >password</label>
+            
+            <input 
+            id="createAccountForm-password" 
+            class="form-control"
+            type="password" 
+            name="createAccountForm-password" 
+            placeholder="Password"
+            data-ng-model="entryCtrl.create.password"
+            >
+          </div>
+          
+          <!-- PASSWORD CONFIRM -->
+          <div class="form-group">
+            <label 
+            for="createAccountForm-passwordConfirm" 
+            class="Entry-formLabel"
+            >confirm password</label>
+            
+            <input 
+            id="createAccountForm-passwordConfirm" 
+            class="form-control"
+            type="password" 
+            name="createAccountForm-passwordConfirm" 
+            placeholder="Confirm password"
+            data-ng-model="entryCtrl.create.passwordConfirm"
+            >
+          </div>
+          
+          <!-- SUBMIT -->
+          <button 
+          type="submit" 
+          name="Entry-createAccount" 
+          class="Entry-formSubmit btn btn-lg btn-primary btn-block"
+          data-ng-click="entryCtrl.createAccount()"
+          >sign up</button>
+        </div>
+      </form>
+      
+      
+      <!-- LOGIN -->
+      <form 
+      id="Entry-loginForm"
+      novalidate
+      action="javascript:void(0);"
+      class="Entry-loginForm Entry-form col-xs-12 col-md-4" 
+      data-ng-class="{ hidden: entryCtrl.checkAriaHidden(entryCtrl.loginVisible) }"
+      aria-labelledby="Entry-showLoginForm"
+      aria-hidden="{{ entryCtrl.checkAriaHidden(entryCtrl.loginVisible) }}"
+      >
+        <h1 class="Entry-formHeader visible-md-block hidden-xs">Log in</h1>
+        <div class="Entry-formControlWrapper">
+        <!-- USERNAME -->
+          <div class="form-group">
+            <label 
+            for="loginForm-username" 
+            class="Entry-formLabel"
+            >username</label>
+            
+            <input 
+            id="loginForm-username" 
+            class="form-control"
+            type="text" 
+            name="loginForm-username" 
+            placeholder="Username"
+            data-ng-model="entryCtrl.login.username"
+            autofocus
+            >  
+          </div>
+          
+          <!-- PASSWORD -->
+          <div class="form-group">
+            <label 
+            for="loginForm-password" 
+            class="Entry-formLabel"
+            >password</label>
+            
+            <input 
+            id="loginForm-password" 
+            class="form-control"
+            type="password" 
+            name="loginForm-password" 
+            placeholder="Password"
+            data-ng-model="entryCtrl.login.password"
+            >
+          </div>
+
+          <!-- SUBMIT -->
+          <button 
+          type="submit" 
+          name="Entry-loginSubmit" 
+          class="Entry-formSubmit btn btn-lg btn-primary btn-block"
+          data-ng-click="entryCtrl.login()"
+          >log in</button>
+        </div>  
+      </form>      
+    </div>
+    
     
     
     
