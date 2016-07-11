@@ -21,10 +21,16 @@ let plugins = [
   }),
   new webpack.optimize.OccurenceOrderPlugin(),
   new webpack.DefinePlugin({
-    __API_URL__: JSON.stringify(API_URL)
-  }), 
-  new CleanPlugin('build')
+    __API_URL__:     JSON.stringify(API_URL), 
+    __DEVONLY__:     !production, 
+    __COOKIE_NAME__: process.env.npm_config_auth_cookie_name
+  })
 ];
+
+if (process.env.npm_lifecycle_event !== 'start:dev') {
+  plugins.push(new CleanPlugin('build'));
+}
+
 
 if (production) {
   plugins = plugins.concat([
@@ -40,14 +46,13 @@ if (production) {
 module.exports = {
   debug:  !production, 
   entry:  {
-    bundle:     PATHS.entry,
+    bundle:     ['bootstrap-loader/extractStyles', PATHS.entry],
     // unlike loaders, this goes left to right
-    vendor:     ['angular', 'angular-route']
+    vendor:     ['angular', 'angular-route', 'angular-cookies']
   },
   output: {
     path:     PATHS.build,
     filename: '[name].js', 
-    // pathName: 'build/'
   },
   module: {
     preLoaders: [
@@ -74,7 +79,7 @@ module.exports = {
       }, 
       {
         test:     /\.scss$/, 
-        loader:   ExtractPlugin.extract('style', 'css!postcss!sass', { allChunks: true }),
+        loader:   ExtractPlugin.extract('style', 'css?sourceMap!postcss?sourceMap!resolve-url?sourceMap!sass?sourceMap', { allChunks: true }),
       }, 
       {
         test:     /\.(png|jpe?g|svg)$/, 
@@ -90,7 +95,7 @@ module.exports = {
       }, 
       {
         test:     /\.woff2?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
-        loader:   'url'
+        loader:   'url?limit=10000'
       },
       {
         test:     /\.json$/,
@@ -107,8 +112,8 @@ module.exports = {
     stats:              'errors-only'
   }, 
   stats: {
-    reasons:      true,
-    errorDetails: true
+    reasons:            true,
+    errorDetails:       true
   },
   plugins: plugins,
   postcss: function() {

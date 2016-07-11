@@ -11,7 +11,7 @@
     "build:dev": "webpack",
     "build:production": "webpack",
     "start": "node server.js",
-    "start:dev": "webpack-dev-server --hot"
+    "start:dev": "webpack-dev-server --inline --hot"
   },
   "repository": {
     "type": "git",
@@ -25,6 +25,7 @@
   "homepage": "https://github.com/fraziermork/todo-app#readme",
   "dependencies": {
     "angular": "^1.5.7",
+    "angular-cookies": "^1.5.7",
     "angular-route": "^1.5.7",
     "bootstrap-sass": "^3.3.6",
     "express": "^4.14.0"
