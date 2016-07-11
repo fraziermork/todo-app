@@ -1,26 +1,30 @@
 /* global __DEVONLY__ */
 
+// TODO: refactor html to be an ng-repeat from a json object? 
+
 (function() {
   angular.module('todo-entry')
-  .controller('EntryController', ['$log', '$window', EntryController]);
+  .controller('EntryController', ['$log', '$window', '$location', '$route', 'apiRequest', EntryController]);
   
-  function EntryController($log, $window) {
+  function EntryController($log, $window, $location, $route, apiRequest) {
     const vm                    = this;
-    vm.error                    = null;
+    vm.error                    = null; // TODO: build a display for the error to show up in 
     
+    // for loginForm
     vm.loginVisible             = true;
     vm.login                    = {};
     vm.login.username           = null;
     vm.login.password           = null;
     
+    // for createAccountForm
     vm.createAccountVisible     = false; 
-    $log.debug('vm.createAccountVisible:', vm.createAccountVisible);
     vm.create                   = {};
     vm.create.username          = null;
     vm.create.password          = null;
     vm.create.passwordConfirm   = null;
     vm.create.email             = null;
     
+    // methods
     vm.initialize               = initialize;
     vm.checkAriaHidden          = checkAriaHidden;
     vm.toggleWhichFormIsVisible = toggleWhichFormIsVisible;
@@ -28,9 +32,8 @@
     vm.createAccount            = createAccount;
     
     
-    
     /**    
-     * initialize - description    
+     * initialize - runs on initialization    
      *         
      */     
     function initialize() {
@@ -51,10 +54,8 @@
      * @return {boolean} check      boolean to set aria-hidden to true or false     
      */     
     function checkAriaHidden(condition) {
+      // TODO: get forms to render appropriately on window resize
       let check = $window.innerWidth > 992 || condition;
-      if (__DEVONLY__) $log.info('width greater than 992 is:', $window.innerWidth > 992);
-      if (__DEVONLY__) $log.info('condition is: ', condition);
-      if (__DEVONLY__) $log.info('check is: ', !check);
       return !check;
     }
     
@@ -74,16 +75,62 @@
       }
     }
     
+    
+    
     function login() {
       if (__DEVONLY__) $log.debug('EntryController login');
       
+      let basicAuthString = $window.btoa(`${vm.login.username}:${vm.login.password}`);
       
+      let requestOptions = {
+        headers: { 
+          authorization: `Basic ${basicAuthString}` 
+        }
+      };
+      vm.login.password = null;
+      
+      apiRequest('get', 'login', requestOptions)
+        .then((user) => {
+          if (__DEVONLY__) $log.debug('EntryController login SUCCESS');
+          $window.sessionStorage.setItem('todo-user', angular.toJson(user));
+          $location.path('/board');
+          $route.reload();
+        })
+        .catch((err) => {
+          if (__DEVONLY__) $log.error('EntryController login FAILURE', err);
+          vm.error = err;
+        });
     }
+    
+    
     
     function createAccount() {
       if (__DEVONLY__) $log.debug('EntryController createAccount');
+      if (vm.create.password !== vm.create.passwordConfirm) {
+        if (__DEVONLY__) $log.error('EntryController createAccount passwords didnt match');
+        vm.error = 'Your passwords must match';
+        delete vm.create.passwordConfirm;
+        return;
+      }
       
+      delete vm.create.passwordConfirm;
+      let requestOptions = {
+        data: vm.create
+      };
       
+      apiRequest('post', 'new-account', requestOptions)
+        .then((user) => {
+          if (__DEVONLY__) $log.debug('EntryController login SUCCESS');
+          $log.warn($location.path());
+          $window.sessionStorage.setItem('todo-user', angular.toJson(user));
+          $location.path('/board');
+          $log.warn($location.path());
+          $route.reload();
+        })
+        .catch((err) => {
+          if (__DEVONLY__) $log.error('EntryController login FAILURE', err);
+          vm.error = err;
+        });
     }
     
   }

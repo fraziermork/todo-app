@@ -21,11 +21,16 @@ let plugins = [
   }),
   new webpack.optimize.OccurenceOrderPlugin(),
   new webpack.DefinePlugin({
-    __API_URL__: JSON.stringify(API_URL), 
-    __DEVONLY__: !production
-  }), 
-  new CleanPlugin('build')
+    __API_URL__:     JSON.stringify(API_URL), 
+    __DEVONLY__:     !production, 
+    __COOKIE_NAME__: process.env.npm_config_auth_cookie_name
+  })
 ];
+
+if (process.env.npm_lifecycle_event !== 'start:dev') {
+  plugins.push(new CleanPlugin('build'));
+}
+
 
 if (production) {
   plugins = plugins.concat([
@@ -43,7 +48,7 @@ module.exports = {
   entry:  {
     bundle:     ['bootstrap-loader/extractStyles', PATHS.entry],
     // unlike loaders, this goes left to right
-    vendor:     ['angular', 'angular-route']
+    vendor:     ['angular', 'angular-route', 'angular-cookies']
   },
   output: {
     path:     PATHS.build,

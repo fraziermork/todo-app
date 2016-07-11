@@ -1,8 +1,8 @@
 (function() {
-  angular.module('todo-services', []);
+  angular.module('todo-services', ['ngCookies']);
 })();
 
 require('./api-request.js');
 require('./reroute-check.js');
-require('./item-controller.js');
-require('./list-controller.js');
+require('./item-manager.js');
+require('./list-manager.js');

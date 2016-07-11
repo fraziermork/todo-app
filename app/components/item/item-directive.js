@@ -1,3 +1,5 @@
+/* global template */
+
 (function() {
   angular.module('todo-item')
   .directive('listItem', listItem);
@@ -7,7 +9,11 @@
       restrict:     'E', 
       controller:   'ItemController', 
       controllerAs: 'itemCtrl',
-      template:     template
+      template:     template, 
+      scope:        {
+        item: '='
+      }
+      
     };
   }
   
