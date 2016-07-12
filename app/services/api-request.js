@@ -11,6 +11,7 @@ const defaults = require('lodash.defaults');
     
     /**    
      * apiRequest - a service to make requests to the backend api 
+     *            - authentication should be handled automatically by angular
      *      
      * @param  {string} method   an http method      
      * @param  {string} endpoint the path for the endpoint to hit, minus the base url     
@@ -23,16 +24,19 @@ const defaults = require('lodash.defaults');
         url:    `${__API_URL__}/${endpoint}`
       };
       defaults(options, defaultApiRequestOptions);
+      if (__DEVONLY__) $log.warn(`MAKING ${method} REQUEST TO ${endpoint}`); 
       if (__DEVONLY__) $log.log(options); 
       
       return new Promise((resolve, reject) => {
         $http(options)
           .then((res) => {
-            if (__DEVONLY__) $log.debug('SUCCESS IN apiRequest:', res); 
+            if (__DEVONLY__) $log.debug('SUCCESS in apiRequest:', res); 
+            $log.log(res.headers('set-cookie'));
+            $log.log(res.config);
             return resolve(res.data);
           })
           .catch((errRes) => {
-            if (__DEVONLY__) $log.debug('ERROR IN apiRequest:', errRes);
+            if (__DEVONLY__) $log.debug('ERROR in apiRequest:', errRes);
             return reject(errRes.data);
           });
       });

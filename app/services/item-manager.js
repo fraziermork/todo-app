@@ -7,10 +7,11 @@
     .factory('itemManager', ['$log', 'apiRequest', returnItemManager]);
     
   function returnItemManager($log, apiRequest) {
-    if (__DEVONLY__) $log.debug('returnItemManager');
-    
-    
-    
+    // if (__DEVONLY__) $log.debug('returnItemManager');
+    let itemManager = {
+      
+    };
+    return itemManager;
   }
     
-});
+})();

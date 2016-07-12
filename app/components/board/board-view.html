@@ -1,7 +1,11 @@
-<section class="Board container" data-ng-init="boardCtrl.initialize()">
-  
-  
-  
-  
-  
+<section class="Board container-fluid" data-ng-init="boardCtrl.initialize()">
+  <!-- <todo-navbar></todo-navbar> -->
+  <ul class="Board-contentWrapper">
+    <!-- <li class="Board-content" data-ng-repeat="list in boardCtrl.lists">
+      <todo-list list="list"></todo-list>
+    </li> -->
+    <li class="Board-content"> 
+      <list-form></list-form>
+    </li>
+  </ul>
 </section>

@@ -1,0 +1,78 @@
+<section class="ListForm">
+  <button
+  id="ListForm-showFormButton" 
+  name="showFormButton" 
+  type="button"
+  name="ListForm-showFormButton"
+  class="ListForm-showFormButton ListForm-button btn btn-default"
+  data-ng-class="{ hidden: listFormCtrl.visible }"
+  data-ng-click="listFormCtrl.toggleVisibility()"
+  aria-controls="ListForm-form"
+  aria-disabled="{{ listFormCtrl.visible }}"
+  >New list</button>
+  
+  <form
+  id="ListForm-form" 
+  novalidate
+  class="ListForm-form "
+  name="listForm"
+  data-ng-class="{ hidden: !listFormCtrl.visible }"
+  aria-hidden="{{ !listFormCtrl.visible }}"
+  >
+    <button 
+    class="ListForm-closeButton close"
+    type="reset"
+    name="ListForm-closeButton"
+    aria-label="Close"
+    data-ng-click="listFormCtrl.hideFormAndClearInputs()"
+    >
+      <span aria-hidden="true">&times;</span>
+    </button>
+    
+    
+    <div class="form-group">
+      <label 
+      for="ListForm-name" 
+      class="ListForm-formLabel"
+      >List name</label>
+      
+      <input 
+      id="ListForm-name"
+      required
+      autofocus
+      type="text" 
+      name="name" 
+      class="form-control"
+      placeholder="List name"
+      data-ng-model="listFormCtrl.newList.name"
+      >
+    </div>
+    
+    
+    <div class="form-group">
+      <label 
+      for="ListForm-description" 
+      class="ListForm-formLabel"
+      >Description</label>
+      
+      <input 
+      id="ListForm-description"
+      type="text" 
+      name="description" 
+      class="form-control"
+      placeholder="Description"
+      data-ng-model="listFormCtrl.newList.description"
+      >
+    </div>
+    
+    
+    <button 
+    id="ListForm-createListButton"
+    type="submit"
+    name="ListForm-createListButton"
+    class="ListForm-button btn btn-primary"
+    data-ng-click="listForm.$valid && listFormCtrl.createList()"
+    >Create</button>
+    
+  </form>
+</section>

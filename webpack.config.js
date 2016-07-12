@@ -23,7 +23,7 @@ let plugins = [
   new webpack.DefinePlugin({
     __API_URL__:     JSON.stringify(API_URL), 
     __DEVONLY__:     !production, 
-    __COOKIE_NAME__: process.env.npm_config_auth_cookie_name
+    __COOKIE_NAME__: JSON.stringify(process.env.npm_config_auth_cookie_name)
   })
 ];
 

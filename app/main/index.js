@@ -5,12 +5,13 @@
     'todo-services', 
     'todo-entry', 
     'todo-navbar', 
-    'todo-item', 
+    'todo-item',
+    'todo-list-form', 
     'todo-list', 
     'todo-board',
   ])
-  .config(['$routeProvider', '$locationProvider', todoRouter]);
-  // .run(setupHttpRequests)
+  .config(['$routeProvider', '$locationProvider', todoRouter])
+  .config(['$httpProvider', configHttpProvider]);
   
   
   function todoRouter($routeProvider, $locationProvider) {
@@ -30,10 +31,8 @@
     // $locationProvider.html5Mode(true);
   }
   
-  
-  // Purpose is to configure $http defaults beforehand
-  // function setupHttpRequests() {
-  //   
-  // }
+  function configHttpProvider($httpProvider) {
+    $httpProvider.defaults.withCredentials = true;
+  }
   
 })();

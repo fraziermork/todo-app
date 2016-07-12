@@ -1,12 +1,21 @@
 /* global __DEVONLY__ */
 
-// TODO: refactor html to be an ng-repeat from a json object? 
+// TODO: refactor html to be an ng-repeat from a json object to make it more managable? 
 
 (function() {
   angular.module('todo-entry')
-  .controller('EntryController', ['$log', '$window', '$location', '$route', 'apiRequest', EntryController]);
+  .controller('EntryController', [
+    '$log', 
+    '$window', 
+    '$location', 
+    '$route', 
+    'apiRequest', 
+    'userManager', 
+    'listManager', 
+    EntryController
+  ]);
   
-  function EntryController($log, $window, $location, $route, apiRequest) {
+  function EntryController($log, $window, $location, $route, apiRequest, userManager, listManager) {
     const vm                    = this;
     vm.error                    = null; // TODO: build a display for the error to show up in 
     
@@ -30,10 +39,13 @@
     vm.toggleWhichFormIsVisible = toggleWhichFormIsVisible;
     vm.login                    = login;
     vm.createAccount            = createAccount;
+    vm.rerouteToBoard           = rerouteToBoard;
+    
+    
     
     
     /**    
-     * initialize - runs on initialization    
+     * initialize - runs on initialization of the login page
      *         
      */     
     function initialize() {
@@ -77,11 +89,17 @@
     
     
     
+    
+    /**    
+     * login - logs a user in, runs when the sbumit button of the loginForm is clicked
+     *      
+     * @return {type}  description     
+     */     
     function login() {
       if (__DEVONLY__) $log.debug('EntryController login');
       
+      // build the authorization string for the request, then construct the apiRequest arguments
       let basicAuthString = $window.btoa(`${vm.login.username}:${vm.login.password}`);
-      
       let requestOptions = {
         headers: { 
           authorization: `Basic ${basicAuthString}` 
@@ -89,12 +107,12 @@
       };
       vm.login.password = null;
       
+      // make the request
+      // TODO: move this logic to userManager service
       apiRequest('get', 'login', requestOptions)
         .then((user) => {
           if (__DEVONLY__) $log.debug('EntryController login SUCCESS');
-          $window.sessionStorage.setItem('todo-user', angular.toJson(user));
-          $location.path('/board');
-          $route.reload();
+          rerouteToBoard(user);
         })
         .catch((err) => {
           if (__DEVONLY__) $log.error('EntryController login FAILURE', err);
@@ -104,8 +122,16 @@
     
     
     
+    
+    /**    
+     * createAccount - creates a new account, runs when the submit button for the createAccountForm is clicked    
+     *      
+     * @return {type}  description     
+     */     
     function createAccount() {
       if (__DEVONLY__) $log.debug('EntryController createAccount');
+      
+      // Check that the passwords match
       if (vm.create.password !== vm.create.passwordConfirm) {
         if (__DEVONLY__) $log.error('EntryController createAccount passwords didnt match');
         vm.error = 'Your passwords must match';
@@ -113,24 +139,38 @@
         return;
       }
       
+      // Clear old stuff, build the arguments for the request
       delete vm.create.passwordConfirm;
       let requestOptions = {
         data: vm.create
       };
       
+      // make the request
+      // TODO: move this logic to userManager service
       apiRequest('post', 'new-account', requestOptions)
         .then((user) => {
-          if (__DEVONLY__) $log.debug('EntryController login SUCCESS');
-          $log.warn($location.path());
-          $window.sessionStorage.setItem('todo-user', angular.toJson(user));
-          $location.path('/board');
-          $log.warn($location.path());
-          $route.reload();
+          if (__DEVONLY__) $log.debug('EntryController createAccount SUCCESS');
+          rerouteToBoard(user);
         })
         .catch((err) => {
-          if (__DEVONLY__) $log.error('EntryController login FAILURE', err);
+          if (__DEVONLY__) $log.error('EntryController createAccount FAILURE', err);
           vm.error = err;
         });
+    }
+    
+    
+    /**    
+     * rerouteToBoard - after login/create account, stores the user data in the userManager service and reroutes to the board view
+     *      
+     * @return {type}  description     
+     */     
+    function rerouteToBoard(user) {
+      if (__DEVONLY__) $log.debug('EntryController getDataAndRerouteToBoard');
+      // Attach the user to the userManager service for future reference, then reroute
+      userManager.user  = user;
+      listManager.lists = user.lists;
+      $location.path('/board');
+      $route.reload();
     }
     
   }

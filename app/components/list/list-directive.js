@@ -2,7 +2,7 @@
 
 (function() {
   angular.module('todo-list')
-  .directive('todo-list', todoList);
+  .directive('todoList', todoList);
   
   function todoList() {
     return {

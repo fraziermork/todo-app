@@ -4,7 +4,9 @@ require('./services');
 
 require('./components/entry');
 require('./components/navbar');
+require('./components/item-form');
 require('./components/item');
+require('./components/list-form');
 require('./components/list');
 require('./components/board');
 
