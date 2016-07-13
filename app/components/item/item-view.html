@@ -1,0 +1,94 @@
+<article class="ListItem" data-ng-init="itemCtrl.initialize()">
+  
+  <!-- preview -->
+  <div 
+  class="ListItem-collapsedView"
+  data-ng-click="itemCtrl.showItemActions()"
+  aria-controls="{{ itemCtrl.item.name }}-editItemForm"
+  >
+    <h3
+    class="ListItem-name"
+    data-ng-bind="itemCtrl.item.name"
+    ></h3>
+    <p
+    class="ListItem-description"
+    data-ng-bind="itemCtrl.item.description"
+    ></p>
+  </div>
+  
+  
+  <!-- background screen -->
+  <div 
+  class="ListItem-itemActionsBackgroundScreen bg-screen"
+  data-ng-show="!itemCtrl.listActionsHidden"
+  ></div>
+  
+  <!-- form -->
+  <div 
+  class="ListItem-itemActions"
+  data-ng-show="!itemCtrl.listActionsHidden"
+  >
+    <button 
+    type="reset" 
+    name="closeItemActions"
+    class="ListItem-closeEditItemForm close"
+    aria-label="Close"
+    >
+      <span aria-hidden="true">&times;</span>
+    </button>  
+    
+    <form 
+    id="{{ itemCtrl.item.name }}-editItemForm"
+    name="editItemForm"
+    class="ListItem-editItemForm"
+    action="javascript:void(0);"
+    aria-hidden="{{ itemCtrl.listActionsHidden }}"
+    novalidate
+    >
+      <div class="form-group">
+        <label for="{{ itemCtrl.item.name }}-nameInput" class="sr-only">Item name</label>
+        <input 
+        id="{{ itemCtrl.item.name }}-nameInput"
+        type="text" 
+        name="name" 
+        class="ListItem-input form-control"
+        placeholder="{{ itemCtrl.item.name }}"
+        data-ng-model="itemCtrl.itemEdits.name"
+        required
+        >
+      </div>
+      
+      <div class="form-group">
+        <label for="{{ itemCtrl.item.name }}-descriptionInput" class="sr-only">Item description</label>
+        <input 
+        id="{{ itemCtrl.item.name }}-descriptionInput"
+        type="text" 
+        name="description" 
+        class="ListItem-input form-control"
+        placeholder="{{ itemCtrl.item.description }}"
+        data-ng-model="itemCtrl.itemEdits.description"
+        >
+      </div>
+      
+      <div class="form-group">
+        <label for="{{ itemCtrl.item.name }}-selectList" class="sr-only">Move to another list</label>
+        <select 
+        id="{{ itemCtrl.item.name }}-selectList"
+        class="ListItem-selectList form-control" 
+        name="ListItem-selectList"
+        data-ng-model="itemCtrl.itemEdits.list"
+        data-ng-options="list as list.name for list in itemCtrl.listManager.lists track by list._id"
+        ></select>
+      </div>
+      
+      <button 
+      type="submit" 
+      name="submitItemEdits"
+      class="ListItem-submitItemEdits ListItem-button btn btn-primary"
+      data-ng-click="editItemForm.$valid && itemCtrl.saveChangesToItem()"
+      >Save changes</button>
+    </form>
+      
+  </div>
+  
+</article>

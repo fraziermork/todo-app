@@ -1,3 +1,5 @@
+/* global __COOKIE_NAME__ __DEVONLY__ */
+
 (function() {
   angular.module('todo-app', [
     'ngRoute',
@@ -10,10 +12,9 @@
     'todo-list', 
     'todo-board',
   ])
-  .config(['$routeProvider', '$locationProvider', todoRouter])
-  .config(['$httpProvider', configHttpProvider]);
+  .config(['$routeProvider', '$locationProvider', todoRouter]);
   
-  
+  // ROUTER 
   function todoRouter($routeProvider, $locationProvider) {
     $routeProvider
       .when('/login', {
@@ -30,9 +31,5 @@
       
     // $locationProvider.html5Mode(true);
   }
-  
-  function configHttpProvider($httpProvider) {
-    $httpProvider.defaults.withCredentials = true;
-  }
-  
+
 })();

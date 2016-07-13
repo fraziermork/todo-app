@@ -48,14 +48,15 @@ const assign = require('lodash.assign');
        */       
       postNewList(listInfo) {
         if (__DEVONLY__) $log.debug('listManager postNewList');
-        listInfo._id = 'placeholderId';
+        
+        // Add the temporary list object into the lists array
         this.lists.push(listInfo);
-        return apiRequest('post', 'lists', listInfo)
+        
+        // Return the request
+        return apiRequest('post', 'lists', { data: listInfo })
           .then((list) => {
             if (__DEVONLY__) $log.debug('SUCCESSS in listManager postNewList');
             assign(listInfo, list);
-            $log.info('AFTER POST LIST ASSIGN');
-            $log.log(listInfo);
             return listInfo;
           });
       },

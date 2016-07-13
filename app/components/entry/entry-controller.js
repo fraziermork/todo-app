@@ -41,9 +41,7 @@
     vm.createAccount            = createAccount;
     vm.rerouteToBoard           = rerouteToBoard;
     
-    
-    
-    
+
     /**    
      * initialize - runs on initialization of the login page
      *         

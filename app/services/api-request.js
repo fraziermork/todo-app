@@ -4,10 +4,14 @@ const defaults = require('lodash.defaults');
 
 (function() {
   angular.module('todo-services')
-    .factory('apiRequest', ['$log', '$http', '$window', returnApiRequest]);
+    .factory('apiRequest', [
+      '$log', 
+      '$http', 
+      '$window', 
+      returnApiRequest
+    ]);
   
   function returnApiRequest($log, $http, $window) {
-    
     
     /**    
      * apiRequest - a service to make requests to the backend api 
@@ -24,15 +28,13 @@ const defaults = require('lodash.defaults');
         url:    `${__API_URL__}/${endpoint}`
       };
       defaults(options, defaultApiRequestOptions);
-      if (__DEVONLY__) $log.warn(`MAKING ${method} REQUEST TO ${endpoint}`); 
+      if (__DEVONLY__) $log.warn(`MAKING ${method} REQUEST TO /${endpoint}`); 
       if (__DEVONLY__) $log.log(options); 
       
       return new Promise((resolve, reject) => {
         $http(options)
           .then((res) => {
             if (__DEVONLY__) $log.debug('SUCCESS in apiRequest:', res); 
-            $log.log(res.headers('set-cookie'));
-            $log.log(res.config);
             return resolve(res.data);
           })
           .catch((errRes) => {

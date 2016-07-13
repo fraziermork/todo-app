@@ -1,10 +1,12 @@
+<!-- TODO: figure out styling needed for mobile like list, desktop view with horizontal scroll -->
+
 <section class="Board container-fluid" data-ng-init="boardCtrl.initialize()">
   <!-- <todo-navbar></todo-navbar> -->
-  <ul class="Board-contentWrapper">
-    <!-- <li class="Board-content" data-ng-repeat="list in boardCtrl.lists">
+  <ul class="Board-contentList">
+    <li class="Board-contentWrapper" data-ng-repeat="list in boardCtrl.lists">
       <todo-list list="list"></todo-list>
-    </li> -->
-    <li class="Board-content"> 
+    </li>
+    <li class="Board-contentWrapper"> 
       <list-form></list-form>
     </li>
   </ul>

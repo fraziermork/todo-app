@@ -1,10 +1,12 @@
 const webpack       = require('webpack');
-// const validate      = require('webpack-validator');
-
 const autoprefixer  = require('autoprefixer');
 const ExtractPlugin = require('extract-text-webpack-plugin');
 const CleanPlugin   = require('clean-webpack-plugin');
+
+// set by the npm script that was run
 const production    = process.env.npm_lifecycle_event === 'build:production';
+
+// set in the .npmrc file
 const API_URL       = production ? process.env.npm_config_production_url : process.env.npm_config_dev_url;
 
 const PATHS = {
@@ -47,6 +49,7 @@ module.exports = {
   debug:  !production, 
   entry:  {
     bundle:     ['bootstrap-loader/extractStyles', PATHS.entry],
+    
     // unlike loaders, this goes left to right
     vendor:     ['angular', 'angular-route', 'angular-cookies']
   },
@@ -107,7 +110,6 @@ module.exports = {
     devtool:            'eval-source-map',
     contentBase:        PATHS.build, 
     historyApiFallback: true,
-    inline:             true,
     progress:           true,
     stats:              'errors-only'
   }, 
@@ -116,6 +118,8 @@ module.exports = {
     errorDetails:       true
   },
   plugins: plugins,
+  
+  // Copied from postcss loader instructions
   postcss: function() {
     return [autoprefixer({
       browsers: [
