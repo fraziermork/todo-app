@@ -1,4 +1,4 @@
-/* global __DEVONLY__ */
+/* global __DEVONLY__ __MOBILE_BREAK_POINT__ */
 
 // TODO: refactor html to be an ng-repeat from a json object to make it more managable? 
 
@@ -39,7 +39,6 @@
     vm.toggleWhichFormIsVisible = toggleWhichFormIsVisible;
     vm.login                    = login;
     vm.createAccount            = createAccount;
-    vm.rerouteToBoard           = rerouteToBoard;
     
 
     /**    
@@ -49,6 +48,8 @@
     function initialize() {
       if (__DEVONLY__) $log.debug('EntryController initialize');
       
+      // If there is an auth cookie, reroute out of login 
+      userManager.rerouteCheck();
     }
     
     
@@ -65,7 +66,7 @@
      */     
     function checkAriaHidden(condition) {
       // TODO: get forms to render appropriately on window resize
-      let check = $window.innerWidth > 992 || condition;
+      let check = $window.innerWidth > __MOBILE_BREAK_POINT__ || condition;
       return !check;
     }
     
@@ -89,9 +90,8 @@
     
     
     /**    
-     * login - logs a user in, runs when the sbumit button of the loginForm is clicked
-     *      
-     * @return {type}  description     
+     * login - logs a user in through GET request to /login, runs when the sbumit button of the loginForm is clicked
+     *         
      */     
     function login() {
       if (__DEVONLY__) $log.debug('EntryController login');
@@ -110,7 +110,7 @@
       apiRequest('get', 'login', requestOptions)
         .then((user) => {
           if (__DEVONLY__) $log.debug('EntryController login SUCCESS');
-          rerouteToBoard(user);
+          userManager.handleLogin(user);
         })
         .catch((err) => {
           if (__DEVONLY__) $log.error('EntryController login FAILURE', err);
@@ -122,9 +122,8 @@
     
     
     /**    
-     * createAccount - creates a new account, runs when the submit button for the createAccountForm is clicked    
-     *      
-     * @return {type}  description     
+     * createAccount - creates a new account through POST request to /new-account, runs when the submit button for the createAccountForm is clicked    
+     *        
      */     
     function createAccount() {
       if (__DEVONLY__) $log.debug('EntryController createAccount');
@@ -148,29 +147,13 @@
       apiRequest('post', 'new-account', requestOptions)
         .then((user) => {
           if (__DEVONLY__) $log.debug('EntryController createAccount SUCCESS');
-          rerouteToBoard(user);
+          userManager.handleLogin(user);
         })
         .catch((err) => {
           if (__DEVONLY__) $log.error('EntryController createAccount FAILURE', err);
           vm.error = err;
         });
     }
-    
-    
-    /**    
-     * rerouteToBoard - after login/create account, stores the user data in the userManager service and reroutes to the board view
-     *      
-     * @return {type}  description     
-     */     
-    function rerouteToBoard(user) {
-      if (__DEVONLY__) $log.debug('EntryController getDataAndRerouteToBoard');
-      // Attach the user to the userManager service for future reference, then reroute
-      userManager.user  = user;
-      listManager.lists = user.lists;
-      $location.path('/board');
-      $route.reload();
-    }
-    
   }
   
 })();

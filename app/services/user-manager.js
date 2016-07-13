@@ -23,17 +23,106 @@
       user: null,
 
       /**      
-       * logout - this deletes the authentication cookie for the user and takes them back to the login page 
+       * logout - this deletes all cookiesthe page back to login 
        *        
        * @return {type}  description       
        */       
       logout() {
         if (__DEVONLY__) $log.debug('userManager logout');
         $cookies.remove(__COOKIE_NAME__);
+        $cookies.remove('todo-user');
         userManager.user  = null;
         listManager.lists = [];
         $location.path('/login');
         $route.reload();
+      }, 
+      
+      
+      /**    
+       * rerouteCheck - a service to check if the user is authenticated and return to login if they aren't
+       *              - checks whether a cookie called __COOKIE_NAME__ is stored (__COOKIE_NAME__ value set in .npmrc)
+       *      
+       */
+      rerouteCheck() {
+        if (__DEVONLY__) $log.debug('userManager rerouteCheck');
+        let cookie = $cookies.get(__COOKIE_NAME__);
+        
+        // If they aren't logged in but aren't on the login page
+        if (!cookie && $location.path() !== '/login') {
+          if (__DEVONLY__) $log.debug('rerouteCheck REROUTING to /login');
+          
+          // Remove cookies
+          $cookies.remove(__COOKIE_NAME__);
+          $cookies.remove('todo-user');
+          $cookies.remove('todo-user-lists');
+          
+          // Reroute to login page 
+          $location.path('/login');
+          $route.reload();
+        }
+        
+        // If they are logged in, but on the login page 
+        // Is this a good idea? It makes the back button a little harder to use
+        else if (cookie && $location.path() === '/login') {
+          if (__DEVONLY__) $log.debug('rerouteCheck REROUTING to /board');
+          $location.path('/board');
+          $route.reload();
+        }
+      }, 
+      
+      
+      
+      
+          
+      /**          
+       * handleLogin - stores data from a login or new account request as cookies, then reroutes to /board
+       *             - stores the user data, sans lists, as the cookie todo-user 
+       *             - stores the initial lists as the cookie todo-user-lists (which will be updated on changes by listManager)
+       *             - Finally, reroutes to the /board page 
+       *        
+       * @param  {object} user the user representation provided by the server in response to a post to /new-account or get to /login            
+       */       
+      handleLogin(user) {
+        if (__DEVONLY__) $log.debug('userManager handleLogin, initial user: ');
+        if (__DEVONLY__) $log.log(user);
+        
+        // Store lists in a separate variable and delete it off user so that there isn't a conflicting set of lists on todo-user and todo-user-lists
+        let lists = user.lists;
+        delete user.lists;
+        
+        if (__DEVONLY__) $log.warn('After delete user.lists, user is', user);
+        if (__DEVONLY__) $log.warn('After delete user.lists, lists is', lists);
+        
+        // Persist the data in case of refresh
+        $cookies.putObject('todo-user-lists', lists);
+        $cookies.putObject('todo-user', user);
+        
+        // Attach the data to manager services
+        userManager.user  = user;
+        listManager.lists = lists; 
+        
+        // Reroute to /board
+        $location.path('/board');
+        $route.reload();
+      },
+      
+      
+      /**    
+       * fetchUserAndListDataFromCookieIfNecessary  - purpose of this is to check if there is a user in storage somewhere, if there is, set that as usermanager.user so that user data persists beyond a page load
+       *                                            - always called after rerouteCheck, so doesnt need to check if auth cookie present 
+       *                                            - TODO: add a backend route to allow them to fetch info if all they have is cookie? 
+       */     
+      fetchUserAndListDataFromCookieIfNecessary() {
+        if (__DEVONLY__) $log.debug('userManager fetchUserAndListDataFromCookieIfNecessary');
+        if (!userManager.user) {
+          if (__DEVONLY__) $log.debug('fetchUserAndListDataFromCookieIfNecessary: User loaded from cookie');
+          userManager.user = $cookies.getObject('todo-user');
+        }
+        if (!listManager.lists.length) {
+          if (__DEVONLY__) $log.debug('fetchUserAndListDataFromCookieIfNecessary: Lists loaded from cookie');
+          listManager.lists = $cookies.getObject('todo-user-lists');
+        }
+        
       }
     };
     

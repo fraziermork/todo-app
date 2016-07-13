@@ -9,11 +9,12 @@ const assign = require('lodash.assign');
   angular.module('todo-services')
     .factory('listManager', [
       '$log', 
+      '$cookies',
       'apiRequest', 
       returnListManager
     ]);
     
-  function returnListManager($log, apiRequest) {
+  function returnListManager($log, $cookies, apiRequest) {
     let listManager = {
       lists: [],
       
@@ -50,13 +51,16 @@ const assign = require('lodash.assign');
         if (__DEVONLY__) $log.debug('listManager postNewList');
         
         // Add the temporary list object into the lists array
-        this.lists.push(listInfo);
+        listManager.lists.push(listInfo);
         
         // Return the request
         return apiRequest('post', 'lists', { data: listInfo })
           .then((list) => {
             if (__DEVONLY__) $log.debug('SUCCESSS in listManager postNewList');
             assign(listInfo, list);
+            
+            // Update lists in cookie and return listInfo into next .then in chain 
+            $cookies.putObject('todo-user-lists', listManager.lists);
             return listInfo;
           });
       },

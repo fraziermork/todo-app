@@ -23,9 +23,18 @@ let plugins = [
   }),
   new webpack.optimize.OccurenceOrderPlugin(),
   new webpack.DefinePlugin({
-    __API_URL__:     JSON.stringify(API_URL), 
-    __DEVONLY__:     !production, 
-    __COOKIE_NAME__: JSON.stringify(process.env.npm_config_auth_cookie_name)
+    // Deployment url of the backend or localhost for testing
+    __API_URL__:            JSON.stringify(API_URL), 
+    
+    // Controls whether console logs and other dev features take place
+    // TODO: switch from boolean to regex? Not sure if webpack smart enough for that
+    __DEVONLY__:            !production, 
+    
+    // The name of the cookie to attach as X-`${__COOKIE_NAME__}` as a header for authentication
+    __COOKIE_NAME__:        JSON.stringify(process.env.npm_config_auth_cookie_name), 
+    
+    // The break point from mobile to fullscreen
+    __MOBILE_BREAK_POINT__: process.env.npm_config_mobile_break_point
   })
 ];
 
