@@ -1,38 +1,39 @@
-<article class="ListItem" data-ng-init="itemCtrl.initialize()">
+<article class="TodoItem" data-ng-init="itemCtrl.initialize()">
   
   <!-- preview -->
   <div 
-  class="ListItem-collapsedView"
-  data-ng-click="itemCtrl.showItemActions()"
+  class="TodoItem-collapsedView"
+  data-ng-click="itemCtrl.toggleItemActionsVisibility()"
   aria-controls="{{ itemCtrl.item.name }}-editItemForm"
   >
     <h3
-    class="ListItem-name"
+    class="TodoItem-name"
     data-ng-bind="itemCtrl.item.name"
     ></h3>
     <p
-    class="ListItem-description"
-    data-ng-bind="itemCtrl.item.description"
+    class="TodoItem-content"
+    data-ng-bind="itemCtrl.item.content"
     ></p>
   </div>
   
   
   <!-- background screen -->
   <div 
-  class="ListItem-itemActionsBackgroundScreen bg-screen"
-  data-ng-show="!itemCtrl.listActionsHidden"
+  class="TodoItem-itemActionsBackgroundScreen bg-screen"
+  data-ng-hide="itemCtrl.itemActionsHidden"
   ></div>
   
   <!-- form -->
   <div 
-  class="ListItem-itemActions"
-  data-ng-show="!itemCtrl.listActionsHidden"
+  class="TodoItem-itemActions"
+  data-ng-hide="itemCtrl.itemActionsHidden"
   >
     <button 
     type="reset" 
     name="closeItemActions"
-    class="ListItem-closeEditItemForm close"
+    class="TodoItem-closeEditItemForm close"
     aria-label="Close"
+    data-ng-click="itemCtrl.toggleItemActionsVisibility()"
     >
       <span aria-hidden="true">&times;</span>
     </button>  
@@ -40,9 +41,9 @@
     <form 
     id="{{ itemCtrl.item.name }}-editItemForm"
     name="editItemForm"
-    class="ListItem-editItemForm"
+    class="TodoItem-editItemForm"
     action="javascript:void(0);"
-    aria-hidden="{{ itemCtrl.listActionsHidden }}"
+    aria-hidden="{{ itemCtrl.itemActionsHidden }}"
     novalidate
     >
       <div class="form-group">
@@ -51,7 +52,7 @@
         id="{{ itemCtrl.item.name }}-nameInput"
         type="text" 
         name="name" 
-        class="ListItem-input form-control"
+        class="TodoItem-input form-control"
         placeholder="{{ itemCtrl.item.name }}"
         data-ng-model="itemCtrl.itemEdits.name"
         required
@@ -59,14 +60,14 @@
       </div>
       
       <div class="form-group">
-        <label for="{{ itemCtrl.item.name }}-descriptionInput" class="sr-only">Item description</label>
+        <label for="{{ itemCtrl.item.content }}-contentInput" class="sr-only">Item content</label>
         <input 
-        id="{{ itemCtrl.item.name }}-descriptionInput"
+        id="{{ itemCtrl.item.content }}-contentInput"
         type="text" 
-        name="description" 
-        class="ListItem-input form-control"
-        placeholder="{{ itemCtrl.item.description }}"
-        data-ng-model="itemCtrl.itemEdits.description"
+        name="content" 
+        class="TodoItem-input form-control"
+        placeholder="{{ itemCtrl.item.content }}"
+        data-ng-model="itemCtrl.itemEdits.content"
         >
       </div>
       
@@ -74,8 +75,8 @@
         <label for="{{ itemCtrl.item.name }}-selectList" class="sr-only">Move to another list</label>
         <select 
         id="{{ itemCtrl.item.name }}-selectList"
-        class="ListItem-selectList form-control" 
-        name="ListItem-selectList"
+        class="TodoItem-selectList form-control" 
+        name="TodoItem-selectList"
         data-ng-model="itemCtrl.itemEdits.list"
         data-ng-options="list as list.name for list in itemCtrl.listManager.lists track by list._id"
         ></select>
@@ -84,7 +85,7 @@
       <button 
       type="submit" 
       name="submitItemEdits"
-      class="ListItem-submitItemEdits ListItem-button btn btn-primary"
+      class="TodoItem-submitItemEdits TodoItem-button btn btn-primary"
       data-ng-click="editItemForm.$valid && itemCtrl.saveChangesToItem()"
       >Save changes</button>
     </form>

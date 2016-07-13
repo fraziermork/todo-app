@@ -2,18 +2,17 @@
 
 (function() {
   angular.module('todo-item')
-  .directive('listItem', listItem);
+  .directive('todoItem', todoItem);
   
-  function listItem() {
+  function todoItem() {
     return {
       restrict:     'E', 
       controller:   'ItemController', 
       controllerAs: 'itemCtrl',
       template:     template, 
       scope:        {
-        item: '='
-      }
-      
+        item: '=',
+      },
     };
   }
   

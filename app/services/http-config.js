@@ -19,8 +19,9 @@
        * @param  {object} config the config object for the http request        
        * @return {object }       the same config with the header set on it        
        */       
-      request: function(config) {
-        if (__DEVONLY__) $log.debug('xsrfInterceptor request', config);
+      request(config) {
+        // Turned off b/c redundant w/ log in apiRequest
+        // if (__DEVONLY__) $log.debug('xsrfInterceptor request', config);
         let cookie     = $cookies.get(__COOKIE_NAME__);
         let headerName = `X-${__COOKIE_NAME__}`;
         if (cookie) {
@@ -32,11 +33,18 @@
     };
     return xsrfInterceptor;
   }    
+  
+  
       
+  /**      
+   * configHttpProvider - sets authorization settings on $http and tells it to use the interceptor above
+   *    
+   * @param  {type} $httpProvider description   
+   * @return {type}               description   
+   */   
   function configHttpProvider($httpProvider) {
     $httpProvider.defaults.withCredentials = true;
     $httpProvider.interceptors.push('xsrfInterceptor');
-    
   }    
       
 })();

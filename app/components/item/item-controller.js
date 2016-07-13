@@ -7,26 +7,23 @@ const assign = require('lodash.assign');
   .controller('ItemController', ['$log', '$scope', 'itemManager', 'listManager', ItemController]);
   
   function ItemController($log, $scope, itemManager, listManager) {
-    const vm           = this;
-    vm.item            = $scope.item;
-    vm.error           = null;
-    vm.listManager     = listManager;
-    
+    const vm                       = this;
+    vm.item                        = $scope.item;
+    vm.error                       = null;
+    vm.listManager                 = listManager;    
     // Properties for edits
-    vm.editable        = false;
-    vm.itemEdits       = {};
-    
+    vm.itemActionsHidden           = false;
+    vm.itemEdits                   = {};
     // Attach methods
-    vm.initialize      = initialize;
-    vm.showItemActions = showItemActions;
+    vm.initialize                  = initialize;
+    vm.toggleItemActionsVisibility = toggleItemActionsVisibility;
     
     
     
     
     /**    
-     * initialize - runs on ititialization of 
-     *      
-     * @return {type}  description     
+     * initialize - runs on ititialization of the item
+     *        
      */     
     function initialize() {
       if (__DEVONLY__) $log.debug(`ItemController initialize for ${vm.item.name}`);
@@ -41,11 +38,13 @@ const assign = require('lodash.assign');
      * showItemActions - toggles the visibility of itemActions controls
      *         
      */     
-    function showItemActions() {
-      if (__DEVONLY__) $log.debug('ItemController showItemActions');
+    function toggleItemActionsVisibility() {
+      if (__DEVONLY__) $log.debug('ItemController toggleItemActionsVisibility');
       assign(vm.itemEdits, vm.item);
-      vm.editable = !vm.editable;
+      vm.itemActionsHidden = !vm.itemActionsHidden;
     }
+    
+    
     
     
     

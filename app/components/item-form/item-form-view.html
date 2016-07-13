@@ -1,3 +1,54 @@
-<section class="">
+<section class="ItemForm-wrapper">
+  <!-- close button -->
+  
+  <form 
+  name="itemForm"
+  class="ItemForm-form" 
+  action="javascript:void(0);" 
+  novalidate
+  >
+    <div class="form-group">
+      <button 
+      type="button" 
+      name="ItemForm-closeButton"
+      class="ItemForm-closeButton close"
+      data-ng-click="itemFormCtrl.hideFormAndClearInputs()"
+      aria-label="Close"
+      >
+        <span aria-hidden="true">&times;</span>
+      </button>
+    
+      <input 
+      required
+      autofocus
+      type="text" 
+      name="name" 
+      class="form-control"
+      placeholder="Item name"
+      data-ng-model="itemFormCtrl.newItem.name"
+      aria-label="Item name"
+      >
+      
+      <input 
+      type="text" 
+      name="content" 
+      class="form-control"
+      placeholder="Item content"
+      data-ng-model="itemFormCtrl.newItem.content"
+      aria-label="Item content"
+      >
+      
+      <button 
+      type="submit" 
+      name="button"
+      class="btn btn-primary"
+      data-ng-click="itemForm.$valid && itemFormCtrl.createItem()"
+      >Add item</button>  
+    </div>
+    
+  </form>
+  
+  
+  
   
 </section>

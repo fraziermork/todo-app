@@ -7,6 +7,7 @@
     'todo-services', 
     'todo-entry', 
     'todo-navbar', 
+    'todo-item-form',
     'todo-item',
     'todo-list-form', 
     'todo-list', 

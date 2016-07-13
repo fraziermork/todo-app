@@ -109,11 +109,11 @@
       // TODO: move this logic to userManager service
       apiRequest('get', 'login', requestOptions)
         .then((user) => {
-          if (__DEVONLY__) $log.debug('EntryController login SUCCESS');
+          if (__DEVONLY__) $log.debug('login: SUCCESS');
           userManager.handleLogin(user);
         })
         .catch((err) => {
-          if (__DEVONLY__) $log.error('EntryController login FAILURE', err);
+          if (__DEVONLY__) $log.error('login: ', err);
           vm.error = err;
         });
     }
@@ -130,7 +130,7 @@
       
       // Check that the passwords match
       if (vm.create.password !== vm.create.passwordConfirm) {
-        if (__DEVONLY__) $log.error('EntryController createAccount passwords didnt match');
+        if (__DEVONLY__) $log.warn('createAccount: passwords didnt match');
         vm.error = 'Your passwords must match';
         delete vm.create.passwordConfirm;
         return;

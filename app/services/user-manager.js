@@ -23,7 +23,7 @@
       user: null,
 
       /**      
-       * logout - this deletes all cookiesthe page back to login 
+       * logout - this deletes all cookies and takes the page back to login 
        *        
        * @return {type}  description       
        */       
@@ -41,7 +41,8 @@
       /**    
        * rerouteCheck - a service to check if the user is authenticated and return to login if they aren't
        *              - checks whether a cookie called __COOKIE_NAME__ is stored (__COOKIE_NAME__ value set in .npmrc)
-       *      
+       *              - if no cookie, goes to /login
+       *              - if on /login but there is a cookie, it takes you to /board
        */
       rerouteCheck() {
         if (__DEVONLY__) $log.debug('userManager rerouteCheck');

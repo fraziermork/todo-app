@@ -11,8 +11,9 @@
       controllerAs: 'itemFormCtrl',
       template:     template, 
       scope:        {
-        list: '='
-      }
+        list:             '=',
+        toggleVisibility: '&',
+      },
     };
   } 
   

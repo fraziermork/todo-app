@@ -1,7 +1,7 @@
 <!-- TODO: make this prettier -->
 
 <section class="ListForm">
-  <button
+  <button 
   id="ListForm-showFormButton" 
   name="showFormButton" 
   type="button"
@@ -20,10 +20,11 @@
   name="listForm"
   data-ng-class="{ hidden: !listFormCtrl.visible }"
   aria-hidden="{{ !listFormCtrl.visible }}"
+  action="javascript:void(0);"
   >
     <button 
     class="ListForm-closeButton close"
-    type="reset"
+    type="button"
     name="ListForm-closeButton"
     aria-label="Close"
     data-ng-click="listFormCtrl.hideFormAndClearInputs()"
@@ -53,17 +54,17 @@
     
     <div class="form-group">
       <label 
-      for="ListForm-description" 
+      for="ListForm-content" 
       class="ListForm-formLabel"
       >Description</label>
       
       <input 
-      id="ListForm-description"
+      id="ListForm-content"
       type="text" 
-      name="description" 
+      name="content" 
       class="form-control"
-      placeholder="Description"
-      data-ng-model="listFormCtrl.newList.description"
+      placeholder="Content"
+      data-ng-model="listFormCtrl.newList.content"
       >
     </div>
     

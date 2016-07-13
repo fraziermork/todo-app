@@ -3,6 +3,8 @@
 <!-- TODO: build closer view to see more about the list, view description, actions, comments, etc.  -->
 
 <section class="TodoList" data-ng-init="listCtrl.initialize()">
+  
+  <!-- TODO: make a click event for this on mobile to take you to the list view -->
   <div class="TodoList-headerWrapper">
     <h2 
     class="TodoList-name"
@@ -73,21 +75,20 @@
   
   
   <!-- list items -->
-  <ul 
+  <ul  
   class="TodoList-listOfItems"
-  data-ng-class="{ hidden: !listCtrl.list.items.length }"
   >
-    <li
+    <li 
     class="TodoList-addItemFormWrapper TodoList-itemWrapper"
-    data-ng-class="{ hidden: !listCtrl.addItemVisible }"
+    data-ng-show="listCtrl.addItemVisible"
     >
-      <item-form list="list"></item-form>
+      <item-form list="list" toggle-visibility="listCtrl.showAddItemForm()"></item-form>
     </li>
     <li 
     class="TodoList-itemWrapper"
-    data-ng-repeat="item in listCtrl.list.items"
+    data-ng-repeat="item in listCtrl.items"
     >
-      <list-item item="item"></list-item>
+      <todo-item item="item"></todo-item>
     </li>
   </ul>
   

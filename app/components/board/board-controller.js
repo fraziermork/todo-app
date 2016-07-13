@@ -22,11 +22,14 @@
     // attach methods
     vm.initialize       = initialize;
     
+    
+    
+    
+    /**    
+     * initialize - checks if they are authenticated and sets data on services from persistence if needed
+     *      
+     */     
     function initialize() {
-      // TODO: make compatible w/ page reload
-      // store user as cookie/sessionstorage, then if they load it'll check reroute (ensuring logged in), if it is but no usermanager.user, then it loads it from wherever its stored
-      // the ng-inits on all the list views will take care of loading all the lists 
-      
       if (__DEVONLY__) $log.debug('BoardController initialize');
       userManager.rerouteCheck();
       userManager.fetchUserAndListDataFromCookieIfNecessary();

@@ -56,10 +56,11 @@ const assign = require('lodash.assign');
         // Return the request
         return apiRequest('post', 'lists', { data: listInfo })
           .then((list) => {
-            if (__DEVONLY__) $log.debug('SUCCESSS in listManager postNewList');
+            if (__DEVONLY__) $log.debug(`postNewList: SUCCESSS  for ${listInfo.name}`);
             assign(listInfo, list);
             
             // Update lists in cookie and return listInfo into next .then in chain 
+            // It doesnt matter that this list has items in it and the ones from login dont--lists always grab all their items on init anyway
             $cookies.putObject('todo-user-lists', listManager.lists);
             return listInfo;
           });
