@@ -18,7 +18,6 @@ const assign = require('lodash.assign');
     const vm                             = this;
     vm.error                             = null;
     vm.list                              = $scope.list;
-    vm.items                             = [];
     // Properties for editListName
     vm.nameEditable                      = false;
     vm.editedName                        = vm.list.name;
@@ -50,9 +49,6 @@ const assign = require('lodash.assign');
       listManager.getItemsInList(vm.list)
         .then((items) => {
           if (__DEVONLY__) $log.debug(`ListController initialize: SUCCESS for ${vm.list.name}`);
-          
-          // Only once it successfully grabs all the items is the items array populated, afterwards everything is passed by reference so it talks to eachother fine
-          vm.items = vm.list.items;
         })
         .catch((err) => {
           if (__DEVONLY__) $log.error('ListController initialize: ', err);

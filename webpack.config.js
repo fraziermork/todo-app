@@ -91,7 +91,7 @@ module.exports = {
       }, 
       {
         test:     /\.scss$/, 
-        loader:   ExtractPlugin.extract('style', 'css?sourceMap!postcss?sourceMap!resolve-url?sourceMap!sass?sourceMap', { allChunks: true }),
+        loader:   ExtractPlugin.extract('style', 'css!postcss!sass', { allChunks: true }),
       }, 
       {
         test:     /\.(png|jpe?g|svg)$/, 
