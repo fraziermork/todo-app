@@ -9,14 +9,15 @@ const assign = require('lodash.assign');
   angular.module('todo-services')
     .factory('listManager', [
       '$log', 
-      '$cookies',
+      '$window',
       'apiRequest', 
       returnListManager
     ]);
     
-  function returnListManager($log, $cookies, apiRequest) {
+  function returnListManager($log, $window, apiRequest) {
     let listManager = {
-      lists: [],
+      lists:       [],
+      currentList: null,
       
       /**      
        * getItemsInList - helper method to retrieve all the items in a list and store them on the list upon successful retrieval 
@@ -56,12 +57,12 @@ const assign = require('lodash.assign');
         // Return the request
         return apiRequest('post', 'lists', { data: listInfo })
           .then((list) => {
-            if (__DEVONLY__) $log.debug(`postNewList: SUCCESSS  for ${listInfo.name}`);
             assign(listInfo, list);
-            
+            if (__DEVONLY__) $log.debug(`postNewList: SUCCESSS  for ${listInfo.name}`, listInfo);
             // Update lists in cookie and return listInfo into next .then in chain 
             // It doesnt matter that this list has items in it and the ones from login dont--lists always grab all their items on init anyway
-            $cookies.putObject('todo-user-lists', listManager.lists);
+            $window.sessionStorage.setItem('todo-user-lists', angular.toJson(listManager.lists));
+            listManager.currentList = listInfo._id;
             return listInfo;
           });
       },
@@ -87,6 +88,7 @@ const assign = require('lodash.assign');
       
       /**      
        * deleteList - a helper method to delete lists
+       *            - TODO: if the list's id is the same as currentList, set currentList to null
        *        
        * @param  {type} originalListObj description       
        * @return {type}                 description       
@@ -116,11 +118,35 @@ const assign = require('lodash.assign');
       }, 
       
       
+      
+      /**      
+       * changeItemIndexInList - description      
+       *        
+       * @param  {object} list     description       
+       * @param  {object} item     description       
+       * @param  {number} newIndex description       
+       * @return {type}          description       
+       */       
       changeItemIndexInList(list, item, newIndex) {
         if (__DEVONLY__) $log.debug('listManager moveItemFromListToList');
         
         
-      }
+      },
+       
+       
+       
+       
+       
+      /**       
+       * setCurrentList - sets the value of listManager.currentList to the id of the input list
+       *        
+       * @param  {object} list  the list that should be set to the current one        
+       * @return {type}         description       
+       */       
+      setCurrentList(list) {
+        if (__DEVONLY__) $log.debug(`listManager setCurrentList to ${list.name}`);
+        listManager.currentList = list._id;
+      } 
        
     };
     return listManager;

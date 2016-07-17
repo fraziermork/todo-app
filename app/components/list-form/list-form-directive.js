@@ -10,6 +10,9 @@
       controller:   'ListFormController', 
       controllerAs: 'listFormCtrl',
       template:     template,
+      scope:        {
+        toggleVisibility: '&',
+      },
     };
   }
   

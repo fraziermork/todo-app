@@ -4,11 +4,12 @@
   angular.module('todo-list-form')
     .controller('ListFormController', [
       '$log', 
+      '$scope',
       'listManager', 
       ListFormController
     ]);
   
-  function ListFormController($log, listManager) {
+  function ListFormController($log, $scope, listManager) {
     const vm                  = this;
     vm.pending                = false;
     vm.error                  = null;
@@ -16,10 +17,11 @@
     vm.newList                = {};
     vm.newList.name           = null;
     vm.newList.description    = null;
+    vm.newList.items          = [];
     
     vm.createList             = createList;
     vm.resetForm              = resetForm;
-    vm.toggleVisibility       = toggleVisibility;
+    vm.toggleVisibility       = $scope.toggleVisibility;
     vm.hideFormAndClearInputs = hideFormAndClearInputs;
     
     function createList() {
@@ -28,10 +30,13 @@
         return;
       }
       vm.pending = true;
-      listManager.postNewList(vm.newList)
-        .then(() => {
-          if (__DEVONLY__) $log.debug('SUCCESS in ListFormController createList');
-          vm.resetForm();
+      let infoAboutListToPost = vm.newList;
+      vm.resetForm();
+      vm.toggleVisibility();
+      listManager.postNewList(infoAboutListToPost)
+        .then((list) => {
+          if (__DEVONLY__) $log.debug(`SUCCESS in ListFormController createList for ${list.name}`);
+          $scope.$apply();
         })
         .catch((err) => {
           if (__DEVONLY__) $log.debug('ERROR in ListFormController createList', err);
@@ -44,12 +49,8 @@
       vm.newList             = {};
       vm.newList.name        = null;
       vm.newList.description = null;
+      vm.newList.items       = [];
       vm.pending             = false;
-    }
-    
-    function toggleVisibility() {
-      if (__DEVONLY__) $log.debug('ListFormController toggleVisibility');
-      vm.visible = !vm.visible;
     }
     
     function hideFormAndClearInputs() {

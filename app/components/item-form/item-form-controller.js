@@ -36,14 +36,17 @@
     function createItem() {
       if (__DEVONLY__) $log.debug('ItemFormController createItem');
       if (vm.pending) {
+        if (__DEVONLY__) $log.debug('createItem pending, exiting ');
         return;
       }
+      let infoAboutItemToPost = vm.newItem;
+      vm.hideFormAndClearInputs();
       
-      itemManager.postNewItem(vm.newItem, vm.list)
+      itemManager.postNewItem(infoAboutItemToPost, vm.list)
         .then((item) => {
           if (__DEVONLY__) $log.debug('createItem: SUCCESS');
           vm.resetForm();
-          vm.toggleVisibility();
+          $scope.$apply();
         })
         .catch((err) => {
           if (__DEVONLY__) $log.error('createItem: ', err);

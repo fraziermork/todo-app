@@ -1,24 +1,11 @@
 <!-- TODO: make this prettier -->
 
-<section class="ListForm">
-  <button 
-  id="ListForm-showFormButton" 
-  name="showFormButton" 
-  type="button"
-  name="ListForm-showFormButton"
-  class="ListForm-showFormButton ListForm-button btn btn-default"
-  data-ng-class="{ hidden: listFormCtrl.visible }"
-  data-ng-click="listFormCtrl.toggleVisibility()"
-  aria-controls="ListForm-form"
-  aria-disabled="{{ listFormCtrl.visible }}"
-  >New list</button>
-  
+<section class="ListForm clearfix">
   <form
   id="ListForm-form" 
   novalidate
   class="ListForm-form "
   name="listForm"
-  data-ng-class="{ hidden: !listFormCtrl.visible }"
   aria-hidden="{{ !listFormCtrl.visible }}"
   action="javascript:void(0);"
   >
@@ -54,17 +41,17 @@
     
     <div class="form-group">
       <label 
-      for="ListForm-content" 
+      for="ListForm-description" 
       class="ListForm-formLabel"
       >Description</label>
       
       <input 
-      id="ListForm-content"
+      id="ListForm-description"
       type="text" 
-      name="content" 
+      name="description" 
       class="form-control"
-      placeholder="Content"
-      data-ng-model="listFormCtrl.newList.content"
+      placeholder="Description"
+      data-ng-model="listFormCtrl.newList.description"
       >
     </div>
     
@@ -73,7 +60,7 @@
     id="ListForm-createListButton"
     type="submit"
     name="ListForm-createListButton"
-    class="ListForm-button btn btn-primary"
+    class="ListForm-button btn btn-primary pull-right"
     data-ng-click="listForm.$valid && listFormCtrl.createList()"
     >Create</button>
     

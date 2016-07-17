@@ -33,7 +33,7 @@ let plugins = [
     // The name of the cookie to attach as X-`${__COOKIE_NAME__}` as a header for authentication
     __COOKIE_NAME__:        JSON.stringify(process.env.npm_config_auth_cookie_name), 
     
-    // The break point from mobile to fullscreen
+    // The break point from mobile to fullscreen, currently defined as 992 px, the bootstrap md breakpoint
     __MOBILE_BREAK_POINT__: process.env.npm_config_mobile_break_point
   })
 ];

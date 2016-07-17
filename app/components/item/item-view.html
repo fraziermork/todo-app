@@ -3,13 +3,23 @@
   <!-- preview -->
   <div 
   class="TodoItem-collapsedView"
-  data-ng-click="itemCtrl.toggleItemActionsVisibility()"
   aria-controls="{{ itemCtrl.item.name }}-editItemForm"
+  data-ng-show="itemCtrl.itemActionsHidden"
   >
-    <h3
+    <button 
+    type="button" 
+    name="TodoItem-showItemActions"
+    class="TodoItem-showItemActions TodoItem-button btn btn-default"
+    data-ng-click="itemCtrl.toggleItemActionsVisibility()"
+    aria-controls="TodoItem-itemActions"
+    aria-label="Show item actions"
+    >
+      <span aria-hidden="true" class="glyphicon glyphicon-cog"></span>
+    </button>
+    <h4
     class="TodoItem-name"
     data-ng-bind="itemCtrl.item.name"
-    ></h3>
+    ></h4>
     <p
     class="TodoItem-content"
     data-ng-bind="itemCtrl.item.content"
@@ -46,8 +56,9 @@
     aria-hidden="{{ itemCtrl.itemActionsHidden }}"
     novalidate
     >
+      <h4 class="TodoItem-name">Edit item:</h4>
       <div class="form-group">
-        <label for="{{ itemCtrl.item.name }}-nameInput" class="sr-only">Item name</label>
+        <label for="{{ itemCtrl.item.name }}-nameInput" class="">Name</label>
         <input 
         id="{{ itemCtrl.item.name }}-nameInput"
         type="text" 
@@ -60,7 +71,7 @@
       </div>
       
       <div class="form-group">
-        <label for="{{ itemCtrl.item.content }}-contentInput" class="sr-only">Item content</label>
+        <label for="{{ itemCtrl.item.content }}-contentInput" class="">Content</label>
         <input 
         id="{{ itemCtrl.item.content }}-contentInput"
         type="text" 
@@ -72,7 +83,7 @@
       </div>
       
       <div class="form-group">
-        <label for="{{ itemCtrl.item.name }}-selectList" class="sr-only">Move to another list</label>
+        <label for="{{ itemCtrl.item.name }}-selectList" class="">Move to another list</label>
         <select 
         id="{{ itemCtrl.item.name }}-selectList"
         class="TodoItem-selectList form-control" 

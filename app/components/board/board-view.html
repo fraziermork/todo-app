@@ -1,15 +1,41 @@
 <!-- TODO: figure out styling needed for mobile like list, desktop view with horizontal scroll -->
 
-<section class="Board container-fluid" data-ng-init="boardCtrl.initialize()">
-  <!-- <todo-navbar></todo-navbar> -->
-  <ul class="Board-contentList list-group">
-    
-    <!-- TODO: add this onto the navbar instead of here -->
-    <li class="Board-contentWrapper list-group-item"> 
-      <list-form></list-form>
-    </li>
-    <li class="Board-contentWrapper list-group-item" data-ng-repeat="list in boardCtrl.lists">
-      <todo-list list="list"></todo-list>
-    </li>
-  </ul>
+<section 
+class="Board" 
+data-ng-init="boardCtrl.initialize()"
+data-ng-class="{ 'current-list-exists': boardCtrl.shouldHideSomeLists() }"
+>
+  
+  <todo-navbar toggle-visibility="boardCtrl.toggleListFormVisibility()"></todo-navbar>
+  
+  <div class="container-fluid">
+    <ul class="Board-contentList list-group">
+      
+      <!-- LIST FORM -->
+      <!-- TODO: add this onto the navbar instead of here -->
+      <li 
+      class="Board-listFormWrapper Board-contentWrapper list-group-item is-hidden-while-current-list-exists"
+      data-ng-if="boardCtrl.addListVisible"
+      > 
+        <list-form toggle-visibility="boardCtrl.toggleListFormVisibility()"></list-form>
+      </li>
+      
+      
+      <!-- LISTS -->
+      <li 
+      class="Board-listWrapper Board-contentWrapper list-group-item" 
+      data-ng-repeat="list in boardCtrl.lists"
+      data-ng-class="{ 
+        'is-hidden-below-md': !boardCtrl.checkIfCurrentList(list),  
+        'is-current-list':     boardCtrl.checkIfCurrentList(list)  
+      }"
+      >
+        <todo-list 
+        list="list"
+        ></todo-list>
+      </li>
+      
+    </ul>
+  </div>
+  
 </section>

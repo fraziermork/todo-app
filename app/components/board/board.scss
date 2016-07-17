@@ -1,0 +1,51 @@
+@import '../../style/theme';
+
+
+
+.is-hidden-below-md {
+  display: none;
+  @media screen and (min-width: $bootstrap-md-min) {
+    display: inherit;
+  }
+}
+
+.is-not-hidden-while-current-list-exists {
+  display: none;
+}
+
+.current-list-exists {
+  
+  .is-hidden-while-current-list-exists {
+    display: none;
+    @media screen and (min-width: $bootstrap-md-min) {
+      display: inherit;
+    }
+  }
+  
+  .is-not-hidden-while-current-list-exists {
+    display: inherit;
+    @media screen and (min-width: $bootstrap-md-min) {
+      display: none;
+    }
+  }
+  
+  .is-current-list {
+    // list-groups goofy unless this set to inherit, doesnt work for unset
+    display: inherit;
+    border-radius: 4px;
+    
+    .is-hidden-below-md {
+      // buttons goofy unless this set to unset, doesnt work for inherit
+      display: unset;
+      
+    }
+    
+  }
+  
+  
+  
+}
+
+.Board-contentWrapper {
+  position: relative;
+}

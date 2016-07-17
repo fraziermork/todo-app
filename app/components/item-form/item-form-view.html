@@ -1,7 +1,8 @@
-<section class="ItemForm-wrapper">
+<section class="ItemForm-wrapper clearfix">
   <!-- close button -->
   
   <form 
+  id="ItemForm-form"
   name="itemForm"
   class="ItemForm-form" 
   action="javascript:void(0);" 
@@ -17,31 +18,37 @@
       >
         <span aria-hidden="true">&times;</span>
       </button>
-    
+    </div>
+      
+    <div class="form-group">
       <input 
       required
       autofocus
       type="text" 
       name="name" 
-      class="form-control"
+      class="ItemForm-input form-control"
       placeholder="Item name"
       data-ng-model="itemFormCtrl.newItem.name"
       aria-label="Item name"
       >
+    </div>  
       
+    <div class="form-group">  
       <input 
       type="text" 
       name="content" 
-      class="form-control"
+      class="ItemForm-input form-control"
       placeholder="Item content"
       data-ng-model="itemFormCtrl.newItem.content"
       aria-label="Item content"
       >
+    </div>
       
+    <div class="form-group">  
       <button 
       type="submit" 
       name="button"
-      class="btn btn-primary"
+      class="btn btn-primary pull-right"
       data-ng-click="itemForm.$valid && itemFormCtrl.createItem()"
       >Add item</button>  
     </div>

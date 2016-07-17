@@ -9,8 +9,9 @@
   angular.module('todo-services')
     .factory('userManager', [
       '$log', 
-      '$cookies', 
       '$route', 
+      '$window',
+      '$cookies', 
       '$location', 
       'apiRequest', 
       'listManager', 
@@ -18,19 +19,20 @@
       returnUserManager
     ]);
   
-  function returnUserManager($log, $cookies, $route, $location, apiRequest, listManager, itemManager) {
+  function returnUserManager($log, $route, $window, $cookies, $location, apiRequest, listManager, itemManager) {
     let userManager = {
       user: null,
 
       /**      
-       * logout - this deletes all cookies and takes the page back to login 
+       * logout - this deletes all cookies and everything in sessionStorage and takes the page back to login 
        *        
        * @return {type}  description       
        */       
       logout() {
         if (__DEVONLY__) $log.debug('userManager logout');
         $cookies.remove(__COOKIE_NAME__);
-        $cookies.remove('todo-user');
+        $window.sessionStorage.removeItem('todo-user');
+        $window.sessionStorage.removeItem('todo-user-lists');
         userManager.user  = null;
         listManager.lists = [];
         $location.path('/login');
@@ -51,15 +53,7 @@
         // If they aren't logged in but aren't on the login page
         if (!cookie && $location.path() !== '/login') {
           if (__DEVONLY__) $log.debug('rerouteCheck REROUTING to /login');
-          
-          // Remove cookies
-          $cookies.remove(__COOKIE_NAME__);
-          $cookies.remove('todo-user');
-          $cookies.remove('todo-user-lists');
-          
-          // Reroute to login page 
-          $location.path('/login');
-          $route.reload();
+          userManager.logout();
         }
         
         // If they are logged in, but on the login page 
@@ -91,12 +85,9 @@
         let lists = user.lists;
         delete user.lists;
         
-        if (__DEVONLY__) $log.warn('After delete user.lists, user is', user);
-        if (__DEVONLY__) $log.warn('After delete user.lists, lists is', lists);
-        
         // Persist the data in case of refresh
-        $cookies.putObject('todo-user-lists', lists);
-        $cookies.putObject('todo-user', user);
+        $window.sessionStorage.setItem('todo-user', angular.toJson(user));
+        $window.sessionStorage.setItem('todo-user-lists', angular.toJson(lists));
         
         // Attach the data to manager services
         userManager.user  = user;
@@ -109,21 +100,26 @@
       
       
       /**    
-       * fetchUserAndListDataFromCookieIfNecessary  - purpose of this is to check if there is a user in storage somewhere, if there is, set that as usermanager.user so that user data persists beyond a page load
+       * fetchUserAndListDataFromStorageIfNecessary  - purpose of this is to check if there is a user in storage somewhere, if there is, set that as usermanager.user so that user data persists beyond a page load
        *                                            - always called after rerouteCheck, so doesnt need to check if auth cookie present 
        *                                            - TODO: add a backend route to allow them to fetch info if all they have is cookie? 
        */     
-      fetchUserAndListDataFromCookieIfNecessary() {
-        if (__DEVONLY__) $log.debug('userManager fetchUserAndListDataFromCookieIfNecessary');
+      fetchUserAndListDataFromStorageIfNecessary() {
+        if (__DEVONLY__) $log.debug('userManager fetchUserAndListDataFromStorageIfNecessary');
         if (!userManager.user) {
-          if (__DEVONLY__) $log.debug('fetchUserAndListDataFromCookieIfNecessary: User loaded from cookie');
-          userManager.user = $cookies.getObject('todo-user');
+          let storedUser = angular.fromJson($window.sessionStorage.getItem('todo-user'));
+          if (storedUser) {
+            if (__DEVONLY__) $log.debug('fetchUserAndListDataFromStorageIfNecessary: User loaded from sessionStorage');
+            userManager.user = storedUser;
+          }
         }
         if (!listManager.lists.length) {
-          if (__DEVONLY__) $log.debug('fetchUserAndListDataFromCookieIfNecessary: Lists loaded from cookie');
-          listManager.lists = $cookies.getObject('todo-user-lists');
+          let storedLists = angular.fromJson($window.sessionStorage.getItem('todo-user-lists'));
+          if (storedLists) {
+            if (__DEVONLY__) $log.debug('fetchUserAndListDataFromStorageIfNecessary: Lists loaded from sessionStorage');
+            listManager.lists = storedLists;
+          }
         }
-        
       }
     };
     

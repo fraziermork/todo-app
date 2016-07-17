@@ -1,0 +1,28 @@
+@import '../../style/theme';
+
+.TodoList-button {
+  float:       right;
+  margin-left: 10px;
+}
+
+.TodoList-itemWrapper {
+  
+  &:first-of-type {
+    margin-top: 10px;
+  }
+}
+
+.TodoList-name {
+  margin:      0;
+  margin-left: 5px;
+  display:     inline-block;
+}
+
+.TodoList-editName {
+  font-size:    30px;
+  margin-top:   0;
+  padding-left: 5px;
+}
+.TodoList-rename {
+  padding-top: 7px;
+}

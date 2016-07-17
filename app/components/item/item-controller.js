@@ -12,7 +12,7 @@ const assign = require('lodash.assign');
     vm.error                       = null;
     vm.listManager                 = listManager;    
     // Properties for edits
-    vm.itemActionsHidden           = false;
+    vm.itemActionsHidden           = true;
     vm.itemEdits                   = {};
     // Attach methods
     vm.initialize                  = initialize;

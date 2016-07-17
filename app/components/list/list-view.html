@@ -9,43 +9,82 @@
     <h2 
     class="TodoList-name"
     aria-controls="{{ listCtrl.list.name }}-editListName"
-    data-ng-click="listCtrl.toggleEditable()"
-    data-ng-class="{ hidden: listCtrl.nameEditable }"
+    data-ng-click="listCtrl.toggleNameEditable()"
+    data-ng-hide="listCtrl.nameEditable"
     data-ng-bind="listCtrl.list.name"
     ></h2>
     
+    
+    <!-- LIST NAME EDIT FORM, SHOULD OPEN ON CLICK OF NAME ON LIST ONLY VIEW -->
     <form 
     id="{{ listCtrl.list.name }}-editListName"
-    class="TodoList-editListName"
+    class="TodoList-editListName form-inline"
     name="editListName"
-    data-ng-class="{ hidden: !listCtrl.nameEditable }"
+    data-ng-if="listCtrl.nameEditable"
     aria-disabled="{{ !listCtrl.nameEditable }}"
     aria-hidden="{{ !listCtrl.nameEditable }}"
     action="javascript:void(0);"
-    data-ng-blur="editListName.$valid && listCtrl.handleNameEditFormSubmit($event)"
     data-ng-keydown="editListName.$valid && listCtrl.handleNameEditFormSubmit($event)"
     novalidate
     >
       <div class="form-group">
-        <label for="{{ listCtrl.list.name }}-editNameInput" class="sr-only"></label>
-        <input 
-        id="{{ listCtrl.list.name }}-editNameInput"
-        required
-        class="TodoList-editName TodoList-input form-control"
-        type="text" 
-        name="name" 
-        placeholder="{{ listCtrl.list.name }}"
-        data-ng-model="listCtrl.editedName"
-        >
+        <div class="input-group">
+          <label for="{{ listCtrl.list.name }}-editNameInput" class="sr-only"></label>
+          <input 
+          id="{{ listCtrl.list.name }}-editNameInput"
+          required
+          class="TodoList-editName TodoList-input form-control h2"
+          type="text" 
+          name="name" 
+          placeholder="{{ listCtrl.list.name }}"
+          data-ng-model="listCtrl.editedName"
+          >
+          <span class="input-group-btn">
+            <button 
+            aria-label="Save"
+            class="TodoList-rename btn btn-default"
+            data-ng-click="editListName.$valid && listCtrl.handleNameEditFormSubmit($event)"
+            type="submit" 
+            name="button"
+            >Save</button>
+          </span>
+        </div>
       </div>
     </form>
-
-
+    
+    
+    <!-- LIST DETAIL VIEW BUTTON -->
+    <button 
+    type="menu" 
+    name="TodoList-showListDetail"
+    class="TodoList-showListDetail TodoList-button btn btn-default hidden-md hidden-lg is-hidden-while-current-list-exists"
+    data-ng-click="listCtrl.showListAndItsItemsBelowMdScreens()"
+    data-ng-hide="listCtrl.nameEditable"
+    aria-label="View list"
+    >
+      <span aria-hidden="true" class="glyphicon glyphicon-menu-right"></span>
+    </button>
+    
+    <button 
+    type="menu" 
+    name="TodoList-addItem"
+    class="TodoList-addItem TodoList-button btn btn-default is-hidden-below-md"
+    data-ng-class="{ 'btn-primary': !listCtrl.addItemVisible }"
+    data-ng-click="!listCtrl.addItemVisible && listCtrl.showAddItemForm()"
+    data-ng-hide="listCtrl.nameEditable"
+    aria-controls="{{ listCtrl.list.name }}-listActions"
+    aria-disabled="{{ listCtrl.addItemVisible }}"
+    aria-label="Add an item"
+    >
+      <span aria-hidden="true" class="glyphicon glyphicon-plus"></span>
+    </button>
+      
     <button 
     type="menu" 
     name="TodoList-showListActions"
-    class="TodoList-showListActions btn"
+    class="TodoList-showListActions TodoList-button btn btn-default is-hidden-below-md"
     data-ng-click="listCtrl.showListActions()"
+    data-ng-hide="listCtrl.nameEditable"
     aria-controls="TodoList-listActions"
     aria-label="Show list actions"
     >
@@ -53,17 +92,7 @@
     </button>
     
 
-    <button 
-    type="menu" 
-    name="TodoList-addItem"
-    class="TodoList-addItem btn"
-    data-ng-click="listCtrl.showAddItemForm()"
-    aria-controls="{{ listCtrl.list.name }}-listActions"
-    aria-disabled="{{ listCtrl.addItemVisible }}"
-    aria-label="Add an item"
-    >
-      <span aria-hidden="true" class="glyphicon glyphicon-plus"></span>
-    </button>
+    
   </div>
   
   
@@ -76,17 +105,18 @@
   
   <!-- list items -->
   <ul  
-  class="TodoList-listOfItems"
+  class="TodoList-listOfItems list-group is-hidden-below-md"
   >
     <li 
-    class="TodoList-addItemFormWrapper TodoList-itemWrapper"
-    data-ng-show="listCtrl.addItemVisible"
+    class="TodoList-addItemFormWrapper TodoList-itemWrapper list-group-item"
+    data-ng-if="listCtrl.addItemVisible"
     >
       <item-form list="list" toggle-visibility="listCtrl.showAddItemForm()"></item-form>
     </li>
     <li 
-    class="TodoList-itemWrapper"
+    class="TodoList-itemWrapper  list-group-item"
     data-ng-repeat="item in listCtrl.items"
+    data-ng-if="listCtrl.items.length"
     >
       <todo-item item="item"></todo-item>
     </li>
@@ -98,7 +128,10 @@
   data-ng-show="!listCtrl.listActionsHidden"
   ></div>
   
-  <!-- list actions view -->
+  
+  
+  
+  <!-- LIST ACTIONS VIEW -->
   <!-- <div 
   class="TodoList-listActionsWrapper"
   data-ng-class="{ hidden: listCtrl.listActionsHidden }"
