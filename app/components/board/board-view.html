@@ -1,11 +1,10 @@
 <!-- TODO: figure out styling needed for mobile like list, desktop view with horizontal scroll -->
-
+<background-screen></background-screen>
 <section 
 class="Board" 
 data-ng-init="boardCtrl.initialize()"
 data-ng-class="{ 'current-list-exists': boardCtrl.shouldHideSomeLists() }"
 >
-  
   <todo-navbar toggle-visibility="boardCtrl.toggleListFormVisibility()"></todo-navbar>
   
   <div class="container-fluid">

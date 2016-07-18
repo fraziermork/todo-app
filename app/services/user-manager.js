@@ -52,14 +52,14 @@
         
         // If they aren't logged in but aren't on the login page
         if (!cookie && $location.path() !== '/login') {
-          if (__DEVONLY__) $log.debug('rerouteCheck REROUTING to /login');
+          if (__DEVONLY__) $log.warn('rerouteCheck REROUTING to /login');
           userManager.logout();
         }
         
         // If they are logged in, but on the login page 
         // Is this a good idea? It makes the back button a little harder to use
         else if (cookie && $location.path() === '/login') {
-          if (__DEVONLY__) $log.debug('rerouteCheck REROUTING to /board');
+          if (__DEVONLY__) $log.warn('rerouteCheck REROUTING to /board');
           $location.path('/board');
           $route.reload();
         }
@@ -109,14 +109,14 @@
         if (!userManager.user) {
           let storedUser = angular.fromJson($window.sessionStorage.getItem('todo-user'));
           if (storedUser) {
-            if (__DEVONLY__) $log.debug('fetchUserAndListDataFromStorageIfNecessary: User loaded from sessionStorage');
+            if (__DEVONLY__) $log.log('fetchUserAndListDataFromStorageIfNecessary: User loaded from sessionStorage');
             userManager.user = storedUser;
           }
         }
         if (!listManager.lists.length) {
           let storedLists = angular.fromJson($window.sessionStorage.getItem('todo-user-lists'));
           if (storedLists) {
-            if (__DEVONLY__) $log.debug('fetchUserAndListDataFromStorageIfNecessary: Lists loaded from sessionStorage');
+            if (__DEVONLY__) $log.log('fetchUserAndListDataFromStorageIfNecessary: Lists loaded from sessionStorage');
             listManager.lists = storedLists;
           }
         }

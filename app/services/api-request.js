@@ -34,11 +34,11 @@ const defaults = require('lodash.defaults');
       return new Promise((resolve, reject) => {
         $http(options)
           .then((res) => {
-            if (__DEVONLY__) $log.debug('SUCCESS in apiRequest:', res); 
+            if (__DEVONLY__) $log.info('SUCCESS in apiRequest:', res); 
             return resolve(res.data);
           })
           .catch((errRes) => {
-            if (__DEVONLY__) $log.debug('ERROR in apiRequest:', errRes);
+            if (__DEVONLY__) $log.error('ERROR in apiRequest:', errRes);
             return reject(errRes.data);
           });
       });

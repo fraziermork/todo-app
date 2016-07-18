@@ -3,6 +3,7 @@ require('!!file?name=[name].[ext]!./main/index.html');
 
 require('./services');
 
+require('./components/background-screen');
 require('./components/entry');
 require('./components/navbar');
 require('./components/item-form');

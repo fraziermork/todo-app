@@ -1,5 +1,5 @@
 (function() {
-  angular.module('todo-item-form', []);
+  angular.module('todo-item-form', ['todo-services']);
 })();
 
 require('./item-form-controller.js');

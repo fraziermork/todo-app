@@ -1,11 +1,16 @@
-$nebula: #CEDAD8;
-$greyA: #aaa;
-$greyC: #ccc;
-$grey8: #888;
-$lightGreyShadow: rgba(0,0,0, .1);
-
-$bootstrap-md: 992px;
-$bootstrap-md-min: $bootstrap-md;
-$bootstrap-md-max: $bootstrap-md - 1;
-
-$input-bottom-margin: 1em;
+$nebula:                #CEDAD8;
+$greyA:                 #aaa;
+$greyC:                 #ccc;
+$greyD:                 #ddd;
+$grey8:                 #888;
+$lightGreyShadow:       rgba(0,0,0, .1);
+$formBackground:        white;
+$backgroundScreenColor: rgba(0, 0, 0, .25);
+$bootstrap-md:          992px;
+$bootstrap-md-min:      $bootstrap-md;
+$bootstrap-md-max:      $bootstrap-md - 1;
+$input-bottom-margin:   1em;
+$borderRadius:          4px;
+$borderWidth:           1px;
+$padding:               10px 15px;
+$border:                $borderWidth solid $greyD;

@@ -36,7 +36,7 @@
     function createItem() {
       if (__DEVONLY__) $log.debug('ItemFormController createItem');
       if (vm.pending) {
-        if (__DEVONLY__) $log.debug('createItem pending, exiting ');
+        if (__DEVONLY__) $log.warn('createItem pending, exiting ');
         return;
       }
       let infoAboutItemToPost = vm.newItem;
@@ -44,7 +44,6 @@
       
       itemManager.postNewItem(infoAboutItemToPost, vm.list)
         .then((item) => {
-          if (__DEVONLY__) $log.debug('createItem: SUCCESS');
           vm.resetForm();
           $scope.$apply();
         })

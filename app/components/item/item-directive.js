@@ -2,7 +2,7 @@
 
 (function() {
   angular.module('todo-item')
-  .directive('todoItem', todoItem);
+    .directive('todoItem', todoItem);
   
   function todoItem() {
     return {

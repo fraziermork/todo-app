@@ -35,11 +35,11 @@
       vm.toggleVisibility();
       listManager.postNewList(infoAboutListToPost)
         .then((list) => {
-          if (__DEVONLY__) $log.debug(`SUCCESS in ListFormController createList for ${list.name}`);
+          if (__DEVONLY__) $log.log(`SUCCESS in ListFormController createList for ${list.name}`);
           $scope.$apply();
         })
         .catch((err) => {
-          if (__DEVONLY__) $log.debug('ERROR in ListFormController createList', err);
+          if (__DEVONLY__) $log.error('ERROR in ListFormController createList', err);
           vm.error = `There was an error saving the list ${vm.newList.name} to the server.`;
         });
     }

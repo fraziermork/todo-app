@@ -29,7 +29,7 @@ const assign = require('lodash.assign');
         if (__DEVONLY__) $log.debug('listManager getItemsInList');
         return apiRequest('get', `lists/${originalListObj._id}/items`)
           .then((items) => {
-            if (__DEVONLY__) $log.debug(`SUCCESS in listManager getItemsInList for ${originalListObj.name}`);
+            if (__DEVONLY__) $log.log(`SUCCESS in listManager getItemsInList for ${originalListObj.name}`);
             if (__DEVONLY__) $log.log(items);
             originalListObj.items = items;
             return originalListObj;
@@ -58,8 +58,9 @@ const assign = require('lodash.assign');
         return apiRequest('post', 'lists', { data: listInfo })
           .then((list) => {
             assign(listInfo, list);
-            if (__DEVONLY__) $log.debug(`postNewList: SUCCESSS  for ${listInfo.name}`, listInfo);
-            // Update lists in cookie and return listInfo into next .then in chain 
+            if (__DEVONLY__) $log.log(`postNewList: SUCCESS  for ${listInfo.name}`, listInfo);
+            
+            // Update lists in storage and return listInfo into next .then in chain 
             // It doesnt matter that this list has items in it and the ones from login dont--lists always grab all their items on init anyway
             $window.sessionStorage.setItem('todo-user-lists', angular.toJson(listManager.lists));
             listManager.currentList = listInfo._id;
@@ -117,12 +118,10 @@ const assign = require('lodash.assign');
         let sourceList = listManager.lists.filter((list) => {
           return list._id === sourceListId;
         })[0];
-        if (__DEVONLY__) $log.debug(`moveItemFromListToList for ${item.name}, source list: `, sourceList);
         let destinationList = listManager.lists.filter((list) => {
           return list._id === destinationListId;
         })[0];
-        if (__DEVONLY__) $log.debug(`moveItemFromListToList for ${item.name}, destination list: `, destinationList);
-        
+        if (__DEVONLY__) $log.log(`moveItemFromListToList for ${item.name}, source list: ${sourceList.name}, destination list: ${destinationList.name}`);
         
         // Move the item from one list to the other 
         sourceList.items = sourceList.items.filter((itemInSourceList) => {

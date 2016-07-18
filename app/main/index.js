@@ -5,6 +5,7 @@
     'ngRoute',
     'ngCookies',
     'todo-services', 
+    'background-screen',
     'todo-entry', 
     'todo-navbar', 
     'todo-item-form',

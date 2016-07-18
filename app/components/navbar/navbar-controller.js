@@ -15,6 +15,9 @@
     vm.toggleVisibility = $scope.toggleVisibility;
     vm.logout           = userManager.logout;
     vm.goBackToAllLists = goBackToAllLists;
+    vm.showNewListForm  = showNewListForm;
+    
+    
     
     
     
@@ -22,6 +25,16 @@
       if (__DEVONLY__) $log.debug('NavbarController goBackToAllLists');
       listManager.currentList = null;
     }
+    
+    
+    
+    
+    function showNewListForm() {
+      if (__DEVONLY__) $log.debug('NavbarController showNewListForm');
+      vm.goBackToAllLists();
+      vm.toggleVisibility();
+    }
+    
     
   }
   

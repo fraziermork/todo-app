@@ -109,7 +109,6 @@
       // TODO: move this logic to userManager service
       apiRequest('get', 'login', requestOptions)
         .then((user) => {
-          if (__DEVONLY__) $log.debug('login: SUCCESS');
           userManager.handleLogin(user);
         })
         .catch((err) => {
@@ -146,7 +145,6 @@
       // TODO: move this logic to userManager service
       apiRequest('post', 'new-account', requestOptions)
         .then((user) => {
-          if (__DEVONLY__) $log.debug('EntryController createAccount SUCCESS');
           userManager.handleLogin(user);
         })
         .catch((err) => {

@@ -52,7 +52,7 @@ const assign = require('lodash.assign');
       
       listManager.getItemsInList(vm.list)
         .then((items) => {
-          if (__DEVONLY__) $log.debug(`ListController initialize: SUCCESS for ${vm.list.name}`);
+          if (__DEVONLY__) $log.log(`ListController initialize: SUCCESS for ${vm.list.name}`);
         })
         .catch((err) => {
           if (__DEVONLY__) $log.error('ListController initialize: ', err);
@@ -90,7 +90,7 @@ const assign = require('lodash.assign');
       if (__DEVONLY__) $log.debug('ListController showListActions');
       // Only both with setting editedList if they are interested in editing it 
       if (vm.listActionsHidden) {
-        if (__DEVONLY__) $log.debug('showListActions: initializing editedList');
+        if (__DEVONLY__) $log.log('showListActions: initializing editedList');
         assign(vm.editedList, vm.list);
       }
       vm.listActionsHidden = !vm.listActionsHidden;

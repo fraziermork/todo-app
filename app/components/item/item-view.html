@@ -4,7 +4,6 @@
   <div 
   class="TodoItem-collapsedView"
   aria-controls="{{ itemCtrl.item.name }}-editItemForm"
-  data-ng-show="itemCtrl.itemActionsHidden"
   >
     <button 
     type="button" 
@@ -16,26 +15,19 @@
     >
       <span aria-hidden="true" class="glyphicon glyphicon-pencil"></span>
     </button>
-    <h4
+    <h4 
     class="TodoItem-name"
     data-ng-bind="itemCtrl.item.name"
     ></h4>
-    <p
+    <p 
     class="TodoItem-content"
     data-ng-bind="itemCtrl.item.content"
     ></p>
   </div>
   
-  
-  <!-- background screen -->
-  <div 
-  class="TodoItem-itemActionsBackgroundScreen bg-screen"
-  data-ng-hide="itemCtrl.itemActionsHidden"
-  ></div>
-  
   <!-- form -->
   <div 
-  class="TodoItem-itemActions"
+  class="TodoItem-itemActions over-background-screen"
   data-ng-hide="itemCtrl.itemActionsHidden"
   >
     <button 
@@ -91,7 +83,7 @@
         name="TodoItem-selectList"
         data-ng-model="itemCtrl.itemEdits.list"
         >
-          <option
+          <option 
           value="{{ list._id }}"
           data-ng-bind="list.name"
           data-ng-repeat="list in itemCtrl.listManager.lists track by list._id"
