@@ -32,6 +32,17 @@ const assign = require('lodash.assign');
             assign(itemInfo, item);
             return itemInfo;
           });
+      },
+      
+      updateItem(itemUpdateInfo, item) {
+        if (__DEVONLY__) $log.debug('itemManager updateItem');
+        return apiRequest('put', `lists/${item.list}/items/${item._id}`, { data: itemUpdateInfo })
+          .then((updatedItem) => {
+            if (__DEVONLY__) $log.debug('itemManager updateItem then block, updatedItem: ', updatedItem);
+            if (itemUpdateInfo.list !== item.list) listManager.moveItemFromListToList(item, item.list, itemUpdateInfo.list);            
+            assign(item, updatedItem);
+            return item;
+          });
       }
       
       

@@ -70,6 +70,8 @@
       vm.addListVisible = !vm.addListVisible;
     }
     
+    
+    
   }
 
 })();

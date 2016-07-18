@@ -14,7 +14,7 @@
     aria-controls="TodoItem-itemActions"
     aria-label="Show item actions"
     >
-      <span aria-hidden="true" class="glyphicon glyphicon-cog"></span>
+      <span aria-hidden="true" class="glyphicon glyphicon-pencil"></span>
     </button>
     <h4
     class="TodoItem-name"
@@ -44,6 +44,7 @@
     class="TodoItem-closeEditItemForm close"
     aria-label="Close"
     data-ng-click="itemCtrl.toggleItemActionsVisibility()"
+    aria-controls="{{ itemCtrl.item.name }}-editItemForm"
     >
       <span aria-hidden="true">&times;</span>
     </button>  
@@ -51,14 +52,14 @@
     <form 
     id="{{ itemCtrl.item.name }}-editItemForm"
     name="editItemForm"
-    class="TodoItem-editItemForm"
+    class="TodoItem-editItemForm todoForm"
     action="javascript:void(0);"
     aria-hidden="{{ itemCtrl.itemActionsHidden }}"
     novalidate
     >
-      <h4 class="TodoItem-name">Edit item:</h4>
+      <h4 class="TodoItem-name todoForm-header">Edit item:</h4>
       <div class="form-group">
-        <label for="{{ itemCtrl.item.name }}-nameInput" class="">Name</label>
+        <label for="{{ itemCtrl.item.name }}-nameInput" class="todoForm-label">Name</label>
         <input 
         id="{{ itemCtrl.item.name }}-nameInput"
         type="text" 
@@ -71,7 +72,7 @@
       </div>
       
       <div class="form-group">
-        <label for="{{ itemCtrl.item.content }}-contentInput" class="">Content</label>
+        <label for="{{ itemCtrl.item.content }}-contentInput" class="todoForm-label">Content</label>
         <input 
         id="{{ itemCtrl.item.content }}-contentInput"
         type="text" 
@@ -83,14 +84,19 @@
       </div>
       
       <div class="form-group">
-        <label for="{{ itemCtrl.item.name }}-selectList" class="">Move to another list</label>
+        <label for="{{ itemCtrl.item.name }}-selectList" class="todoForm-label">Move to another list</label>
         <select 
         id="{{ itemCtrl.item.name }}-selectList"
         class="TodoItem-selectList form-control" 
         name="TodoItem-selectList"
         data-ng-model="itemCtrl.itemEdits.list"
-        data-ng-options="list as list.name for list in itemCtrl.listManager.lists track by list._id"
-        ></select>
+        >
+          <option
+          value="{{ list._id }}"
+          data-ng-bind="list.name"
+          data-ng-repeat="list in itemCtrl.listManager.lists track by list._id"
+          ></option>
+        </select>
       </div>
       
       <button 

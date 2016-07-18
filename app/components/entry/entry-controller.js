@@ -4,16 +4,16 @@
 
 (function() {
   angular.module('todo-entry')
-  .controller('EntryController', [
-    '$log', 
-    '$window', 
-    '$location', 
-    '$route', 
-    'apiRequest', 
-    'userManager', 
-    'listManager', 
-    EntryController
-  ]);
+    .controller('EntryController', [
+      '$log', 
+      '$window', 
+      '$location', 
+      '$route', 
+      'apiRequest', 
+      'userManager', 
+      'listManager', 
+      EntryController
+    ]);
   
   function EntryController($log, $window, $location, $route, apiRequest, userManager, listManager) {
     const vm                    = this;

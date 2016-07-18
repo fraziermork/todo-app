@@ -56,8 +56,8 @@
     function hideFormAndClearInputs() {
       if (__DEVONLY__) $log.debug('ListFormController hideFormAndClearInputs');
       if (!vm.pending) {
-        vm.visible = false;
         vm.resetForm();
+        vm.toggleVisibility();
       }
     }
     

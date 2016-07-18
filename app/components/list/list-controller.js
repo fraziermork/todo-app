@@ -18,14 +18,18 @@ const assign = require('lodash.assign');
     const vm                             = this;
     vm.error                             = null;
     vm.list                              = $scope.list;
+    
     // Properties for editListName
     vm.nameEditable                      = false;
     vm.editedName                        = vm.list.name;
+    
     // Properties for listActions
     vm.listActionsHidden                 = false;
     vm.editedList                        = {};
+    
     // Properties for addItemForm
     vm.addItemVisible                    = false;
+    
     // Attach methods
     vm.initialize                        = initialize;
     vm.toggleNameEditable                = toggleNameEditable;

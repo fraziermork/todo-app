@@ -1,27 +1,29 @@
 <section class="ItemForm-wrapper clearfix">
   <!-- close button -->
   
+  <button 
+  type="button" 
+  name="ItemForm-closeButton"
+  class="ItemForm-closeButton close"
+  data-ng-click="itemFormCtrl.hideFormAndClearInputs()"
+  aria-label="Close"
+  aria-controls="{{ itemFormCtrl.list.name }}ItemForm-form"
+  >
+    <span aria-hidden="true">&times;</span>
+  </button>
+  
   <form 
-  id="ItemForm-form"
+  id="{{ itemFormCtrl.list.name }}ItemForm-form"
   name="itemForm"
-  class="ItemForm-form" 
+  class="ItemForm-form todoForm" 
   action="javascript:void(0);" 
   novalidate
   >
+    <h4 class="ItemForm-name todoForm-header">New item:</h4>
     <div class="form-group">
-      <button 
-      type="button" 
-      name="ItemForm-closeButton"
-      class="ItemForm-closeButton close"
-      data-ng-click="itemFormCtrl.hideFormAndClearInputs()"
-      aria-label="Close"
-      >
-        <span aria-hidden="true">&times;</span>
-      </button>
-    </div>
-      
-    <div class="form-group">
+      <label for="{{ itemFormCtrl.list.name }}ItemForm-name" class="ItemForm-label todoForm-label">Name</label>
       <input 
+      id="{{ itemFormCtrl.list.name }}ItemForm-name"
       required
       autofocus
       type="text" 
@@ -34,7 +36,9 @@
     </div>  
       
     <div class="form-group">  
+      <label for="{{ itemFormCtrl.list.name }}ItemForm-content" class="ItemForm-label todoForm-label">Content</label>
       <input 
+      id="{{ itemFormCtrl.list.name }}ItemForm-content"
       type="text" 
       name="content" 
       class="ItemForm-input form-control"

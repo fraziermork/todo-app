@@ -103,24 +103,39 @@ const assign = require('lodash.assign');
       
       
       
-      /**      
+      /** 
        * moveItemFromListToList - description      
        *        
-       * @param  {type} item            description       
-       * @param  {type} sourceList      description       
-       * @param  {type} destinationList description       
-       * @return {type}                 description       
+       * @param  {object} item              description       
+       * @param  {object} sourceListId      description       
+       * @param  {object} destinationListId description             
        */       
-      moveItemFromListToList(item, sourceList, destinationList) {
-        if (__DEVONLY__) $log.debug('listManager moveItemFromListToList');
+      moveItemFromListToList(item, sourceListId, destinationListId) {
+        if (__DEVONLY__) $log.debug(`listManager moveItemFromListToList for ${item.name}`);
+        
+        // Find the source and destination lists
+        let sourceList = listManager.lists.filter((list) => {
+          return list._id === sourceListId;
+        })[0];
+        if (__DEVONLY__) $log.debug(`moveItemFromListToList for ${item.name}, source list: `, sourceList);
+        let destinationList = listManager.lists.filter((list) => {
+          return list._id === destinationListId;
+        })[0];
+        if (__DEVONLY__) $log.debug(`moveItemFromListToList for ${item.name}, destination list: `, destinationList);
         
         
+        // Move the item from one list to the other 
+        sourceList.items = sourceList.items.filter((itemInSourceList) => {
+          return itemInSourceList._id !== item._id;
+        });
+        destinationList.items.push(item);
       }, 
       
       
       
       /**      
-       * changeItemIndexInList - description      
+       * changeItemIndexInList - this helper function is designed to post the result of changes to item ordering in a list to the database
+       *                       - TODO: this wont work until item indices are supported      
        *        
        * @param  {object} list     description       
        * @param  {object} item     description       

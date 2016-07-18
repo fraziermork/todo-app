@@ -1,29 +1,33 @@
 <!-- TODO: make this prettier -->
 
 <section class="ListForm clearfix">
+  <button 
+  class="ListForm-closeButton close"
+  type="button"
+  name="ListForm-closeButton"
+  aria-label="Close"
+  data-ng-click="listFormCtrl.hideFormAndClearInputs()"
+  arai-controls="ListForm-form"
+  >
+    <span aria-hidden="true">&times;</span>
+  </button>
+  
+  
   <form
   id="ListForm-form" 
   novalidate
-  class="ListForm-form "
+  class="ListForm-form todoForm"
   name="listForm"
   aria-hidden="{{ !listFormCtrl.visible }}"
   action="javascript:void(0);"
   >
-    <button 
-    class="ListForm-closeButton close"
-    type="button"
-    name="ListForm-closeButton"
-    aria-label="Close"
-    data-ng-click="listFormCtrl.hideFormAndClearInputs()"
-    >
-      <span aria-hidden="true">&times;</span>
-    </button>
     
+    <h4 class="todoForm">New list:</h4>
     
     <div class="form-group">
       <label 
       for="ListForm-name" 
-      class="ListForm-formLabel"
+      class="ListForm-formLabel todoForm-label"
       >List name</label>
       
       <input 
@@ -42,7 +46,7 @@
     <div class="form-group">
       <label 
       for="ListForm-description" 
-      class="ListForm-formLabel"
+      class="ListForm-formLabel todoForm-label"
       >Description</label>
       
       <input 
