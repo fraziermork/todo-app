@@ -9,7 +9,7 @@
     type="button" 
     name="TodoItem-showItemActions"
     class="TodoItem-showItemActions TodoItem-button btn btn-default"
-    data-ng-click="itemCtrl.toggleItemActionsVisibility()"
+    data-ng-click="itemCtrl.showEditItemForm()"
     aria-controls="TodoItem-itemActions"
     aria-label="Show item actions"
     >
@@ -23,82 +23,6 @@
     class="TodoItem-content"
     data-ng-bind="itemCtrl.item.content"
     ></p>
-  </div>
-  
-  <!-- form -->
-  <div 
-  class="TodoItem-itemActions over-background-screen"
-  data-ng-hide="itemCtrl.itemActionsHidden"
-  >
-    <button 
-    type="reset" 
-    name="closeItemActions"
-    class="TodoItem-closeEditItemForm close"
-    aria-label="Close"
-    data-ng-click="itemCtrl.toggleItemActionsVisibility()"
-    aria-controls="{{ itemCtrl.item.name }}-editItemForm"
-    >
-      <span aria-hidden="true">&times;</span>
-    </button>  
-    
-    <form 
-    id="{{ itemCtrl.item.name }}-editItemForm"
-    name="editItemForm"
-    class="TodoItem-editItemForm todoForm"
-    action="javascript:void(0);"
-    aria-hidden="{{ itemCtrl.itemActionsHidden }}"
-    novalidate
-    >
-      <h4 class="TodoItem-name todoForm-header">Edit item:</h4>
-      <div class="form-group">
-        <label for="{{ itemCtrl.item.name }}-nameInput" class="todoForm-label">Name</label>
-        <input 
-        id="{{ itemCtrl.item.name }}-nameInput"
-        type="text" 
-        name="name" 
-        class="TodoItem-input form-control"
-        placeholder="{{ itemCtrl.item.name }}"
-        data-ng-model="itemCtrl.itemEdits.name"
-        required
-        >
-      </div>
-      
-      <div class="form-group">
-        <label for="{{ itemCtrl.item.content }}-contentInput" class="todoForm-label">Content</label>
-        <input 
-        id="{{ itemCtrl.item.content }}-contentInput"
-        type="text" 
-        name="content" 
-        class="TodoItem-input form-control"
-        placeholder="{{ itemCtrl.item.content }}"
-        data-ng-model="itemCtrl.itemEdits.content"
-        >
-      </div>
-      
-      <div class="form-group">
-        <label for="{{ itemCtrl.item.name }}-selectList" class="todoForm-label">Move to another list</label>
-        <select 
-        id="{{ itemCtrl.item.name }}-selectList"
-        class="TodoItem-selectList form-control" 
-        name="TodoItem-selectList"
-        data-ng-model="itemCtrl.itemEdits.list"
-        >
-          <option 
-          value="{{ list._id }}"
-          data-ng-bind="list.name"
-          data-ng-repeat="list in itemCtrl.listManager.lists track by list._id"
-          ></option>
-        </select>
-      </div>
-      
-      <button 
-      type="submit" 
-      name="submitItemEdits"
-      class="TodoItem-submitItemEdits TodoItem-button btn btn-primary"
-      data-ng-click="editItemForm.$valid && itemCtrl.saveChangesToItem()"
-      >Save changes</button>
-    </form>
-      
   </div>
   
 </article>

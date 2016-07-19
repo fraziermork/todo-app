@@ -1,16 +1,18 @@
-/* global __COOKIE_NAME__ __DEVONLY__ */
+/* global __DEVONLY__ */
 
 (function() {
   angular.module('todo-app', [
     'ngRoute',
     'ngCookies',
     'todo-services', 
-    'background-screen',
+    'todo-background-screen',
     'todo-entry', 
     'todo-navbar', 
-    'todo-item-form',
+    'todo-edit-item-form',
+    'todo-new-item-form',
     'todo-item',
-    'todo-list-form', 
+    // 'todo-edit-list-form', 
+    'todo-new-list-form', 
     'todo-list', 
     'todo-board',
   ])

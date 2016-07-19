@@ -1,17 +1,17 @@
 /* global __DEVONLY__ */
 
 (function() {
-  angular.module('background-screen')
+  angular.module('todo-background-screen')
     .controller('BackgroundScreenController', [
       '$log', 
       '$scope',
-      'backgroundScreenManager',
+      'backgroundScreenVis',
       BackgroundScreenController
     ]);
   
-  function BackgroundScreenController($log, $scope, backgroundScreenManager) {
+  function BackgroundScreenController($log, $scope, backgroundScreenVis) {
     const vm                          = this;
-    vm.backgroundScreenManager        = backgroundScreenManager;
+    vm.backgroundScreenVis        = backgroundScreenVis;
     vm.initialize                     = initialize;
     vm.handleBackgroundScreenClick    = handleBackgroundScreenClick;
     vm.checkIfBackgroundScreenVisible = checkIfBackgroundScreenVisible;
@@ -22,14 +22,14 @@
     }
     
     function checkIfBackgroundScreenVisible() {
-      if (__DEVONLY__) $log.debug(`BackgroundScreenController checkIfBackgroundScreenVisible, visible: ${vm.backgroundScreenManager.visible}`);
-      return vm.backgroundScreenManager.visible;  
+      if (__DEVONLY__) $log.debug(`BackgroundScreenController checkIfBackgroundScreenVisible, visible: ${vm.backgroundScreenVis.visible}`);
+      return vm.backgroundScreenVis.visible;  
     }
     
     function handleBackgroundScreenClick() {
       if (__DEVONLY__) $log.debug('BackgroundScreenController handleBackgroundScreenClick');
-      vm.backgroundScreenManager.callbackToRunOnClick();
-      vm.backgroundScreenManager.hideBackgroundScreen();
+      vm.backgroundScreenVis.callbackToRunOnClick();
+      vm.backgroundScreenVis.hideBackgroundScreen();
     }
     
     

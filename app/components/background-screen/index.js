@@ -1,5 +1,5 @@
 (function() {
-  angular.module('background-screen', ['todo-services']);
+  angular.module('todo-background-screen', ['todo-services']);
 })();
 
 require('./background-screen-controller.js');

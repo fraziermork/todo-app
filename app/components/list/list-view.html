@@ -13,8 +13,7 @@
     data-ng-hide="listCtrl.nameEditable"
     data-ng-bind="listCtrl.list.name"
     ></h2>
-    
-    
+
     <!-- LIST NAME EDIT FORM, SHOULD OPEN ON CLICK OF NAME ON LIST ONLY VIEW -->
     <form 
     id="{{ listCtrl.list.name }}-editListName"
@@ -90,19 +89,9 @@
     >
       <span aria-hidden="true" class="glyphicon glyphicon-cog"></span>
     </button>
-    
-
-    
   </div>
   
-  
-  
-  
-  
-  
-  
-  
-  
+
   <!-- list items -->
   <ul  
   class="TodoList-listOfItems list-group is-hidden-below-md"
@@ -111,14 +100,14 @@
     class="TodoList-addItemFormWrapper TodoList-itemWrapper list-group-item"
     data-ng-if="listCtrl.addItemVisible"
     >
-      <item-form list="list" toggle-visibility="listCtrl.showAddItemForm()"></item-form>
+      <new-item-form list="list" toggle-visibility="listCtrl.showAddItemForm()"></new-item-form>
     </li>
     <li 
     class="TodoList-itemWrapper  list-group-item"
     data-ng-repeat="item in listCtrl.list.items"
     data-ng-if="listCtrl.list.items.length"
     >
-      <todo-item item="item"></todo-item>
+      <todo-item item="item" list="list"></todo-item>
     </li>
   </ul>
   

@@ -6,7 +6,7 @@ data-ng-init="boardCtrl.initialize()"
 data-ng-class="{ 'current-list-exists': boardCtrl.shouldHideSomeLists() }"
 >
   <todo-navbar toggle-visibility="boardCtrl.toggleListFormVisibility()"></todo-navbar>
-  
+  <edit-item-form></edit-item-form>
   <div class="container-fluid">
     <ul class="Board-contentList list-group">
       
@@ -16,7 +16,7 @@ data-ng-class="{ 'current-list-exists': boardCtrl.shouldHideSomeLists() }"
       class="Board-listFormWrapper Board-contentWrapper list-group-item is-hidden-while-current-list-exists"
       data-ng-if="boardCtrl.addListVisible"
       > 
-        <list-form toggle-visibility="boardCtrl.toggleListFormVisibility()"></list-form>
+        <new-list-form toggle-visibility="boardCtrl.toggleListFormVisibility()"></new-list-form>
       </li>
       
       

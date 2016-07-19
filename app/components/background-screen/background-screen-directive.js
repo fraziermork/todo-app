@@ -1,7 +1,7 @@
 /* global template */
 
 (function() {
-  angular.module('background-screen')
+  angular.module('todo-background-screen')
     .directive('backgroundScreen', backgroundScreen);
   
   function backgroundScreen() {

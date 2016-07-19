@@ -12,6 +12,7 @@
       template:     template, 
       scope:        {
         item: '=',
+        list: '=',
       },
     };
   }

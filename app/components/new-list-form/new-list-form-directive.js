@@ -1,14 +1,14 @@
 /* global template */
 
 (function() {
-  angular.module('todo-list-form')
-    .directive('listForm', listForm);
+  angular.module('todo-new-list-form')
+    .directive('newListForm', newListForm);
   
-  function listForm() {
+  function newListForm() {
     return {
       restrict:     'E', 
-      controller:   'ListFormController', 
-      controllerAs: 'listFormCtrl',
+      controller:   'NewListFormController', 
+      controllerAs: 'newListCtrl',
       template:     template,
       scope:        {
         toggleVisibility: '&',

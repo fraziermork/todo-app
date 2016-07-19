@@ -1,14 +1,14 @@
 /* global template */
 
 (function() {
-  angular.module('todo-item-form')
-    .directive('itemForm', itemForm);
+  angular.module('todo-new-item-form')
+    .directive('newItemForm', newItemForm);
   
-  function itemForm() {
+  function newItemForm() {
     return {
       restrict:     'E', 
-      controller:   'ItemFormController', 
-      controllerAs: 'itemFormCtrl',
+      controller:   'NewItemFormController', 
+      controllerAs: 'newItemCtrl',
       template:     template, 
       scope:        {
         list:             '=',

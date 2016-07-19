@@ -2,16 +2,16 @@
 // TODO: write validators for name length 
 
 (function() {
-  angular.module('todo-item-form')
-    .controller('ItemFormController', [
+  angular.module('todo-new-item-form')
+    .controller('NewItemFormController', [
       '$log', 
       '$scope',
       'listManager',
       'itemManager', 
-      ItemFormController
+      NewItemFormController
     ]);
     
-  function ItemFormController($log, $scope, listManager, itemManager) {
+  function NewItemFormController($log, $scope, listManager, itemManager) {
     const vm               = this;
     vm.error               = null;
     vm.pending             = false;
@@ -34,7 +34,7 @@
      *        
      */     
     function createItem() {
-      if (__DEVONLY__) $log.debug('ItemFormController createItem');
+      if (__DEVONLY__) $log.debug('NewItemFormController createItem');
       if (vm.pending) {
         if (__DEVONLY__) $log.warn('createItem pending, exiting ');
         return;
@@ -60,7 +60,7 @@
      *       
      */     
     function resetForm() {
-      if (__DEVONLY__) $log.debug('ItemFormController resetForm');
+      if (__DEVONLY__) $log.debug('NewItemFormController resetForm');
       vm.newItem = {
         name:    null,
         content: null,
@@ -75,7 +75,7 @@
      *      
      */     
     function hideFormAndClearInputs() {
-      if (__DEVONLY__) $log.debug('ItemFormController hideFormAndClearInputs');
+      if (__DEVONLY__) $log.debug('NewItemFormController hideFormAndClearInputs');
       vm.resetForm();
       vm.toggleVisibility();
     }

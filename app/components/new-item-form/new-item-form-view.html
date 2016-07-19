@@ -1,0 +1,65 @@
+<section class="NewItemForm-wrapper clearfix">
+  <!-- close button -->
+  
+  <button 
+  type="button" 
+  name="NewItemForm-closeButton"
+  class="NewItemForm-closeButton close"
+  data-ng-click="newItemCtrl.hideFormAndClearInputs()"
+  aria-label="Close"
+  aria-controls="{{ newItemCtrl.list.name }}NewItemForm-form"
+  >
+    <span aria-hidden="true">&times;</span>
+  </button>
+  
+  <form 
+  id="{{ newItemCtrl.list.name }}NewItemForm-form"
+  name="itemForm"
+  class="NewItemForm-form todoForm" 
+  action="javascript:void(0);" 
+  novalidate
+  >
+    <h4 class="NewItemForm-name todoForm-header">New item:</h4>
+    <div class="form-group">
+      <label for="{{ newItemCtrl.list.name }}NewItemForm-name" class="NewItemForm-label todoForm-label">Name</label>
+      <input 
+      id="{{ newItemCtrl.list.name }}NewItemForm-name"
+      required
+      autofocus
+      type="text" 
+      name="name" 
+      class="NewItemForm-input form-control"
+      placeholder="Item name"
+      data-ng-model="newItemCtrl.newItem.name"
+      aria-label="Item name"
+      >
+    </div>  
+      
+    <div class="form-group">  
+      <label for="{{ newItemCtrl.list.name }}NewItemForm-content" class="NewItemForm-label todoForm-label">Content</label>
+      <input 
+      id="{{ newItemCtrl.list.name }}NewItemForm-content"
+      type="text" 
+      name="content" 
+      class="NewItemForm-input form-control"
+      placeholder="Item content"
+      data-ng-model="newItemCtrl.newItem.content"
+      aria-label="Item content"
+      >
+    </div>
+      
+    <div class="form-group">  
+      <button 
+      type="submit" 
+      name="button"
+      class="btn btn-primary pull-right"
+      data-ng-click="itemForm.$valid && newItemCtrl.createItem()"
+      >Add item</button>  
+    </div>
+    
+  </form>
+  
+  
+  
+  
+</section>
