@@ -1,10 +1,11 @@
 @import '../style/base';
 @import '../style/theme';
 
-
+html, body, main {
+  height: 100%;
+}
 
 html {
   position:  relative;
   min-width: 320px;
-  height:    100%;
 }

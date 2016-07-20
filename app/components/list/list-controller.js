@@ -53,6 +53,7 @@ const assign = require('lodash.assign');
       listManager.getItemsInList(vm.list)
         .then((items) => {
           if (__DEVONLY__) $log.log(`ListController initialize: SUCCESS for ${vm.list.name}`);
+          if (vm.list.items.length === 0) vm.addItemVisible = true;
         })
         .catch((err) => {
           if (__DEVONLY__) $log.error('ListController initialize: ', err);

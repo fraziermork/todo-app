@@ -7,7 +7,7 @@
   name="NewListForm-closeButton"
   aria-label="Close"
   data-ng-click="newListCtrl.hideFormAndClearInputs()"
-  arai-controls="NewListForm-form"
+  aria-controls="NewListForm-form"
   >
     <span aria-hidden="true">&times;</span>
   </button>
@@ -15,11 +15,12 @@
   
   <form
   id="NewListForm-form" 
-  novalidate
   class="NewListForm-form todoForm"
   name="listForm"
   aria-hidden="{{ !newListCtrl.visible }}"
   action="javascript:void(0);"
+  novalidate
+  autocomplete="off"
   >
     
     <h4 class="todoForm">New list:</h4>

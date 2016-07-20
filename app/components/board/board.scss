@@ -1,7 +1,6 @@
 @import '../../style/theme';
 
 
-
 .is-hidden-below-md {
   display: none;
   @media screen and (min-width: $bootstrap-md-min) {
@@ -36,16 +35,47 @@
     
     .is-hidden-below-md {
       // buttons goofy unless this set to unset, doesnt work for inherit
-      display: unset;
-      
-    }
-    
+      display: unset;  
+    }    
   }
-  
-  
-  
+}
+
+.Board {
+  height: 100%;
+}
+
+.Board-contentListWrapper {
+  position: relative;
+  height: calc(100% - 75px);
+}
+
+.Board-contentList {
+  position: relative;
+  height: 100%;
+  @media screen and (min-width: $bootstrap-md-min) {
+    position:    absolute;
+    top:         0;
+    left:        0;
+    right:       0;
+    bottom:      0;
+    white-space: nowrap;
+    overflow-x:  auto;
+    overflow-y:  hidden;
+  }
 }
 
 .Board-contentWrapper {
-  position: relative;
+  @media screen and (min-width: $bootstrap-md-min) {
+    display:        inline-block;
+    width:          400px;
+    height:         100%;
+    vertical-align: top; 
+    margin-left:    20px;
+    border-radius:  $borderRadius;
+    white-space:    nowrap;
+    
+    &:last-of-type {
+      margin-right: 20px;
+    }
+  }
 }
