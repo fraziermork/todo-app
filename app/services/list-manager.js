@@ -26,11 +26,11 @@ const assign = require('lodash.assign');
        * @return {promise}                  a promise that resolves with the items or rejects if there was an error in the request     
        */       
       getItemsInList(originalListObj) {
-        if (__DEVONLY__) $log.debug('listManager getItemsInList');
+        // if (__DEVONLY__) $log.debug('listManager getItemsInList');
         return apiRequest('get', `lists/${originalListObj._id}/items`)
           .then((items) => {
-            if (__DEVONLY__) $log.log(`SUCCESS in listManager getItemsInList for ${originalListObj.name}`);
-            if (__DEVONLY__) $log.log(items);
+            // if (__DEVONLY__) $log.log(`SUCCESS in listManager getItemsInList for ${originalListObj.name}`);
+            // if (__DEVONLY__) $log.log(items);
             originalListObj.items = items;
             return originalListObj;
           });
@@ -58,7 +58,7 @@ const assign = require('lodash.assign');
         return apiRequest('post', 'lists', { data: listInfo })
           .then((list) => {
             assign(listInfo, list);
-            if (__DEVONLY__) $log.log(`postNewList: SUCCESS  for ${listInfo.name}`, listInfo);
+            // if (__DEVONLY__) $log.log(`postNewList: SUCCESS  for ${listInfo.name}`, listInfo);
             
             // Update lists in storage and return listInfo into next .then in chain 
             // It doesnt matter that this list has items in it and the ones from login dont--lists always grab all their items on init anyway
@@ -73,16 +73,18 @@ const assign = require('lodash.assign');
       /**      
        * updateList - a helper method to update a list      
        *        
-       * @param  {object}   originalListObj the list object       
-       * @param  {object}   updates         an object describing the updates to make to the list       
+       * @param  {object}   list            the list object       
+       * @param  {object}   listUpdateInfo  an object describing the updates to make to the list       
        * @return {promise}                  a promise that resolves with the updated list object or rejects with a server error
        */       
-      updateList(originalListObj, updates) {
+      updateList(listUpdateInfo, list) {
         if (__DEVONLY__) $log.debug('listManager updateList');
-        return new Promise((resolve, reject) => {
-          
-          
-        });
+        return apiRequest('put', `lists/${list._id}`, { data: listUpdateInfo })
+          .then((updatedList) => {
+            if (__DEVONLY__) $log.debug('listManager updateList SUCCESS', updatedList);
+            assign(list, updatedList);
+            return list;
+          });
       },
       
       
@@ -121,7 +123,7 @@ const assign = require('lodash.assign');
         let destinationList = listManager.lists.filter((list) => {
           return list._id === destinationListId;
         })[0];
-        if (__DEVONLY__) $log.log(`moveItemFromListToList for ${item.name}, source list: ${sourceList.name}, destination list: ${destinationList.name}`);
+        // if (__DEVONLY__) $log.log(`moveItemFromListToList for ${item.name}, source list: ${sourceList.name}, destination list: ${destinationList.name}`);
         
         // Move the item from one list to the other 
         sourceList.items = sourceList.items.filter((itemInSourceList) => {

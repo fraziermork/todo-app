@@ -36,7 +36,7 @@ const assign = require('lodash.assign');
      *        
      */     
     function initialize() {
-      if (__DEVONLY__) $log.debug(`ItemController initialize for ${vm.item.name}`);
+      // if (__DEVONLY__) $log.debug(`ItemController initialize for ${vm.item.name}`);
       assign(vm.itemEdits, vm.item);
       vm.pending = false;
     }

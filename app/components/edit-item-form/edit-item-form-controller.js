@@ -45,7 +45,7 @@ const assign = require('lodash.assign');
     
     
     function saveChangesToItem() {
-      if (__DEVONLY__) $log.debug('ItemController saveChangesToItem');
+      if (__DEVONLY__) $log.debug('EditItemFormController saveChangesToItem');
       if (vm.pending) {
         if (__DEVONLY__) $log.warn('saveChangesToItem request is pending');
         return;
@@ -58,7 +58,7 @@ const assign = require('lodash.assign');
       }
       
       let itemUpdateInfo = vm.itemEdits;
-      if (__DEVONLY__) $log.log('saveChangesToItem itemUpdateInfo: ', itemUpdateInfo);
+      // if (__DEVONLY__) $log.log('saveChangesToItem itemUpdateInfo: ', itemUpdateInfo);
       
       itemManager.updateItem(itemUpdateInfo, editItemVis.item)
         .then((updatedItem) => {
@@ -67,7 +67,7 @@ const assign = require('lodash.assign');
           $scope.$apply();
         })
         .catch((err) => {
-          if (__DEVONLY__) $log.error('ItemController saveChangesToItem ERROR: ', err);
+          if (__DEVONLY__) $log.error('EditItemFormController saveChangesToItem ERROR: ', err);
           vm.error = err;
         });
     }

@@ -64,6 +64,8 @@
       <span aria-hidden="true" class="glyphicon glyphicon-menu-right"></span>
     </button>
     
+    
+    <!-- ADD ITEM BUTTON -->
     <button 
     type="menu" 
     name="TodoList-addItem"
@@ -78,30 +80,34 @@
       <span aria-hidden="true" class="glyphicon glyphicon-plus"></span>
     </button>
       
+    <!-- EDIT LIST BUTTON   -->
     <button 
     type="menu" 
-    name="TodoList-showListActions"
-    class="TodoList-showListActions TodoList-button btn btn-default is-hidden-below-md"
-    data-ng-click="listCtrl.showListActions()"
+    name="TodoList-showEditListForm"
+    class="TodoList-showEditListForm TodoList-button btn btn-default is-hidden-below-md"
+    data-ng-click="listCtrl.showEditListForm()"
     data-ng-hide="listCtrl.nameEditable"
-    aria-controls="TodoList-listActions"
-    aria-label="Show list actions"
+    aria-controls="EditListForm"
+    aria-label="Edit list"
     >
       <span aria-hidden="true" class="glyphicon glyphicon-cog"></span>
     </button>
   </div>
   
 
-  <!-- list items -->
+  <!-- LIST ITEMS -->
   <ul  
   class="TodoList-listOfItems list-group is-hidden-below-md"
   >
+    <!-- ADD ITEM FORM -->
     <li 
     class="TodoList-addItemFormWrapper TodoList-itemWrapper list-group-item"
     data-ng-if="listCtrl.addItemVisible"
     >
       <new-item-form list="list" toggle-visibility="listCtrl.showAddItemForm()"></new-item-form>
     </li>
+    
+    <!-- LIST ITEMS -->
     <li 
     class="TodoList-itemWrapper  list-group-item"
     data-ng-repeat="item in listCtrl.list.items"
@@ -110,36 +116,5 @@
       <todo-item item="item" list="list"></todo-item>
     </li>
   </ul>
-  
-  
-  <div 
-  class="TodoList-listActionsBackgroundScreen bg-screen"
-  data-ng-show="!listCtrl.listActionsHidden"
-  ></div>
-  
-  
-  
-  
-  <!-- LIST ACTIONS VIEW -->
-  <!-- <div 
-  class="TodoList-listActionsWrapper"
-  data-ng-class="{ hidden: listCtrl.listActionsHidden }"
-  > -->
-    <!-- <form 
-    id="{{ listCtrl.list.name }}-listActions"
-    class="TodoList-listActions"
-    name="listActions"
-    aria-hidden="{{ listCtrl.listActionsHidden }}"
-    aria-disabled="{{ listCtrl.listActionsHidden }}"
-    > -->
-      <!-- TODO: edit name -->
-      <!-- TODO: edit description -->
-      <!-- TODO: creation date -->
-      <!-- TODO: delete list -->
-      <!-- TODO: other actions? -->
-      <!-- TODO: close button -->
-    <!-- </form> -->
-  <!-- </div> -->
-  
   
 </section>

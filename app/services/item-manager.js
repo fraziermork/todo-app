@@ -28,7 +28,7 @@ const assign = require('lodash.assign');
         list.items.push(itemInfo);
         return apiRequest('post', `lists/${list._id}/items`, { data: itemInfo })
           .then((item) => {
-            if (__DEVONLY__) $log.log(`postNewItem: SUCCESS for ${itemInfo.name}`);
+            // if (__DEVONLY__) $log.log(`postNewItem: SUCCESS for ${itemInfo.name}`);
             assign(itemInfo, item);
             return itemInfo;
           });
@@ -38,7 +38,7 @@ const assign = require('lodash.assign');
         if (__DEVONLY__) $log.debug('itemManager updateItem');
         return apiRequest('put', `lists/${item.list}/items/${item._id}`, { data: itemUpdateInfo })
           .then((updatedItem) => {
-            if (__DEVONLY__) $log.log('itemManager updateItem then block, updatedItem: ', updatedItem);
+            // if (__DEVONLY__) $log.log('itemManager updateItem then block, updatedItem: ', updatedItem);
             if (itemUpdateInfo.list !== item.list) listManager.moveItemFromListToList(item, item.list, itemUpdateInfo.list);            
             assign(item, updatedItem);
             return item;
