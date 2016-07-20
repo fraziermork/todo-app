@@ -61,7 +61,7 @@
      * @return {boolean}  whether a current list exists or not     
      */     
     function shouldHideSomeLists() {
-      if (__DEVONLY__) $log.debug(`BoardController shouldHideSomeLists ${listManager.currentList !== null}`);
+      // if (__DEVONLY__) $log.debug(`BoardController shouldHideSomeLists ${listManager.currentList !== null}`);
       return listManager.currentList !== null;
     }
     

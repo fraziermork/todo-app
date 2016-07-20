@@ -22,7 +22,7 @@
     }
     
     function checkIfBackgroundScreenVisible() {
-      if (__DEVONLY__) $log.debug(`BackgroundScreenController checkIfBackgroundScreenVisible, visible: ${vm.backgroundScreenVis.visible}`);
+      // if (__DEVONLY__) $log.debug(`BackgroundScreenController checkIfBackgroundScreenVisible, visible: ${vm.backgroundScreenVis.visible}`);
       return vm.backgroundScreenVis.visible;  
     }
     
