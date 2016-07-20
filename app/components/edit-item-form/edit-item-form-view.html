@@ -1,0 +1,80 @@
+<div class="container-fluid">
+  <div class="row">
+    <section 
+    class="EditItemForm over-background-screen col-xs-10 col-xs-offset-1 col-md-6 col-md-offset-3"
+    data-ng-if="editItemCtrl.checkIfEditItemFormVisible()"
+    data-ng-init="editItemCtrl.initialize()"
+    >
+    <button 
+    type="reset" 
+    name="closeItemActions"
+    class="EditItemForm-closeEditItemForm close"
+    aria-label="Close"
+    data-ng-click="editItemCtrl.editItemVis.hideEditItemForm()"
+    aria-controls="{{ editItemCtrl.item.name }}-editItemForm"
+    >
+    <span aria-hidden="true">&times;</span>
+  </button>  
+  
+  <form 
+  id="{{ editItemCtrl.item.name }}-editItemForm"
+  name="editItemForm"
+  class="EditItemForm-editItemForm todoForm"
+  action="javascript:void(0);"
+  aria-hidden="{{ editItemCtrl.itemActionsHidden }}"
+  novalidate
+  autocomplete="off"
+  >
+  <h4 class="EditItemForm-name todoForm-header">Edit item:</h4>
+  <div class="form-group">
+    <label for="{{ editItemCtrl.item.name }}-nameInput" class="todoForm-label">Name</label>
+    <input 
+    id="{{ editItemCtrl.item.name }}-nameInput"
+    type="text" 
+    name="name" 
+    class="EditItemForm-input form-control"
+    placeholder="{{ editItemCtrl.item.name }}"
+    data-ng-model="editItemCtrl.itemEdits.name"
+    required
+    >
+  </div>
+  
+  <div class="form-group">
+    <label for="{{ editItemCtrl.item.content }}-contentInput" class="todoForm-label">Content</label>
+    <input 
+    id="{{ editItemCtrl.item.content }}-contentInput"
+    type="text" 
+    name="content" 
+    class="EditItemForm-input form-control"
+    placeholder="{{ editItemCtrl.item.content }}"
+    data-ng-model="editItemCtrl.itemEdits.content"
+    >
+  </div>
+  
+  <div class="form-group">
+    <label for="{{ editItemCtrl.item.name }}-selectList" class="todoForm-label">Move to another list</label>
+    <select 
+    id="{{ editItemCtrl.item.name }}-selectList"
+    class="EditItemForm-selectList form-control" 
+    name="EditItemForm-selectList"
+    data-ng-model="editItemCtrl.itemEdits.list"
+    >
+    <option 
+    value="{{ list._id }}"
+    data-ng-bind="list.name"
+    data-ng-repeat="list in editItemCtrl.listManager.lists track by list._id"
+    ></option>
+  </select>
+</div>
+
+<button 
+type="submit" 
+name="submitItemEdits"
+class="EditItemForm-submitItemEdits EditItemForm-button btn btn-primary"
+data-ng-click="editItemForm.$valid && editItemCtrl.saveChangesToItem()"
+>Save changes</button>
+</form>
+</section>
+    
+  </div>
+</div>

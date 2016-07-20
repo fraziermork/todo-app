@@ -1,5 +1,5 @@
 (function() {
-  angular.module('todo-list', []);
+  angular.module('todo-list', ['todo-services']);
 })();
 
 require('./list-controller.js');

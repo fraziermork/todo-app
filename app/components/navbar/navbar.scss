@@ -1,0 +1,22 @@
+.TodoNavbar {
+  
+  .container-fluid {
+    height: 50px;
+  }
+}
+
+.TodoNavbar-header {
+  display: inline-block;  
+  
+  h1 {
+    margin: 0;
+    font-weight: inherit;
+  }
+}
+.TodoNavbar-rightFloat {
+
+  .TodoNavbar-text {
+    vertical-align: middle;
+    margin-right: 10px;
+  }
+}

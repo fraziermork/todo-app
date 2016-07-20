@@ -1,18 +1,24 @@
+/* global __DEVONLY__ */
+
 (function() {
   angular.module('todo-app', [
     'ngRoute',
     'ngCookies',
     'todo-services', 
+    'todo-background-screen',
     'todo-entry', 
     'todo-navbar', 
-    'todo-item', 
+    'todo-edit-item-form',
+    'todo-new-item-form',
+    'todo-item',
+    // 'todo-edit-list-form', 
+    'todo-new-list-form', 
     'todo-list', 
     'todo-board',
   ])
   .config(['$routeProvider', '$locationProvider', todoRouter]);
-  // .run(setupHttpRequests)
   
-  
+  // ROUTER 
   function todoRouter($routeProvider, $locationProvider) {
     $routeProvider
       .when('/login', {
@@ -29,11 +35,5 @@
       
     // $locationProvider.html5Mode(true);
   }
-  
-  
-  // Purpose is to configure $http defaults beforehand
-  // function setupHttpRequests() {
-  //   
-  // }
-  
+
 })();

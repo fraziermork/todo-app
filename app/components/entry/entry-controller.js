@@ -1,12 +1,21 @@
-/* global __DEVONLY__ */
+/* global __DEVONLY__ __MOBILE_BREAK_POINT__ */
 
-// TODO: refactor html to be an ng-repeat from a json object? 
+// TODO: refactor html to be an ng-repeat from a json object to make it more managable? 
 
 (function() {
   angular.module('todo-entry')
-  .controller('EntryController', ['$log', '$window', '$location', '$route', 'apiRequest', EntryController]);
+    .controller('EntryController', [
+      '$log', 
+      '$window', 
+      '$location', 
+      '$route', 
+      'apiRequest', 
+      'userManager', 
+      'listManager', 
+      EntryController
+    ]);
   
-  function EntryController($log, $window, $location, $route, apiRequest) {
+  function EntryController($log, $window, $location, $route, apiRequest, userManager, listManager) {
     const vm                    = this;
     vm.error                    = null; // TODO: build a display for the error to show up in 
     
@@ -31,14 +40,16 @@
     vm.login                    = login;
     vm.createAccount            = createAccount;
     
-    
+
     /**    
-     * initialize - runs on initialization    
+     * initialize - runs on initialization of the login page
      *         
      */     
     function initialize() {
       if (__DEVONLY__) $log.debug('EntryController initialize');
       
+      // If there is an auth cookie, reroute out of login 
+      userManager.rerouteCheck();
     }
     
     
@@ -55,7 +66,7 @@
      */     
     function checkAriaHidden(condition) {
       // TODO: get forms to render appropriately on window resize
-      let check = $window.innerWidth > 992 || condition;
+      let check = $window.innerWidth > __MOBILE_BREAK_POINT__ || condition;
       return !check;
     }
     
@@ -77,11 +88,16 @@
     
     
     
+    
+    /**    
+     * login - logs a user in through GET request to /login, runs when the sbumit button of the loginForm is clicked
+     *         
+     */     
     function login() {
       if (__DEVONLY__) $log.debug('EntryController login');
       
+      // build the authorization string for the request, then construct the apiRequest arguments
       let basicAuthString = $window.btoa(`${vm.login.username}:${vm.login.password}`);
-      
       let requestOptions = {
         headers: { 
           authorization: `Basic ${basicAuthString}` 
@@ -89,50 +105,53 @@
       };
       vm.login.password = null;
       
+      // make the request
+      // TODO: move this logic to userManager service
       apiRequest('get', 'login', requestOptions)
         .then((user) => {
-          if (__DEVONLY__) $log.debug('EntryController login SUCCESS');
-          $window.sessionStorage.setItem('todo-user', angular.toJson(user));
-          $location.path('/board');
-          $route.reload();
+          userManager.handleLogin(user);
         })
         .catch((err) => {
-          if (__DEVONLY__) $log.error('EntryController login FAILURE', err);
+          if (__DEVONLY__) $log.error('login: ', err);
           vm.error = err;
         });
     }
     
     
     
+    
+    /**    
+     * createAccount - creates a new account through POST request to /new-account, runs when the submit button for the createAccountForm is clicked    
+     *        
+     */     
     function createAccount() {
       if (__DEVONLY__) $log.debug('EntryController createAccount');
+      
+      // Check that the passwords match
       if (vm.create.password !== vm.create.passwordConfirm) {
-        if (__DEVONLY__) $log.error('EntryController createAccount passwords didnt match');
+        if (__DEVONLY__) $log.warn('createAccount: passwords didnt match');
         vm.error = 'Your passwords must match';
         delete vm.create.passwordConfirm;
         return;
       }
       
+      // Clear old stuff, build the arguments for the request
       delete vm.create.passwordConfirm;
       let requestOptions = {
         data: vm.create
       };
       
+      // make the request
+      // TODO: move this logic to userManager service
       apiRequest('post', 'new-account', requestOptions)
         .then((user) => {
-          if (__DEVONLY__) $log.debug('EntryController login SUCCESS');
-          $log.warn($location.path());
-          $window.sessionStorage.setItem('todo-user', angular.toJson(user));
-          $location.path('/board');
-          $log.warn($location.path());
-          $route.reload();
+          userManager.handleLogin(user);
         })
         .catch((err) => {
-          if (__DEVONLY__) $log.error('EntryController login FAILURE', err);
+          if (__DEVONLY__) $log.error('EntryController createAccount FAILURE', err);
           vm.error = err;
         });
     }
-    
   }
   
 })();

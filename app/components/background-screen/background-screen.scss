@@ -1,0 +1,27 @@
+@import '../../style/theme';
+
+.BackgroundScreen {
+  position:         absolute;
+  top:              0;
+  left:             0;
+  width:            100%;
+  bottom:           0;
+  background-color: $backgroundScreenColor;
+  
+  // navbar has z-index 1000
+  z-index:          1001;
+}
+
+
+// class to be given to elements that should appear over the background screen
+.over-background-screen {
+  z-index:          1002;
+  background-color: $formBackground;
+  border-radius:    $borderRadius;
+  padding:          $padding;
+  border:           $border;
+  position:         absolute; 
+  // top:              0;
+  // left:             0;
+  // width:            100%;
+}

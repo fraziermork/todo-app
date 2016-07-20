@@ -1,10 +1,12 @@
 const webpack       = require('webpack');
-// const validate      = require('webpack-validator');
-
 const autoprefixer  = require('autoprefixer');
 const ExtractPlugin = require('extract-text-webpack-plugin');
 const CleanPlugin   = require('clean-webpack-plugin');
+
+// set by the npm script that was run
 const production    = process.env.npm_lifecycle_event === 'build:production';
+
+// set in the .npmrc file
 const API_URL       = production ? process.env.npm_config_production_url : process.env.npm_config_dev_url;
 
 const PATHS = {
@@ -21,9 +23,18 @@ let plugins = [
   }),
   new webpack.optimize.OccurenceOrderPlugin(),
   new webpack.DefinePlugin({
-    __API_URL__:     JSON.stringify(API_URL), 
-    __DEVONLY__:     !production, 
-    __COOKIE_NAME__: process.env.npm_config_auth_cookie_name
+    // Deployment url of the backend or localhost for testing
+    __API_URL__:            JSON.stringify(API_URL), 
+    
+    // Controls whether console logs and other dev features take place
+    // TODO: switch from boolean to regex? Not sure if webpack smart enough for that
+    __DEVONLY__:            !production, 
+    
+    // The name of the cookie to attach as X-`${__COOKIE_NAME__}` as a header for authentication
+    __COOKIE_NAME__:        JSON.stringify(process.env.npm_config_auth_cookie_name), 
+    
+    // The break point from mobile to fullscreen, currently defined as 992 px, the bootstrap md breakpoint
+    __MOBILE_BREAK_POINT__: process.env.npm_config_mobile_break_point
   })
 ];
 
@@ -47,6 +58,7 @@ module.exports = {
   debug:  !production, 
   entry:  {
     bundle:     ['bootstrap-loader/extractStyles', PATHS.entry],
+    
     // unlike loaders, this goes left to right
     vendor:     ['angular', 'angular-route', 'angular-cookies']
   },
@@ -79,7 +91,7 @@ module.exports = {
       }, 
       {
         test:     /\.scss$/, 
-        loader:   ExtractPlugin.extract('style', 'css?sourceMap!postcss?sourceMap!resolve-url?sourceMap!sass?sourceMap', { allChunks: true }),
+        loader:   ExtractPlugin.extract('style', 'css!postcss!sass', { allChunks: true }),
       }, 
       {
         test:     /\.(png|jpe?g|svg)$/, 
@@ -107,7 +119,6 @@ module.exports = {
     devtool:            'eval-source-map',
     contentBase:        PATHS.build, 
     historyApiFallback: true,
-    inline:             true,
     progress:           true,
     stats:              'errors-only'
   }, 
@@ -116,6 +127,8 @@ module.exports = {
     errorDetails:       true
   },
   plugins: plugins,
+  
+  // Copied from postcss loader instructions
   postcss: function() {
     return [autoprefixer({
       browsers: [

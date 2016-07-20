@@ -1,0 +1,28 @@
+<article class="TodoItem" data-ng-init="itemCtrl.initialize()">
+  
+  <!-- preview -->
+  <div 
+  class="TodoItem-collapsedView"
+  aria-controls="{{ itemCtrl.item.name }}-editItemForm"
+  >
+    <button 
+    type="button" 
+    name="TodoItem-showItemActions"
+    class="TodoItem-showItemActions TodoItem-button btn btn-default"
+    data-ng-click="itemCtrl.showEditItemForm()"
+    aria-controls="TodoItem-itemActions"
+    aria-label="Show item actions"
+    >
+      <span aria-hidden="true" class="glyphicon glyphicon-pencil"></span>
+    </button>
+    <h4 
+    class="TodoItem-name"
+    data-ng-bind="itemCtrl.item.name"
+    ></h4>
+    <p 
+    class="TodoItem-content"
+    data-ng-bind="itemCtrl.item.content"
+    ></p>
+  </div>
+  
+</article>

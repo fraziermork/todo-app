@@ -1,0 +1,44 @@
+<nav class="TodoNavbar navbar navbar-static-top navbar-default">
+  <div class="container-fluid">
+    <div class="TodoNavbar-header navbar-header">
+      <a href="#" 
+      class="TodoNavbar-headerItem TodoNavbar-back is-not-hidden-while-current-list-exists glyphicon glyphicon-chevron-left navbar-brand"
+      data-ng-click="navCtrl.goBackToAllLists()"
+      type="button" 
+      name="Back"
+      aria-label="back"
+      >
+        <span class="hidden" aria-hidden="true">Back</span>
+      </a>
+      <h1><a href="#" 
+      class="TodoNavbar-headerItem TodoNavbar-title is-hidden-while-current-list-exists navbar-brand"
+      >Todo Manager</a></h1>
+    </div>
+
+      
+
+      <div class="nav TodoNavbar-rightFloat pull-right">
+        <a 
+        href="#" 
+        class="TodoNavbar-text navbar-text"
+        data-ng-click="navCtrl.logout()"
+        type="button" 
+        name="logout"
+        >Log Out</a>
+        
+        <button 
+        class="TodoNavbar-button TodoNavbar-newList btn btn-default navbar-btn"
+        data-ng-click="navCtrl.showNewListForm()"
+        type="menu" 
+        name="New List"
+        aria-controls="ListForm-form"
+        >New List</button>
+        
+        
+      </div>
+      
+
+    
+    
+  </div>
+</nav>

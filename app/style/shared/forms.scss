@@ -1,0 +1,14 @@
+@import '../theme.scss';
+
+.todoForm {
+  .todoForm-header {
+    margin-top: 0;
+    display:    inline-block;
+  }
+  .todoForm-label {
+    text-transform: uppercase;
+    font-size:      .8em;
+    letter-spacing: 1px;
+    color:          $grey8;
+  }
+}
