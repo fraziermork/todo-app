@@ -8,14 +8,19 @@
   <div class="TodoList-headerWrapper">
     <h2 
     class="TodoList-name"
+    data-ng-bind="listCtrl.list.name"
+    ></h2>
+
+
+    <!-- <h2 
+    class="TodoList-name"
     aria-controls="{{ listCtrl.list.name }}-editListName"
     data-ng-click="listCtrl.toggleNameEditable()"
     data-ng-hide="listCtrl.nameEditable"
     data-ng-bind="listCtrl.list.name"
-    ></h2>
-
+    ></h2> -->
     <!-- LIST NAME EDIT FORM, SHOULD OPEN ON CLICK OF NAME ON LIST ONLY VIEW -->
-    <form 
+    <!-- <form 
     id="{{ listCtrl.list.name }}-editListName"
     class="TodoList-editListName form-inline"
     name="editListName"
@@ -25,11 +30,11 @@
     action="javascript:void(0);"
     data-ng-keydown="editListName.$valid && listCtrl.handleNameEditFormSubmit($event)"
     novalidate
-    >
-      <div class="form-group">
-        <div class="input-group">
-          <label for="{{ listCtrl.list.name }}-editNameInput" class="sr-only"></label>
-          <input 
+    > -->
+      <!-- <div class="form-group"> -->
+        <!-- <div class="input-group"> -->
+          <!-- <label for="{{ listCtrl.list.name }}-editNameInput" class="sr-only"></label> -->
+          <!-- <input 
           id="{{ listCtrl.list.name }}-editNameInput"
           required
           class="TodoList-editName TodoList-input form-control h2"
@@ -37,19 +42,19 @@
           name="name" 
           placeholder="{{ listCtrl.list.name }}"
           data-ng-model="listCtrl.editedName"
-          >
-          <span class="input-group-btn">
-            <button 
+          > -->
+          <!-- <span class="input-group-btn"> -->
+            <!-- <button 
             aria-label="Save"
             class="TodoList-rename btn btn-default"
             data-ng-click="editListName.$valid && listCtrl.handleNameEditFormSubmit($event)"
             type="submit" 
             name="button"
-            >Save</button>
-          </span>
-        </div>
-      </div>
-    </form>
+            >Save</button> -->
+          <!-- </span> -->
+        <!-- </div> -->
+      <!-- </div> -->
+    <!-- </form> -->
     
     
     <!-- LIST DETAIL VIEW BUTTON -->
