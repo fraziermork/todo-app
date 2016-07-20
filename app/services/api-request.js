@@ -22,14 +22,13 @@ const defaults = require('lodash.defaults');
      * @param  {object} options  the options you want to send with the request, like the data       
      */     
     return function apiRequest(method, endpoint, options = {}) {
-      if (__DEVONLY__) $log.debug('apiRequest');
+      // if (__DEVONLY__) $log.debug('apiRequest');
       let defaultApiRequestOptions = {
         method: method.toUpperCase(), 
         url:    `${__API_URL__}/${endpoint}`
       };
       defaults(options, defaultApiRequestOptions);
       if (__DEVONLY__) $log.warn(`MAKING ${method} REQUEST TO /${endpoint}`); 
-      if (__DEVONLY__) $log.log(options); 
       
       return new Promise((resolve, reject) => {
         $http(options)

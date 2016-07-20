@@ -47,7 +47,7 @@
        *              - if on /login but there is a cookie, it takes you to /board
        */
       rerouteCheck() {
-        if (__DEVONLY__) $log.debug('userManager rerouteCheck');
+        // if (__DEVONLY__) $log.debug('userManager rerouteCheck');
         let cookie = $cookies.get(__COOKIE_NAME__);
         
         // If they aren't logged in but aren't on the login page
@@ -78,8 +78,7 @@
        * @param  {object} user the user representation provided by the server in response to a post to /new-account or get to /login            
        */       
       handleLogin(user) {
-        if (__DEVONLY__) $log.debug('userManager handleLogin, initial user: ');
-        if (__DEVONLY__) $log.log(user);
+        if (__DEVONLY__) $log.debug('userManager handleLogin, initial user: ', user);
         
         // Store lists in a separate variable and delete it off user so that there isn't a conflicting set of lists on todo-user and todo-user-lists
         let lists = user.lists;
@@ -105,18 +104,18 @@
        *                                            - TODO: add a backend route to allow them to fetch info if all they have is cookie? 
        */     
       fetchUserAndListDataFromStorageIfNecessary() {
-        if (__DEVONLY__) $log.debug('userManager fetchUserAndListDataFromStorageIfNecessary');
+        // if (__DEVONLY__) $log.debug('userManager fetchUserAndListDataFromStorageIfNecessary');
         if (!userManager.user) {
           let storedUser = angular.fromJson($window.sessionStorage.getItem('todo-user'));
           if (storedUser) {
-            if (__DEVONLY__) $log.log('fetchUserAndListDataFromStorageIfNecessary: User loaded from sessionStorage');
+            // if (__DEVONLY__) $log.log('fetchUserAndListDataFromStorageIfNecessary: User loaded from sessionStorage');
             userManager.user = storedUser;
           }
         }
         if (!listManager.lists.length) {
           let storedLists = angular.fromJson($window.sessionStorage.getItem('todo-user-lists'));
           if (storedLists) {
-            if (__DEVONLY__) $log.log('fetchUserAndListDataFromStorageIfNecessary: Lists loaded from sessionStorage');
+            // if (__DEVONLY__) $log.log('fetchUserAndListDataFromStorageIfNecessary: Lists loaded from sessionStorage');
             listManager.lists = storedLists;
           }
         }

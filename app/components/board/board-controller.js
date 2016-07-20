@@ -1,4 +1,4 @@
-/* global __DEVONLY__ */
+// /* global __DEVONLY__ */
 
 // const defaults = require('lodash.defaults');
 
@@ -31,7 +31,7 @@
      *      
      */     
     function initialize() {
-      if (__DEVONLY__) $log.debug('BoardController initialize');
+      // if (__DEVONLY__) $log.debug('BoardController initialize');
       userManager.rerouteCheck();
       userManager.fetchUserAndListDataFromStorageIfNecessary();
       vm.lists = listManager.lists;
@@ -66,7 +66,7 @@
     }
     
     function toggleListFormVisibility() {
-      if (__DEVONLY__) $log.debug('BoardController toggleListFormVisibility');
+      // if (__DEVONLY__) $log.debug('BoardController toggleListFormVisibility');
       vm.addListVisible = !vm.addListVisible;
     }
     

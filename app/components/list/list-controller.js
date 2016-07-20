@@ -11,10 +11,11 @@ const assign = require('lodash.assign');
     '$scope', 
     'itemManager', 
     'listManager', 
-    ListController
+    'editListVis',
+    ListController,
   ]);
   
-  function ListController($log, $scope, itemManager, listManager) {
+  function ListController($log, $scope, itemManager, listManager, editListVis) {
     const vm                             = this;
     vm.error                             = null;
     vm.list                              = $scope.list;
@@ -22,9 +23,6 @@ const assign = require('lodash.assign');
     // Properties for editListName
     vm.nameEditable                      = false;
     vm.editedName                        = vm.list.name;
-    
-    // Properties for listActions
-    vm.listActionsHidden                 = false;
     vm.editedList                        = {};
     
     // Properties for addItemForm
@@ -34,7 +32,7 @@ const assign = require('lodash.assign');
     vm.initialize                        = initialize;
     vm.toggleNameEditable                = toggleNameEditable;
     vm.handleNameEditFormSubmit          = handleNameEditFormSubmit;
-    vm.showListActions                   = showListActions;
+    vm.showEditListForm                  = showEditListForm;
     vm.showAddItemForm                   = showAddItemForm;
     vm.showListAndItsItemsBelowMdScreens = showListAndItsItemsBelowMdScreens;
     
@@ -44,9 +42,9 @@ const assign = require('lodash.assign');
      *          
      */     
     function initialize() {
-      if (__DEVONLY__) $log.debug('ListController initialize');
+      if (__DEVONLY__) $log.debug(`ListController initialize for ${vm.list.name}`);
       if (!vm.list._id) {
-        if (__DEVONLY__) $log.warn(`ListController ${vm.list.name} awaiting post results`);
+        if (__DEVONLY__) $log.warn(`ListController initialize for ${vm.list.name} awaiting post results`);
         return;
       }
       
@@ -85,17 +83,12 @@ const assign = require('lodash.assign');
     
     
     /**    
-     * showListActions - toggles the visibility of the listActions menu    
+     * showEditListForm - toggles the visibility of the listActions menu    
      *         
      */     
-    function showListActions() {
-      if (__DEVONLY__) $log.debug('ListController showListActions');
-      // Only both with setting editedList if they are interested in editing it 
-      if (vm.listActionsHidden) {
-        if (__DEVONLY__) $log.log('showListActions: initializing editedList');
-        assign(vm.editedList, vm.list);
-      }
-      vm.listActionsHidden = !vm.listActionsHidden;
+    function showEditListForm() {
+      if (__DEVONLY__) $log.debug('ListController showEditListForm');
+      editListVis.showEditListForm(vm.list);
     }
     
     
@@ -103,7 +96,6 @@ const assign = require('lodash.assign');
     /**    
      * showAddItemForm - toggles the visibility of the addItemForm for the list. 
      *      
-     * @return {type}  description     
      */     
     function showAddItemForm() {
       if (__DEVONLY__) $log.debug('ListController showAddItemForm');

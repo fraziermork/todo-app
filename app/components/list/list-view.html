@@ -8,14 +8,19 @@
   <div class="TodoList-headerWrapper">
     <h2 
     class="TodoList-name"
+    data-ng-bind="listCtrl.list.name"
+    ></h2>
+
+
+    <!-- <h2 
+    class="TodoList-name"
     aria-controls="{{ listCtrl.list.name }}-editListName"
     data-ng-click="listCtrl.toggleNameEditable()"
     data-ng-hide="listCtrl.nameEditable"
     data-ng-bind="listCtrl.list.name"
-    ></h2>
-
+    ></h2> -->
     <!-- LIST NAME EDIT FORM, SHOULD OPEN ON CLICK OF NAME ON LIST ONLY VIEW -->
-    <form 
+    <!-- <form 
     id="{{ listCtrl.list.name }}-editListName"
     class="TodoList-editListName form-inline"
     name="editListName"
@@ -25,11 +30,11 @@
     action="javascript:void(0);"
     data-ng-keydown="editListName.$valid && listCtrl.handleNameEditFormSubmit($event)"
     novalidate
-    >
-      <div class="form-group">
-        <div class="input-group">
-          <label for="{{ listCtrl.list.name }}-editNameInput" class="sr-only"></label>
-          <input 
+    > -->
+      <!-- <div class="form-group"> -->
+        <!-- <div class="input-group"> -->
+          <!-- <label for="{{ listCtrl.list.name }}-editNameInput" class="sr-only"></label> -->
+          <!-- <input 
           id="{{ listCtrl.list.name }}-editNameInput"
           required
           class="TodoList-editName TodoList-input form-control h2"
@@ -37,19 +42,19 @@
           name="name" 
           placeholder="{{ listCtrl.list.name }}"
           data-ng-model="listCtrl.editedName"
-          >
-          <span class="input-group-btn">
-            <button 
+          > -->
+          <!-- <span class="input-group-btn"> -->
+            <!-- <button 
             aria-label="Save"
             class="TodoList-rename btn btn-default"
             data-ng-click="editListName.$valid && listCtrl.handleNameEditFormSubmit($event)"
             type="submit" 
             name="button"
-            >Save</button>
-          </span>
-        </div>
-      </div>
-    </form>
+            >Save</button> -->
+          <!-- </span> -->
+        <!-- </div> -->
+      <!-- </div> -->
+    <!-- </form> -->
     
     
     <!-- LIST DETAIL VIEW BUTTON -->
@@ -64,6 +69,8 @@
       <span aria-hidden="true" class="glyphicon glyphicon-menu-right"></span>
     </button>
     
+    
+    <!-- ADD ITEM BUTTON -->
     <button 
     type="menu" 
     name="TodoList-addItem"
@@ -78,30 +85,34 @@
       <span aria-hidden="true" class="glyphicon glyphicon-plus"></span>
     </button>
       
+    <!-- EDIT LIST BUTTON   -->
     <button 
     type="menu" 
-    name="TodoList-showListActions"
-    class="TodoList-showListActions TodoList-button btn btn-default is-hidden-below-md"
-    data-ng-click="listCtrl.showListActions()"
+    name="TodoList-showEditListForm"
+    class="TodoList-showEditListForm TodoList-button btn btn-default is-hidden-below-md"
+    data-ng-click="listCtrl.showEditListForm()"
     data-ng-hide="listCtrl.nameEditable"
-    aria-controls="TodoList-listActions"
-    aria-label="Show list actions"
+    aria-controls="EditListForm"
+    aria-label="Edit list"
     >
       <span aria-hidden="true" class="glyphicon glyphicon-cog"></span>
     </button>
   </div>
   
 
-  <!-- list items -->
+  <!-- LIST ITEMS -->
   <ul  
   class="TodoList-listOfItems list-group is-hidden-below-md"
   >
+    <!-- ADD ITEM FORM -->
     <li 
     class="TodoList-addItemFormWrapper TodoList-itemWrapper list-group-item"
     data-ng-if="listCtrl.addItemVisible"
     >
       <new-item-form list="list" toggle-visibility="listCtrl.showAddItemForm()"></new-item-form>
     </li>
+    
+    <!-- LIST ITEMS -->
     <li 
     class="TodoList-itemWrapper  list-group-item"
     data-ng-repeat="item in listCtrl.list.items"
@@ -110,36 +121,5 @@
       <todo-item item="item" list="list"></todo-item>
     </li>
   </ul>
-  
-  
-  <div 
-  class="TodoList-listActionsBackgroundScreen bg-screen"
-  data-ng-show="!listCtrl.listActionsHidden"
-  ></div>
-  
-  
-  
-  
-  <!-- LIST ACTIONS VIEW -->
-  <!-- <div 
-  class="TodoList-listActionsWrapper"
-  data-ng-class="{ hidden: listCtrl.listActionsHidden }"
-  > -->
-    <!-- <form 
-    id="{{ listCtrl.list.name }}-listActions"
-    class="TodoList-listActions"
-    name="listActions"
-    aria-hidden="{{ listCtrl.listActionsHidden }}"
-    aria-disabled="{{ listCtrl.listActionsHidden }}"
-    > -->
-      <!-- TODO: edit name -->
-      <!-- TODO: edit description -->
-      <!-- TODO: creation date -->
-      <!-- TODO: delete list -->
-      <!-- TODO: other actions? -->
-      <!-- TODO: close button -->
-    <!-- </form> -->
-  <!-- </div> -->
-  
   
 </section>

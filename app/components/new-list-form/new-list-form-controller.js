@@ -35,7 +35,7 @@
       vm.toggleVisibility();
       listManager.postNewList(infoAboutListToPost)
         .then((list) => {
-          if (__DEVONLY__) $log.log(`SUCCESS in NewListFormController createList for ${list.name}`);
+          // if (__DEVONLY__) $log.log(`SUCCESS in NewListFormController createList for ${list.name}`);
           $scope.$apply();
         })
         .catch((err) => {

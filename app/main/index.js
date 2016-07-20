@@ -11,7 +11,7 @@
     'todo-edit-item-form',
     'todo-new-item-form',
     'todo-item',
-    // 'todo-edit-list-form', 
+    'todo-edit-list-form', 
     'todo-new-list-form', 
     'todo-list', 
     'todo-board',

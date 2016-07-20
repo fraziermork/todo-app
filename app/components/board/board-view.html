@@ -6,7 +6,7 @@ data-ng-init="boardCtrl.initialize()"
 data-ng-class="{ 'current-list-exists': boardCtrl.shouldHideSomeLists() }"
 >
   <todo-navbar toggle-visibility="boardCtrl.toggleListFormVisibility()"></todo-navbar>
-  <!-- <edit-list-form></edit-list-form> -->
+  <edit-list-form></edit-list-form>
   <edit-item-form></edit-item-form>
   <div class="Board-contentListWrapper container-fluid clearfix">
     <ul class="Board-contentList list-group">

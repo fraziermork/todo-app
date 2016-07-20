@@ -9,7 +9,7 @@ require('./components/new-item-form');
 require('./components/edit-item-form');
 require('./components/item');
 require('./components/new-list-form');
-// require('./components/edit-list-form');
+require('./components/edit-list-form');
 require('./components/list');
 require('./components/board');
 
