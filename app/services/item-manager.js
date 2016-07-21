@@ -12,8 +12,6 @@ const assign = require('lodash.assign');
     ]);
     
   function returnItemManager($log, apiRequest, listManager) {
-    
-    
     let itemManager = {
 
       /**      

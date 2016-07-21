@@ -5,100 +5,62 @@
 <section class="TodoList" data-ng-init="listCtrl.initialize()">
   
   <!-- TODO: make a click event for this on mobile to take you to the list view -->
-  <div class="TodoList-headerWrapper">
-    <h2 
-    class="TodoList-name"
-    data-ng-bind="listCtrl.list.name"
-    ></h2>
-
-
-    <!-- <h2 
-    class="TodoList-name"
-    aria-controls="{{ listCtrl.list.name }}-editListName"
-    data-ng-click="listCtrl.toggleNameEditable()"
-    data-ng-hide="listCtrl.nameEditable"
-    data-ng-bind="listCtrl.list.name"
-    ></h2> -->
-    <!-- LIST NAME EDIT FORM, SHOULD OPEN ON CLICK OF NAME ON LIST ONLY VIEW -->
-    <!-- <form 
-    id="{{ listCtrl.list.name }}-editListName"
-    class="TodoList-editListName form-inline"
-    name="editListName"
-    data-ng-if="listCtrl.nameEditable"
-    aria-disabled="{{ !listCtrl.nameEditable }}"
-    aria-hidden="{{ !listCtrl.nameEditable }}"
-    action="javascript:void(0);"
-    data-ng-keydown="editListName.$valid && listCtrl.handleNameEditFormSubmit($event)"
-    novalidate
-    > -->
-      <!-- <div class="form-group"> -->
-        <!-- <div class="input-group"> -->
-          <!-- <label for="{{ listCtrl.list.name }}-editNameInput" class="sr-only"></label> -->
-          <!-- <input 
-          id="{{ listCtrl.list.name }}-editNameInput"
-          required
-          class="TodoList-editName TodoList-input form-control h2"
-          type="text" 
-          name="name" 
-          placeholder="{{ listCtrl.list.name }}"
-          data-ng-model="listCtrl.editedName"
-          > -->
-          <!-- <span class="input-group-btn"> -->
-            <!-- <button 
-            aria-label="Save"
-            class="TodoList-rename btn btn-default"
-            data-ng-click="editListName.$valid && listCtrl.handleNameEditFormSubmit($event)"
-            type="submit" 
-            name="button"
-            >Save</button> -->
-          <!-- </span> -->
-        <!-- </div> -->
-      <!-- </div> -->
-    <!-- </form> -->
+  <div class="TodoList-headerWrapper clearfix">
     
-    
-    <!-- LIST DETAIL VIEW BUTTON -->
-    <button 
-    type="menu" 
-    name="TodoList-showListDetail"
-    class="TodoList-showListDetail TodoList-button btn btn-default hidden-md hidden-lg is-hidden-while-current-list-exists"
-    data-ng-click="listCtrl.showListAndItsItemsBelowMdScreens()"
-    data-ng-hide="listCtrl.nameEditable"
-    aria-label="View list"
-    >
-      <span aria-hidden="true" class="glyphicon glyphicon-menu-right"></span>
-    </button>
-    
-    
-    <!-- ADD ITEM BUTTON -->
-    <button 
-    type="menu" 
-    name="TodoList-addItem"
-    class="TodoList-addItem TodoList-button btn btn-default is-hidden-below-md"
-    data-ng-class="{ 'btn-primary': !listCtrl.addItemVisible }"
-    data-ng-click="!listCtrl.addItemVisible && listCtrl.showAddItemForm()"
-    data-ng-hide="listCtrl.nameEditable"
-    aria-controls="{{ listCtrl.list.name }}-listActions"
-    aria-disabled="{{ listCtrl.addItemVisible }}"
-    aria-label="Add an item"
-    >
-      <span aria-hidden="true" class="glyphicon glyphicon-plus"></span>
-    </button>
+    <div class="TodoList-buttonWrapper">
+      <!-- LIST DETAIL VIEW BUTTON -->
+      <button 
+      type="menu" 
+      name="TodoList-showListDetail"
+      class="TodoList-showListDetail TodoList-button btn btn-default hidden-md hidden-lg is-hidden-while-current-list-exists pull-right"
+      data-ng-click="listCtrl.showListAndItsItemsBelowMdScreens()"
+      data-ng-hide="listCtrl.nameEditable"
+      aria-label="View list"
+      >
+        <span aria-hidden="true" class="glyphicon glyphicon-menu-right"></span>
+      </button>
       
-    <!-- EDIT LIST BUTTON   -->
-    <button 
-    type="menu" 
-    name="TodoList-showEditListForm"
-    class="TodoList-showEditListForm TodoList-button btn btn-default is-hidden-below-md"
-    data-ng-click="listCtrl.showEditListForm()"
-    data-ng-hide="listCtrl.nameEditable"
-    aria-controls="EditListForm"
-    aria-label="Edit list"
-    >
-      <span aria-hidden="true" class="glyphicon glyphicon-cog"></span>
-    </button>
+      
+      <!-- ADD ITEM BUTTON -->
+      <button 
+      type="menu" 
+      name="TodoList-addItem"
+      class="TodoList-detailButton TodoList-button btn btn-default is-hidden-below-md pull-right"
+      data-ng-class="{ 'btn-primary': !listCtrl.addItemVisible }"
+      data-ng-click="!listCtrl.addItemVisible && listCtrl.showAddItemForm()"
+      data-ng-hide="listCtrl.nameEditable"
+      aria-controls="{{ listCtrl.list.name }}-listActions"
+      aria-disabled="{{ listCtrl.addItemVisible }}"
+      aria-label="Add an item"
+      >
+        <span aria-hidden="true" class="glyphicon glyphicon-plus"></span>
+      </button>
+        
+      <!-- EDIT LIST BUTTON   -->
+      <button 
+      type="menu" 
+      name="TodoList-showEditListForm"
+      class="TodoList-detailButton TodoList-button btn btn-default is-hidden-below-md pull-right"
+      data-ng-click="listCtrl.showEditListForm()"
+      data-ng-hide="listCtrl.nameEditable"
+      aria-controls="EditListForm"
+      aria-label="Edit list"
+      >
+        <span aria-hidden="true" class="glyphicon glyphicon-cog"></span>
+      </button>
+    </div>
+    
+    <!-- <div class="TodoList-textWrapper"> -->
+      <h2 
+      class="TodoList-name"
+      data-ng-bind="listCtrl.list.name"
+      ></h2>
+      <div class="TodoList-descriptionWrapper"><p
+      class="TodoList-description is-hidden-below-md"
+      data-ng-bind="listCtrl.list.description"
+      ></p></div>
+    <!-- </div> -->
   </div>
-  
 
   <!-- LIST ITEMS -->
   <ul  

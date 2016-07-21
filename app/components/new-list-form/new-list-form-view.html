@@ -40,6 +40,7 @@
       class="form-control"
       placeholder="List name"
       data-ng-model="newListCtrl.newList.name"
+      maxlength="40"
       >
     </div>
     
@@ -50,14 +51,14 @@
       class="NewListForm-formLabel todoForm-label"
       >Description</label>
       
-      <input 
+      <textarea 
       id="NewListForm-description"
       type="text" 
       name="description" 
       class="form-control"
       placeholder="Description"
       data-ng-model="newListCtrl.newList.description"
-      >
+      ></textarea>
     </div>
     
     

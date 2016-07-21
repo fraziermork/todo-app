@@ -14,7 +14,7 @@ data-ng-class="{ 'current-list-exists': boardCtrl.shouldHideSomeLists() }"
       <!-- LIST FORM -->
       <!-- TODO: add this onto the navbar instead of here -->
       <li 
-      class="Board-listFormWrapper Board-contentWrapper list-group-item is-hidden-while-current-list-exists"
+      class="Board-listFormWrapper Board-contentWrapper list-group-item is-hidden-while-current-list-exists clearfix"
       data-ng-if="boardCtrl.addListVisible"
       > 
         <new-list-form toggle-visibility="boardCtrl.toggleListFormVisibility()"></new-list-form>
@@ -23,7 +23,7 @@ data-ng-class="{ 'current-list-exists': boardCtrl.shouldHideSomeLists() }"
       
       <!-- LISTS -->
       <li 
-      class="Board-listWrapper Board-contentWrapper list-group-item" 
+      class="Board-listWrapper Board-contentWrapper list-group-item clearfix" 
       data-ng-repeat="list in boardCtrl.lists"
       data-ng-class="{ 
         'is-hidden-below-md': !boardCtrl.checkIfCurrentList(list),  
