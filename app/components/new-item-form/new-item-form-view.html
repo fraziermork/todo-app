@@ -38,7 +38,7 @@
       
     <div class="form-group">  
       <label for="{{ newItemCtrl.list.name }}NewItemForm-content" class="NewItemForm-label todoForm-label">Content</label>
-      <input 
+      <textarea 
       id="{{ newItemCtrl.list.name }}NewItemForm-content"
       type="text" 
       name="content" 
@@ -46,7 +46,7 @@
       placeholder="Item content"
       data-ng-model="newItemCtrl.newItem.content"
       aria-label="Item content"
-      >
+      ></textarea>
     </div>
       
     <div class="form-group">  

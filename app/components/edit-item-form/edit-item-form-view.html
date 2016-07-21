@@ -41,14 +41,14 @@
       
         <div class="form-group">
           <label for="{{ editItemCtrl.item.content }}-contentInput" class="todoForm-label">Content</label>
-          <input 
+          <textarea 
           id="{{ editItemCtrl.item.content }}-contentInput"
           type="text" 
           name="content" 
           class="EditItemForm-input form-control"
           placeholder="{{ editItemCtrl.item.content }}"
           data-ng-model="editItemCtrl.itemEdits.content"
-          >
+          ></textarea>
         </div>
       
         <div class="form-group">
@@ -70,7 +70,7 @@
         <button 
         type="submit" 
         name="submitItemEdits"
-        class="EditItemForm-submitItemEdits EditItemForm-button btn btn-primary"
+        class="EditItemForm-submitItemEdits EditItemForm-button btn btn-primary pull-right"
         data-ng-click="editItemForm.$valid && editItemCtrl.saveChangesToItem()"
         >Save changes</button>
       </form>

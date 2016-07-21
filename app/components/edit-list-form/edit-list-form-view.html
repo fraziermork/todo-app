@@ -39,26 +39,27 @@
           class="EditListForm-input form-control"
           placeholder="{{ editListCtrl.list.name }}"
           data-ng-model="editListCtrl.listEdits.name"
+          maxlength="40"
           required
           >
         </div>
       
         <div class="form-group">
           <label for="{{ editListCtrl.list.description }}-descriptionInput" class="todoForm-label">Description</label>
-          <input 
+          <textarea 
           id="{{ editListCtrl.list.description }}-descriptionInput"
           type="text" 
           name="description" 
           class="EditListForm-input form-control"
           placeholder="{{ editListCtrl.list.description }}"
           data-ng-model="editListCtrl.listEdits.description"
-          >
+          ></textarea>
         </div>
 
         <button 
         type="submit" 
         name="submitListEdits"
-        class="EditListForm-submitListEdits EditListForm-button btn btn-primary"
+        class="EditListForm-submitListEdits EditListForm-button btn btn-primary pull-right"
         data-ng-click="editListForm.$valid && editListCtrl.saveChangesToList()"
         >Save changes</button>
       </form>
