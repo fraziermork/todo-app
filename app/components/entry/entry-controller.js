@@ -1,5 +1,7 @@
 /* global __DEVONLY__ __MOBILE_BREAK_POINT__ */
 
+
+// TODO: refactor to all css instead of goofy javascript/css hybrid for hidden
 // TODO: refactor html to be an ng-repeat from a json object to make it more managable? 
 
 (function() {
@@ -9,13 +11,14 @@
       '$window', 
       '$location', 
       '$route', 
+      '$scope',
       'apiRequest', 
       'userManager', 
       'listManager', 
       EntryController
     ]);
   
-  function EntryController($log, $window, $location, $route, apiRequest, userManager, listManager) {
+  function EntryController($log, $window, $location, $route, $scope, apiRequest, userManager, listManager) {
     const vm                    = this;
     vm.error                    = null; // TODO: build a display for the error to show up in 
     
@@ -79,10 +82,14 @@
      * @param  {boolean} condition whether the clicked button's form is visible or not currently        
      */     
     function toggleWhichFormIsVisible(condition) {
-      if (__DEVONLY__) $log.debug('EntryController toggleWhichFormIsVisible');
       if (!condition) {
-        vm.loginVisible         = !vm.loginVisible;
-        vm.createAccountVisible = !vm.createAccountVisible;
+        $scope.$evalAsync(() => {
+          
+          // Relocated to show when this was actually evaluated instead of when called
+          if (__DEVONLY__) $log.debug('EntryController toggleWhichFormIsVisible');
+          vm.loginVisible         = !vm.loginVisible;
+          vm.createAccountVisible = !vm.createAccountVisible;
+        });
       }
     }
     

@@ -60,7 +60,7 @@ const assign = require('lodash.assign');
       let itemUpdateInfo = vm.itemEdits;
       // if (__DEVONLY__) $log.log('saveChangesToItem itemUpdateInfo: ', itemUpdateInfo);
       
-      itemManager.updateItem(itemUpdateInfo, editItemVis.item)
+      itemManager.updateItem(itemUpdateInfo, editItemVis.item, editItemVis.list)
         .then((updatedItem) => {
           vm.itemEdits = assign({}, editItemVis.item);
           editItemVis.hideEditItemForm();

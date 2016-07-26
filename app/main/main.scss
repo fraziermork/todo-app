@@ -9,3 +9,38 @@ html {
   position:  relative;
   min-width: 320px;
 }
+
+body {
+  background-color:      black;
+  background-image:      url('../assets/images/hubble-lostinspace.jpg');
+  background-repeat:     no-repeat;
+  background-attachment: local;
+  background-size:       cover;
+  font-family:           'Questrial', sans-serif;
+}
+
+main {
+  background-color: rgba(0, 0, 0, .4);
+}
+
+h2, h3, h4, h5, h6 {
+  font-family: 'Old Standard TT', serif;
+}
+
+h2 {
+  margin:        0;
+  // margin-left:   $smallSep;
+  color:         white;
+  @media screen and (min-width: $bootstrap-md-min) {
+    margin-bottom: $medSep;
+    
+  }
+}
+
+h1, label, .btn, .TodoNavbar-text {
+  font-family: 'Unica One', sans-serif;
+  text-transform: uppercase;
+}
+
+// h4: 22px
+// h2: 34px

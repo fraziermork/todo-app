@@ -1,0 +1,12 @@
+@import '../../style/theme';
+
+.NewListForm-closeButton {
+  opacity: 1;
+  color: $grey9;
+  text-shadow: none;
+  
+  &:hover {
+    opacity: 1;
+    color: $greyC;
+  }
+}

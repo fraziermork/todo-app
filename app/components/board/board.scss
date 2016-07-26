@@ -46,6 +46,10 @@
 
 .Board {
   height: 100%;
+  
+  // background-image: url('../../assets/images/andromeda.jpg');
+  // background-repeat: no-repeat;
+  // background-attachment: local;
 }
 
 .Board-contentListWrapper {
@@ -56,6 +60,8 @@
 .Board-contentList {
   position: relative;
   height:   100%;
+  
+  
   @media screen and (min-width: $bootstrap-md-min) {
     position:      absolute;
     top:           0;
@@ -70,7 +76,13 @@
 }
 
 .Board-contentWrapper {
-  padding:        $padding;
+  padding:      $padding;
+  border-color: $opaqueBgColor;
+  box-shadow:   0 0 10px $darkShadow;
+  background-color: transparent;
+  
+  
+  
   
   @media screen and (min-width: $bootstrap-md-min) {
     display:        inline-block;
@@ -79,6 +91,8 @@
     margin-left:    20px;
     border-radius:  $borderRadius;
     white-space:    nowrap;
+    box-shadow:     none;
+    
     
     &:last-of-type {
       margin-right: 20px;

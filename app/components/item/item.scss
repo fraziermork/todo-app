@@ -3,4 +3,8 @@
 .TodoItem-showItemActions {
   float: right;
   border: none; 
+  color: $lightBlue;
+  &:hover {
+    color: $darkBlue;
+  }
 }
