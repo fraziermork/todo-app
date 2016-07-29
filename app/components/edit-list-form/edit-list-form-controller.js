@@ -36,7 +36,7 @@ const assign = require('lodash.assign');
     
     
     function checkIfEditListFormVisible() {
-      if (__DEVONLY__) $log.debug('EditListFormController checkIfEditListFormVisible');
+      // if (__DEVONLY__) $log.debug('EditListFormController checkIfEditListFormVisible');
       return editListVis.visible;
     }
     

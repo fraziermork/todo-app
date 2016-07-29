@@ -7,45 +7,61 @@
 
 
 .TodoList-textWrapper {
-  float: left;
+  float:         left;
   // max-width: 75%;
   // padding-left: $bigSep;
   padding-right: $bigSep;
-  position: relative;
+  position:      relative;
 }
 
 
 .TodoList-name {
-  margin:      0;
-  margin-left: $smallSep;
+  // margin:      0;
+  // margin-left: $smallSep;
+  // color: $opaqueBgColor;
   // display:     inline-block;
 }
 
-.TodoList-name {
-  
-}
 
 .TodoList-descriptionWrapper {
   margin-left: $smallSep;
-  margin-top: $smallSep;
-  max-width: 80%;
+  margin-top:  $smallSep;
+  max-width:   80%;
+  color:       $grey9;
+  
   @media screen and (min-width: $bootstrap-md-min) {
-    max-width: 100%;
-    margin-top: $bigSep;
-    
+    max-width:  100%;
+    margin-top: $bigSep;  
   }
 }
 
 
 .TodoList-buttonWrapper {
   float:        right;
-  max-width: 20%;
+  max-width:    20%;
   padding-left: $bigSep;
-  // padding-right: $bigSep;
-  position: relative;
-  // display:      inline-block;
-  // margin-right: $bigSep;
-  // 
+  position:     relative;
+
+  .btn-default {
+    background-color: $lightGreyLighten;
+    border-color:     $lightGreyLightenBorder;
+    color:            white;
+    
+    &:hover {
+      background-color: $darkGreyLighten;
+      border-color:     $darkGreyLightenBorder;
+    }
+  }
+  .btn-primary {
+    background-color: $lightBlue;
+    border-color:     $lightBlueBorder;
+    
+    &:hover {
+      background-color: $darkBlue;
+      border-color:     $darkBlueBorder;
+    }
+  }
+
   @media screen and (min-width: $bootstrap-md-min) {
     max-width: 30%;
   }
@@ -74,10 +90,11 @@
 
 
 
+.TodoList-listOfItems {
+  margin-bottom: 0;
+}
 
-
-
-.TodoList-itemWrapper {
+.TodoList-contentWrapper {
   white-space: normal;
   padding:     $padding;
   
@@ -85,6 +102,18 @@
     margin-top: 10px;
   }
 }
-.TodoList-listOfItems {
-  margin-bottom: 0;
+
+.TodoList-addItemFormWrapper {
+  // border-radius: $borderRadius;
+  // margin-bottom: $medSep;
+  // background-color: $opaqueBgColor;
+  // border-color: 1px $greyD solid;
+}
+
+.TodoList-itemWrapper {
+  
+  // &:first-of-type {
+  //   border-top-left-radius:  $borderRadius;
+  //   border-top-right-radius: $borderRadius; 
+  // }
 }

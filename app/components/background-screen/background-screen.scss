@@ -16,11 +16,12 @@
 // class to be given to elements that should appear over the background screen
 .over-background-screen {
   z-index:          1002;
-  background-color: $formBackground;
+  background-color: $opaqueBgColor;
   border-radius:    $borderRadius;
   padding:          $padding;
   border:           $border;
   position:         absolute; 
+  box-shadow:       0 0 $medSep $darkShadow;
   // top:              0;
   // left:             0;
   // width:            100%;

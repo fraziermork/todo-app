@@ -55,8 +55,8 @@
       class="TodoList-name"
       data-ng-bind="listCtrl.list.name"
       ></h2>
-      <div class="TodoList-descriptionWrapper"><p
-      class="TodoList-description is-hidden-below-md"
+      <div class="TodoList-descriptionWrapper is-hidden-below-md"><p
+      class="TodoList-description"
       data-ng-bind="listCtrl.list.description"
       ></p></div>
     <!-- </div> -->
@@ -68,7 +68,7 @@
   >
     <!-- ADD ITEM FORM -->
     <li 
-    class="TodoList-addItemFormWrapper TodoList-itemWrapper list-group-item"
+    class="TodoList-contentWrapper TodoList-addItemFormWrapper list-group-item"
     data-ng-if="listCtrl.addItemVisible"
     >
       <new-item-form list="list" toggle-visibility="listCtrl.showAddItemForm()"></new-item-form>
@@ -76,7 +76,7 @@
     
     <!-- LIST ITEMS -->
     <li 
-    class="TodoList-itemWrapper  list-group-item"
+    class="TodoList-contentWrapper TodoList-itemWrapper  list-group-item clearfix"
     data-ng-repeat="item in listCtrl.list.items"
     data-ng-if="listCtrl.list.items.length"
     >

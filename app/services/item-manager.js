@@ -32,9 +32,9 @@ const assign = require('lodash.assign');
           });
       },
       
-      updateItem(itemUpdateInfo, item) {
+      updateItem(itemUpdateInfo, item, list) {
         if (__DEVONLY__) $log.debug('itemManager updateItem');
-        return apiRequest('put', `lists/${item.list}/items/${item._id}`, { data: itemUpdateInfo })
+        return apiRequest('put', `lists/${list._id}/items/${item._id}`, { data: itemUpdateInfo })
           .then((updatedItem) => {
             // if (__DEVONLY__) $log.log('itemManager updateItem then block, updatedItem: ', updatedItem);
             if (itemUpdateInfo.list !== item.list) listManager.moveItemFromListToList(item, item.list, itemUpdateInfo.list);            
