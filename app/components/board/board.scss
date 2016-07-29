@@ -40,16 +40,16 @@
     .is-hidden-below-md {
       // buttons goofy unless this set to unset, doesnt work for inherit
       display: unset;  
+      
+      &.TodoList-descriptionWrapper {
+        display: inherit;
+      }
     }    
   }
 }
 
 .Board {
   height: 100%;
-  
-  // background-image: url('../../assets/images/andromeda.jpg');
-  // background-repeat: no-repeat;
-  // background-attachment: local;
 }
 
 .Board-contentListWrapper {

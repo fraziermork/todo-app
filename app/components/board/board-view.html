@@ -23,7 +23,7 @@ data-ng-class="{ 'current-list-exists': boardCtrl.shouldHideSomeLists() }"
       
       <!-- LISTS -->
       <li 
-      class="Board-listWrapper Board-contentWrapper list-group-item clearfix" 
+      class="Board-listWrapper Board-contentWrapper list-group-item clearfix is-current-list" 
       data-ng-repeat="list in boardCtrl.lists"
       data-ng-class="{ 
         'is-hidden-below-md': !boardCtrl.checkIfCurrentList(list),  
