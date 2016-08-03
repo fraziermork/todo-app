@@ -2,9 +2,6 @@
 
 const gulp    = require('gulp');
 const eslint  = require('gulp-eslint');
-// const del     = require('del');
-// const webpack = require('webpack-stream');
-// const config  = require(`${__dirname}/webpack.config.js`);
 
 const PATHS   = {
   js:     [`${__dirname}/app/**/*.js`, `${__dirname}/test/**/*.js`, './server.js'],
