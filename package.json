@@ -33,6 +33,7 @@
     "lodash.defaults": "^4.0.1"
   },
   "devDependencies": {
+    "angular-drag-and-drop-lists": "^1.4.0",
     "angular-mocks": "^1.5.7",
     "autoprefixer": "^6.3.7",
     "babel": "^6.5.2",

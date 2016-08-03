@@ -12,7 +12,7 @@ const assign = require('lodash.assign');
     ]);
     
   function returnItemManager($log, apiRequest, listManager) {
-    let itemManager = {
+    const itemManager = {
 
       /**      
        * postNewItem - a helper method to post a new item

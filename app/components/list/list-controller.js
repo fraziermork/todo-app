@@ -35,6 +35,11 @@ const assign = require('lodash.assign');
     vm.showEditListForm                  = showEditListForm;
     vm.showAddItemForm                   = showAddItemForm;
     vm.showListAndItsItemsBelowMdScreens = showListAndItsItemsBelowMdScreens;
+    vm.itemMoved                         = itemMoved;
+    vm.itemDropped                       = itemDropped;
+    vm.itemDragCancelled                 = itemDragCancelled;
+    
+    
     
     
     /**    
@@ -119,6 +124,92 @@ const assign = require('lodash.assign');
       listManager.setCurrentList(vm.list);
     }
     
+    
+    
+    
+    
+    /**    
+     * itemMoved - This method runs whenever an item is moved. It removes the item from the list and posts the update to the database. 
+     *      
+     * @param  {number} index the index the item to remove is at       
+     * @param  {object} event the drag event that triggered this     
+     * @return {type}       description     
+     */     
+    function itemMoved(index, event) {
+      if (__DEVONLY__) $log.debug(`ListController itemMoved, index: ${index}`);
+      vm.list.items.splice(index, 1);
+      
+      $log.log('Items: ', vm.list.items);
+      
+      
+      listManager.updateList(vm.list)
+        .then((updatedList) => {
+          $log.log('ITEM MOVE CALLBACK, updatedList: ', updatedList);
+        })
+        .catch((err) => {
+          $log.error('ITEM MOVE CALLBACK, err: ', err);
+        });
+    }
+    
+    
+    
+    
+    /**    
+     * itemDropped - This runs whenever an item is dropped into the list
+     *      
+     * @param  {object}  event    The     
+     * @param  {number}  index    the index the item was added in at     
+     * @param  {object}  item     the item object     
+     * @param  {string}  type     the type of what is being dropped in      
+     * @param  {boolean} external Whether the item came from an external source or not     
+     * @return {object}           The object to put into the list     
+     */     
+    function itemDropped(dragEvent, index, item, type, external) {
+      if (__DEVONLY__) $log.debug(`ListController ${vm.list.name} item ${item.name} dropped at ${index}`);
+      $log.log('event: ', dragEvent);
+      $log.log('item: ', item);
+      
+      // Break out and don't make the request to update the list unless the item was moved to a list it doesn't already belong to 
+      // This prevents this callback from 
+      for (let i = 0; i < vm.list.items.length; i++) {
+        if (vm.list.items[i]._id === item._id) {
+          $log.warn(`ListController itemDropped found duplicate ${vm.list.items[i].name}`);
+          return item;
+        }
+        $log.log(`itemDropped checked ${item.name} against ${vm.list.items[i].name} and didnt find match`);
+      }
+      
+      listManager.updateList(vm.list)
+        .then((updatedList) => {
+          $log.log('ITEM DROP CALLBACK, updatedList: ', updatedList);
+          //  $scope.$apply();
+        })
+        .catch((err) => {
+          $log.error('ITEM DROP CALLBACK, err: ', err);
+        });
+      
+      
+      return item;
+    }
+    
+    function itemDragCancelled() {
+      if (__DEVONLY__) $log.debug('ListController itemDragCancelled');
+      
+      
+    }
+    
+    // /**    
+    //  * itemDragOver - This callback runs whenever a list item is dragged over a list--it runs repeatedly    
+    //  *      
+    //  * @param  {object} event    the dragover event      
+    //  * @param  {number} index    the position the item would be dropped at      
+    //  * @param  {string} type     the type of the item being dropped, must be an item     
+    //  * @param  {boolean} external Whether item is from an external source     
+    //  * @return {boolean}          Whether to allow drop events or not     
+    //  */     
+    // function itemDragOver(event, index, type, external) {
+    //   if (__DEVONLY__) $log.debug('ListController itemDragOver');
+    // }
     
   }
   

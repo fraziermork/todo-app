@@ -57,10 +57,18 @@ if (production) {
 module.exports = {
   debug:  !production, 
   entry:  {
-    bundle:     ['bootstrap-loader/extractStyles', PATHS.entry],
+    bundle:     [
+      'bootstrap-loader/extractStyles', 
+      PATHS.entry
+    ],
     
-    // unlike loaders, this goes left to right
-    vendor:     ['angular', 'angular-route', 'angular-cookies']
+    // unlike loaders, this goes left to right, top to bottom
+    vendor:     [
+      'angular', 
+      'angular-route', 
+      'angular-cookies', 
+      'angular-drag-and-drop-lists'
+    ]
   },
   output: {
     path:     PATHS.build,

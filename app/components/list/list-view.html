@@ -65,6 +65,9 @@
   <!-- LIST ITEMS -->
   <ul  
   class="TodoList-listOfItems list-group is-hidden-below-md"
+  dnd-list="listCtrl.list.items"
+  dnd-allowed-types="['TodoItem']"
+  dnd-drop="listCtrl.itemDropped(event, index, item, external, type, 'TodoItem')"
   >
     <!-- ADD ITEM FORM -->
     <li 
@@ -79,6 +82,10 @@
     class="TodoList-contentWrapper TodoList-itemWrapper  list-group-item clearfix"
     data-ng-repeat="item in listCtrl.list.items"
     data-ng-if="listCtrl.list.items.length"
+    dnd-draggable="item"
+    dnd-effect-allowed="move"
+    dnd-type="'TodoItem'"
+    dnd-moved="listCtrl.itemMoved($index, event)"
     >
       <todo-item item="item" list="list"></todo-item>
     </li>
