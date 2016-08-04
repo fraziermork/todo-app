@@ -44,3 +44,37 @@ h1, label, .btn, .TodoNavbar-text {
 
 // h4: 22px
 // h2: 34px
+
+
+.Logo {
+  color: white;
+  position: relative;
+  display: inline-block;
+  
+  .Logo-primary {
+    color: white;
+  }
+  .Logo-secondary {
+    color: lighten($lightRed, 10);
+    position: relative;
+    left: -.15em;
+  }
+  
+  .Logo-hideHover {
+    display: inline;
+  }
+  .Logo-showHover {
+    display: none;
+  }
+
+  &:hover {
+    .Logo-hideHover {
+      display: none;
+    }
+    .Logo-showHover {
+      display: inline;
+    }
+  } 
+  
+  
+}
