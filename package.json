@@ -11,6 +11,7 @@
     "postinstall": "npm i && npm run build:production",
     "build:dev": "webpack",
     "build:production": "webpack",
+    "heroku-postbuild": "./node_modules/webpack/bin/webpack.js",
     "start": "node server.js",
     "start:dev": "webpack-dev-server --inline --hot"
   },
