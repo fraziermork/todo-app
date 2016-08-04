@@ -14,7 +14,7 @@ const PATHS = {
   build: `${__dirname}/build`
 };
 
-let plugins = [
+const plugins = [
   new ExtractPlugin('bundle.css'),
   new webpack.optimize.CommonsChunkPlugin({
     name:       'vendor', 
