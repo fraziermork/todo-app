@@ -39,18 +39,14 @@ let plugins = [
 ];
 
 if (production) {
-  plugins.push(new CleanPlugin('build'));
-}
-
-
-if (production) {
   plugins = plugins.concat([
     new webpack.optimize.UglifyJsPlugin({
       mangle:   true, 
       compress: {
         warnings: false
       }
-    })
+    }), 
+    new CleanPlugin('build')
   ]);
 }
 
