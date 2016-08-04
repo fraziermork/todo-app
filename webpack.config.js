@@ -10,8 +10,8 @@ const production    = process.env.NODE_ENV === 'production' || process.npm_lifec
 const API_URL       = process.env.API_URL || process.env.npm_config_dev_url;
 
 const PATHS = {
-  entry: `${__dirname}/app/entry`, 
-  build: `${__dirname}/build`
+  entry: `${__dirname}/frontend/app/entry`, 
+  build: `${__dirname}/frontend/build`
 };
 
 let plugins = [
@@ -22,6 +22,7 @@ let plugins = [
     minChunks:  2
   }),
   new webpack.optimize.OccurenceOrderPlugin(),
+  new CleanPlugin('build'),
   new webpack.DefinePlugin({
     // Deployment url of the backend or localhost for testing
     __API_URL__:            JSON.stringify(API_URL), 
@@ -45,8 +46,8 @@ if (production) {
       compress: {
         warnings: false
       }
-    }), 
-    new CleanPlugin('build')
+    })
+    
   ]);
 }
 

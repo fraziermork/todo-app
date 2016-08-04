@@ -2,12 +2,11 @@
 
 const gulp    = require('gulp');
 const eslint  = require('gulp-eslint');
+const mocha   = require('gulp-mocha');
 
 const PATHS   = {
-  js:     [`${__dirname}/app/**/*.js`, `${__dirname}/test/**/*.js`, './server.js'],
-  index:  `${__dirname}/app/main/index.html`, 
-  entry:  `${__dirname}/app/entry.js`,
-  build:  `${__dirname}/build`
+  js:    [`${__dirname}/backend/**/*.js`], 
+  tests: [`${__dirname}/backend/test/*-test.js`]
 };
 
 gulp.task('eslint', () => {
@@ -16,21 +15,9 @@ gulp.task('eslint', () => {
     .pipe(eslint.format());
 });
 
-// gulp.task('app:clear', () => {
-//   return del(PATHS.build + '/*');
-// });
-// 
-// gulp.task('app:html', () => {
-//   return gulp.src(PATHS.index)
-//   .pipe(gulp.dest(PATHS.build));
-// });
-// 
-// gulp.task('app:js', () => {
-//   // return gulp.src(PATHS.entry)
-//   //   .pipe(webpack(config))
-//   //   .pipe(gulp.dest(PATHS.build));
-// });
+gulp.task('test', () => {
+  return gulp.src(PATHS.tests)
+    .pipe(mocha());
+});
 
-// gulp.task('app:build', ['app:clear', 'app:html', 'app:js'], () => {
-//   
-// });
+gulp.task('default', ['eslint', 'test']);

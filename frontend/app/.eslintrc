@@ -36,5 +36,5 @@
     "modules": true,
     "experimentalObjectRestSpread": true
   },
-  "extends": "eslint:recommended"
+  "extends": ["angular", "eslint:recommended"]
 }

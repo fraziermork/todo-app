@@ -3,9 +3,17 @@
 const express = require('express');
 const app     = express();
 const port    = process.env.PORT || 8080;
+const backend = require('./backend/backend-router');
+const debug   = require('debug')('todo:server');
 
-app.use(express.static(`${__dirname}/build`));
+// Backend routes now all lie behind /api
+app.use('/api', backend);
 
-app.listen(port, () => {
-  console.log('App open on port ', port); // eslint-ignore-line  
+// Requests to anything else return 
+app.use(express.static(`${__dirname}/frontend/build`));
+
+let server = app.listen(port, () => {
+  debug('App open on port ', port); 
 });
+server.isRunning = true;
+module.exports   = server;
