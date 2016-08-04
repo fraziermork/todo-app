@@ -4,7 +4,7 @@ const ExtractPlugin = require('extract-text-webpack-plugin');
 const CleanPlugin   = require('clean-webpack-plugin');
 
 // set by the npm script that was run
-const production    = process.env.npm_lifecycle_event === 'build:production' || process.env.NODE_ENV === 'production';
+const production    = process.env.NODE_ENV === 'production';
 
 // set in the .npmrc file
 const API_URL       = production ? process.env.npm_config_production_url : process.env.npm_config_dev_url;
