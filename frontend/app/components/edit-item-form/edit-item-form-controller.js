@@ -64,7 +64,7 @@ const assign = require('lodash.assign');
         .then((updatedItem) => {
           vm.itemEdits = assign({}, editItemVis.item);
           editItemVis.hideEditItemForm();
-          $scope.$apply();
+          // $scope.$apply();
         })
         .catch((err) => {
           if (__DEVONLY__) $log.error('EditItemFormController saveChangesToItem ERROR: ', err);

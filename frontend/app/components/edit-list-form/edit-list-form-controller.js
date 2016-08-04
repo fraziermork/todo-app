@@ -63,7 +63,7 @@ const assign = require('lodash.assign');
         .then((updatedList) => {
           vm.listEdits = assign({}, editListVis.list);
           editListVis.hideEditListForm();
-          $scope.$apply();
+          // $scope.$apply();
         })
         .catch((err) => {
           if (__DEVONLY__) $log.error('EditListFormController saveChangesToList ERROR: ', err);
