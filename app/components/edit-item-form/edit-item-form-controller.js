@@ -37,7 +37,7 @@ const assign = require('lodash.assign');
     
     
     function checkIfEditItemFormVisible() {
-      if (__DEVONLY__) $log.debug('EditItemFormController checkIfEditItemFormVisible');
+      // if (__DEVONLY__) $log.debug('EditItemFormController checkIfEditItemFormVisible');
       return editItemVis.visible;
     }
     
@@ -58,7 +58,7 @@ const assign = require('lodash.assign');
       }
       
       let itemUpdateInfo = vm.itemEdits;
-      // if (__DEVONLY__) $log.log('saveChangesToItem itemUpdateInfo: ', itemUpdateInfo);
+      if (__DEVONLY__) $log.log('saveChangesToItem itemUpdateInfo: ', itemUpdateInfo);
       
       itemManager.updateItem(itemUpdateInfo, editItemVis.item, editItemVis.list)
         .then((updatedItem) => {

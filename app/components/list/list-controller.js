@@ -55,9 +55,9 @@ const assign = require('lodash.assign');
       
       listManager.getItemsInList(vm.list)
         .then((items) => {
-          // if (__DEVONLY__) $log.log(`ListController initialize: SUCCESS for ${vm.list.name}`);
+          if (__DEVONLY__) $log.log(`ListController initialize: SUCCESS for ${vm.list.name}`);
           if (vm.list.items.length === 0) vm.addItemVisible = true;
-          $scope.$digest();
+          // $scope.$digest();
         })
         .catch((err) => {
           if (__DEVONLY__) $log.error('ListController initialize: ', err);
@@ -138,9 +138,12 @@ const assign = require('lodash.assign');
     function itemMoved(index, event) {
       if (__DEVONLY__) $log.debug(`ListController itemMoved, index: ${index}`);
       vm.list.items.splice(index, 1);
-      
-      $log.log('Items: ', vm.list.items);
-      
+
+      let debugString = 'Items are: \n';
+      vm.list.items.forEach((item, i) => {
+        debugString += `${i}: ${item.name} \n`;
+      });
+      $log.warn(debugString);
       
       listManager.updateList(vm.list)
         .then((updatedList) => {
@@ -165,10 +168,9 @@ const assign = require('lodash.assign');
      * @return {object}           The object to put into the list     
      */     
     function itemDropped(dragEvent, index, item, type, external) {
-      if (__DEVONLY__) $log.debug(`ListController ${vm.list.name} item ${item.name} dropped at ${index}`);
-      $log.log('event: ', dragEvent);
-      $log.log('item: ', item);
-      
+      $log.log('dnd-drop callback');
+      if (__DEVONLY__) $log.debug(`ListController (list: ${vm.list.name}) item (name: ${item.name}) dropped at ${index}`);
+            
       // Break out and don't make the request to update the list unless the item was moved to a list it doesn't already belong to 
       // This prevents this callback from 
       for (let i = 0; i < vm.list.items.length; i++) {
@@ -176,7 +178,6 @@ const assign = require('lodash.assign');
           $log.warn(`ListController itemDropped found duplicate ${vm.list.items[i].name}`);
           return item;
         }
-        $log.log(`itemDropped checked ${item.name} against ${vm.list.items[i].name} and didnt find match`);
       }
       
       listManager.updateList(vm.list)
@@ -187,8 +188,7 @@ const assign = require('lodash.assign');
         .catch((err) => {
           $log.error('ITEM DROP CALLBACK, err: ', err);
         });
-      
-      
+
       return item;
     }
     
