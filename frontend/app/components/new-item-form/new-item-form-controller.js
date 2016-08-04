@@ -45,7 +45,7 @@
       itemManager.postNewItem(infoAboutItemToPost, vm.list)
         .then((item) => {
           vm.resetForm();
-          $scope.$apply();
+          // $scope.$apply();
         })
         .catch((err) => {
           if (__DEVONLY__) $log.error('createItem: ', err);
