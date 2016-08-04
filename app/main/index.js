@@ -4,6 +4,7 @@
   angular.module('todo-app', [
     'ngRoute',
     'ngCookies',
+    'dndLists',
     'todo-services', 
     'todo-background-screen',
     'todo-entry', 

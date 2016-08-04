@@ -8,10 +8,11 @@ const defaults = require('lodash.defaults');
       '$log', 
       '$http', 
       '$window', 
+      '$q',
       returnApiRequest
     ]);
   
-  function returnApiRequest($log, $http, $window) {
+  function returnApiRequest($log, $http, $window, $q) {
     
     /**    
      * apiRequest - a service to make requests to the backend api 
@@ -22,7 +23,6 @@ const defaults = require('lodash.defaults');
      * @param  {object} options  the options you want to send with the request, like the data       
      */     
     return function apiRequest(method, endpoint, options = {}) {
-      // if (__DEVONLY__) $log.debug('apiRequest');
       let defaultApiRequestOptions = {
         method: method.toUpperCase(), 
         url:    `${__API_URL__}/${endpoint}`
@@ -30,7 +30,7 @@ const defaults = require('lodash.defaults');
       defaults(options, defaultApiRequestOptions);
       if (__DEVONLY__) $log.warn(`MAKING ${method} REQUEST TO /${endpoint}`); 
       
-      return new Promise((resolve, reject) => {
+      return $q(function(resolve, reject) {
         $http(options)
           .then((res) => {
             if (__DEVONLY__) $log.info('SUCCESS in apiRequest:', res); 

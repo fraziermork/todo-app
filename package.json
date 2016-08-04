@@ -11,6 +11,7 @@
     "postinstall": "npm i && npm run build:production",
     "build:dev": "webpack",
     "build:production": "webpack",
+    "heroku-postbuild": "./node_modules/webpack/bin/webpack.js",
     "start": "node server.js",
     "start:dev": "webpack-dev-server --inline --hot"
   },
@@ -32,6 +33,7 @@
     "express": "^4.14.0",
     "lodash.assign": "^4.0.9",
     "lodash.defaults": "^4.0.1",
+    "angular-drag-and-drop-lists": "^1.4.0",
     "autoprefixer": "^6.3.7",
     "babel": "^6.5.2",
     "babel-core": "^6.10.4",

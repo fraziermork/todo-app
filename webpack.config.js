@@ -4,7 +4,7 @@ const ExtractPlugin = require('extract-text-webpack-plugin');
 const CleanPlugin   = require('clean-webpack-plugin');
 
 // set by the npm script that was run
-const production    = process.env.npm_lifecycle_event === 'build:production';
+const production    = process.env.npm_lifecycle_event === 'build:production' || process.env.NODE_ENV === 'production';
 
 // set in the .npmrc file
 const API_URL       = production ? process.env.npm_config_production_url : process.env.npm_config_dev_url;
@@ -57,10 +57,18 @@ if (production) {
 module.exports = {
   debug:  !production, 
   entry:  {
-    bundle:     ['bootstrap-loader/extractStyles', PATHS.entry],
+    bundle:     [
+      'bootstrap-loader/extractStyles', 
+      PATHS.entry
+    ],
     
-    // unlike loaders, this goes left to right
-    vendor:     ['angular', 'angular-route', 'angular-cookies']
+    // unlike loaders, this goes left to right, top to bottom
+    vendor:     [
+      'angular', 
+      'angular-route', 
+      'angular-cookies', 
+      'angular-drag-and-drop-lists'
+    ]
   },
   output: {
     path:     PATHS.build,

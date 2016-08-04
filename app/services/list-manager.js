@@ -15,7 +15,7 @@ const assign = require('lodash.assign');
     ]);
     
   function returnListManager($log, $window, apiRequest) {
-    let listManager = {
+    const listManager = {
       lists:       [],
       currentList: null,
       
@@ -73,16 +73,18 @@ const assign = require('lodash.assign');
       /**      
        * updateList - a helper method to update a list      
        *        
-       * @param  {object}   list            the list object       
+       * @param  {object}   list            the list to be updated       
        * @param  {object}   listUpdateInfo  an object describing the updates to make to the list       
        * @return {promise}                  a promise that resolves with the updated list object or rejects with a server error
        */       
-      updateList(listUpdateInfo, list) {
+      updateList(list, listUpdateInfo) {
         if (__DEVONLY__) $log.debug('listManager updateList');
+        if (!listUpdateInfo) listUpdateInfo = list;
         return apiRequest('put', `lists/${list._id}`, { data: listUpdateInfo })
           .then((updatedList) => {
             if (__DEVONLY__) $log.debug('listManager updateList SUCCESS', updatedList);
             assign(list, updatedList);
+            $log.debug('AFTER ASSIGN: ', list);
             return list;
           });
       },
@@ -133,25 +135,6 @@ const assign = require('lodash.assign');
       }, 
       
       
-      
-      /**      
-       * changeItemIndexInList - this helper function is designed to post the result of changes to item ordering in a list to the database
-       *                       - TODO: this wont work until item indices are supported      
-       *        
-       * @param  {object} list     description       
-       * @param  {object} item     description       
-       * @param  {number} newIndex description       
-       * @return {type}          description       
-       */       
-      changeItemIndexInList(list, item, newIndex) {
-        if (__DEVONLY__) $log.debug('listManager moveItemFromListToList');
-        
-        
-      },
-       
-       
-       
-       
        
       /**       
        * setCurrentList - sets the value of listManager.currentList to the id of the input list
@@ -162,7 +145,9 @@ const assign = require('lodash.assign');
       setCurrentList(list) {
         if (__DEVONLY__) $log.debug(`listManager setCurrentList to ${list.name}`);
         listManager.currentList = list._id;
-      } 
+      },
+      
+      
        
     };
     return listManager;

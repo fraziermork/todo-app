@@ -55,16 +55,20 @@
       class="TodoList-name"
       data-ng-bind="listCtrl.list.name"
       ></h2>
-      <div class="TodoList-descriptionWrapper is-hidden-below-md"><p
-      class="TodoList-description"
-      data-ng-bind="listCtrl.list.description"
-      ></p></div>
+      <div class="TodoList-descriptionWrapper is-hidden-below-md">
+        <p
+        class="TodoList-description"
+        data-ng-bind="listCtrl.list.description"
+        ></p>
+      </div>
     <!-- </div> -->
   </div>
 
   <!-- LIST ITEMS -->
   <ul  
   class="TodoList-listOfItems list-group is-hidden-below-md"
+  dnd-list="listCtrl.list.items"
+  dnd-drop="listCtrl.itemDropped(event, index, item, external, type, 'TodoItem')"
   >
     <!-- ADD ITEM FORM -->
     <li 
@@ -78,7 +82,9 @@
     <li 
     class="TodoList-contentWrapper TodoList-itemWrapper  list-group-item clearfix"
     data-ng-repeat="item in listCtrl.list.items"
-    data-ng-if="listCtrl.list.items.length"
+    dnd-draggable="item"
+    dnd-effect-allowed="move"
+    dnd-moved="listCtrl.itemMoved($index, event)"
     >
       <todo-item item="item" list="list"></todo-item>
     </li>
