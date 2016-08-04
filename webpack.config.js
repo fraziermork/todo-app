@@ -7,7 +7,7 @@ const CleanPlugin   = require('clean-webpack-plugin');
 const production    = process.env.NODE_ENV === 'production' || process.npm_lifecycle_event === 'build:production';
 
 // set in the .npmrc file
-const API_URL       = production ? process.env.npm_config_production_url : process.env.npm_config_dev_url;
+const API_URL       = process.env.API_URL || process.env.npm_config_dev_url;
 
 const PATHS = {
   entry: `${__dirname}/app/entry`, 
