@@ -1,4 +1,19 @@
 <section class="Entry container-fluid" data-ng-init="entryCtrl.initialize()">
+  <div class="container">
+    <div class="Entry-logoWrapper row">
+      <div class="col-xs-12 col-md-offset-2 col-md-8">
+        <h1 class="Entry-logo Logo">
+          <span class="sr-only">star todo</span>
+          <span class="Logo-primary Logo-hideHover">star</span>
+          <span class="Logo-primary Logo-showHover">start</span>
+          <span class="Logo-secondary Logo-hideHover">todo</span>
+          <span class="Logo-secondary Logo-showHover">oday</span>
+        </h1>
+      </div>
+    </div>
+    
+  </div>
+  
   <div class="Entry-wrapper container">
     <div class="Entry-formSelectOptions row hidden-md hidden-lg" role="tablist">
       <button 
@@ -53,7 +68,7 @@
           aria-labelledby="Entry-showCreateAccountForm"
           aria-hidden="{{ entryCtrl.checkAriaHidden(entryCtrl.createAccountVisible) }}"
           >
-            <h1 class="Entry-formHeader visible-md-block visible-lg-block hidden-xs">Create account</h1>
+            <h2 class="Entry-formHeader visible-md-block visible-lg-block hidden-xs">Create account</h2>
             <div class="Entry-formControlWrapper">
               <!-- USERNAME -->
               <div 
@@ -165,7 +180,7 @@
           aria-labelledby="Entry-showLoginForm"
           aria-hidden="{{ entryCtrl.checkAriaHidden(entryCtrl.loginVisible) }}"
           >
-            <h1 class="Entry-formHeader visible-md-block visible-lg-block hidden-xs">Log in</h1>
+            <h2 class="Entry-formHeader visible-md-block visible-lg-block hidden-xs">Log in</h2>
             <div class="Entry-formControlWrapper">
               <!-- USERNAME -->
               <div 
