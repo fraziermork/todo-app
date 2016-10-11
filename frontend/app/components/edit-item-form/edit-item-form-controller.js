@@ -32,6 +32,8 @@ const assign = require('lodash.assign');
     function initialize() {
       if (__DEVONLY__) $log.debug('EditItemFormController initialize');
       assign(vm.itemEdits, editItemVis.item);
+      vm.itemEdits.listId = editItemVis.list._id;
+      if (__DEVONLY__) $log.log('vm.itemEdits: \n', vm.itemEdits);
     }
     
     
@@ -62,7 +64,8 @@ const assign = require('lodash.assign');
       
       itemManager.updateItem(itemUpdateInfo, editItemVis.item, editItemVis.list)
         .then((updatedItem) => {
-          vm.itemEdits = assign({}, editItemVis.item);
+          vm.itemEdits = {};
+          // vm.itemEdits = assign({}, editItemVis.item); // complicated to implement because of possibility of changing the list the item belongs to, easier to autohide on submit 
           editItemVis.hideEditItemForm();
           // $scope.$apply();
         })

@@ -74,13 +74,13 @@ const assign = require('lodash.assign');
        * updateList - a helper method to update a list      
        *        
        * @param  {object}   list            the list to be updated       
-       * @param  {object}   listUpdateInfo  an object describing the updates to make to the list       
+       * @param  {object}   [listUpdateInfo]  an object describing the updates to make to the list, defaults to just updating the existing list object       
        * @return {promise}                  a promise that resolves with the updated list object or rejects with a server error
        */       
       updateList(list, listUpdateInfo) {
         if (__DEVONLY__) $log.debug('listManager updateList');
         if (!listUpdateInfo) listUpdateInfo = list;
-        return apiRequest('put', `lists/${list._id}`, { data: listUpdateInfo })
+        return apiRequest('put', `lists/${list._id}`, { data: listUpdateInfo || list })
           .then((updatedList) => {
             if (__DEVONLY__) $log.debug('listManager updateList SUCCESS', updatedList);
             assign(list, updatedList);
@@ -108,31 +108,7 @@ const assign = require('lodash.assign');
       
       
       
-      /** 
-       * moveItemFromListToList - description      
-       *        
-       * @param  {object} item              description       
-       * @param  {object} sourceListId      description       
-       * @param  {object} destinationListId description             
-       */       
-      moveItemFromListToList(item, sourceListId, destinationListId) {
-        if (__DEVONLY__) $log.debug(`listManager moveItemFromListToList for ${item.name}`);
-        
-        // Find the source and destination lists
-        let sourceList = listManager.lists.filter((list) => {
-          return list._id === sourceListId;
-        })[0];
-        let destinationList = listManager.lists.filter((list) => {
-          return list._id === destinationListId;
-        })[0];
-        // if (__DEVONLY__) $log.log(`moveItemFromListToList for ${item.name}, source list: ${sourceList.name}, destination list: ${destinationList.name}`);
-        
-        // Move the item from one list to the other 
-        sourceList.items = sourceList.items.filter((itemInSourceList) => {
-          return itemInSourceList._id !== item._id;
-        });
-        destinationList.items.push(item);
-      }, 
+      
       
       
        

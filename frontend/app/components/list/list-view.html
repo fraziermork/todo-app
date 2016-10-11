@@ -9,82 +9,74 @@
     
     <div class="TodoList-buttonWrapper">
       <!-- LIST DETAIL VIEW BUTTON -->
-      <button 
-      type="menu" 
-      name="TodoList-showListDetail"
-      class="TodoList-showListDetail TodoList-button btn btn-default hidden-md hidden-lg is-hidden-while-current-list-exists pull-right"
-      data-ng-click="listCtrl.showListAndItsItemsBelowMdScreens()"
-      data-ng-hide="listCtrl.nameEditable"
-      aria-label="View list"
+      <button type="menu" 
+              name="TodoList-showListDetail"
+              class="TodoList-showListDetail TodoList-button btn btn-default hidden-md hidden-lg is-hidden-while-current-list-exists pull-right"
+              data-ng-click="listCtrl.showListAndItsItemsBelowMdScreens()"
+              data-ng-hide="listCtrl.nameEditable"
+              aria-label="View list"
       >
         <span aria-hidden="true" class="glyphicon glyphicon-menu-right"></span>
       </button>
       
       
       <!-- ADD ITEM BUTTON -->
-      <button 
-      type="menu" 
-      name="TodoList-addItem"
-      class="TodoList-detailButton TodoList-button btn btn-default is-hidden-below-md pull-right"
-      data-ng-class="{ 'btn-primary': !listCtrl.addItemVisible }"
-      data-ng-click="!listCtrl.addItemVisible && listCtrl.showAddItemForm()"
-      data-ng-hide="listCtrl.nameEditable"
-      aria-controls="{{ listCtrl.list.name }}-listActions"
-      aria-disabled="{{ listCtrl.addItemVisible }}"
-      aria-label="Add an item"
+      <button type="menu" 
+              name="TodoList-addItem"
+              class="TodoList-detailButton TodoList-button btn btn-default is-hidden-below-md pull-right"
+              data-ng-class="{ 'btn-primary': !listCtrl.addItemVisible }"
+              data-ng-click="!listCtrl.addItemVisible && listCtrl.showAddItemForm()"
+              data-ng-hide="listCtrl.nameEditable"
+              aria-controls="{{ listCtrl.list.name }}-listActions"
+              aria-disabled="{{ listCtrl.addItemVisible }}"
+              aria-label="Add an item"
       >
         <span aria-hidden="true" class="glyphicon glyphicon-plus"></span>
       </button>
         
       <!-- EDIT LIST BUTTON   -->
-      <button 
-      type="menu" 
-      name="TodoList-showEditListForm"
-      class="TodoList-detailButton TodoList-button btn btn-default is-hidden-below-md pull-right"
-      data-ng-click="listCtrl.showEditListForm()"
-      data-ng-hide="listCtrl.nameEditable"
-      aria-controls="EditListForm"
-      aria-label="Edit list"
+      <button type="menu" 
+              name="TodoList-showEditListForm"
+              class="TodoList-detailButton TodoList-button btn btn-default is-hidden-below-md pull-right"
+              data-ng-click="listCtrl.showEditListForm()"
+              data-ng-hide="listCtrl.nameEditable"
+              aria-controls="EditListForm"
+              aria-label="Edit list"
       >
         <span aria-hidden="true" class="glyphicon glyphicon-cog"></span>
       </button>
     </div>
     
     <!-- <div class="TodoList-textWrapper"> -->
-      <h2 
-      class="TodoList-name"
-      data-ng-bind="listCtrl.list.name"
+      <h2 class="TodoList-name"
+          data-ng-bind="listCtrl.list.name"
       ></h2>
       <div class="TodoList-descriptionWrapper is-hidden-below-md">
-        <p
-        class="TodoList-description"
-        data-ng-bind="listCtrl.list.description"
+        <p class="TodoList-description"
+           data-ng-bind="listCtrl.list.description"
         ></p>
       </div>
     <!-- </div> -->
   </div>
 
   <!-- LIST ITEMS -->
-  <ul  
-  class="TodoList-listOfItems list-group is-hidden-below-md"
-  dnd-list="listCtrl.list.items"
-  dnd-drop="listCtrl.itemDropped(event, index, item, external, type, 'TodoItem')"
+  <ul class="TodoList-listOfItems list-group is-hidden-below-md"
+      dnd-list="listCtrl.list.items"
+      dnd-drop="listCtrl.itemDropped(event, index, item, external, type, 'TodoItem')"
   >
     <!-- ADD ITEM FORM -->
-    <li 
-    class="TodoList-contentWrapper TodoList-addItemFormWrapper list-group-item"
-    data-ng-if="listCtrl.addItemVisible"
+    <li class="TodoList-contentWrapper TodoList-addItemFormWrapper list-group-item"
+        data-ng-if="listCtrl.addItemVisible"
     >
       <new-item-form list="list" toggle-visibility="listCtrl.showAddItemForm()"></new-item-form>
     </li>
     
     <!-- LIST ITEMS -->
-    <li 
-    class="TodoList-contentWrapper TodoList-itemWrapper  list-group-item clearfix"
-    data-ng-repeat="item in listCtrl.list.items"
-    dnd-draggable="item"
-    dnd-effect-allowed="move"
-    dnd-moved="listCtrl.itemMoved($index, event)"
+    <li class="TodoList-contentWrapper TodoList-itemWrapper  list-group-item clearfix"
+        data-ng-repeat="item in listCtrl.list.items"
+        dnd-draggable="item"
+        dnd-effect-allowed="move"
+        dnd-moved="listCtrl.itemMoved($index, event)"
     >
       <todo-item item="item" list="list"></todo-item>
     </li>

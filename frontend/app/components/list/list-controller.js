@@ -2,7 +2,7 @@
 // TODO: 
 
 
-const assign = require('lodash.assign');
+// const assign = require('lodash.assign');
 
 (function() {
   angular.module('todo-list')
@@ -172,13 +172,13 @@ const assign = require('lodash.assign');
       if (__DEVONLY__) $log.debug(`ListController (list: ${vm.list.name}) item (name: ${item.name}) dropped at ${index}`);
             
       // Break out and don't make the request to update the list unless the item was moved to a list it doesn't already belong to 
-      // This prevents this callback from 
-      for (let i = 0; i < vm.list.items.length; i++) {
-        if (vm.list.items[i]._id === item._id) {
-          $log.warn(`ListController itemDropped found duplicate ${vm.list.items[i].name}`);
-          return item;
-        }
-      }
+      // This prevents this callback from duplicating the item
+      // for (let i = 0; i < vm.list.items.length; i++) {
+      //   if (vm.list.items[i]._id === item._id) {
+      //     $log.warn(`ListController itemDropped found duplicate ${vm.list.items[i].name}`);
+      //     return item;
+      //   }
+      // }
       
       listManager.updateList(vm.list)
         .then((updatedList) => {
