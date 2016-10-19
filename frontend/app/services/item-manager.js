@@ -38,21 +38,21 @@ const assign = require('lodash.assign');
       /**      
        * updateItem - Posts updates to an item to the database, and moves it between lists if necessary
        *        
-       * @param  {object} itemUpdateInfo An object describing the item        
-       * @param  {object} item           The original item object        
-       * @param  {object} list           The list the item originally belonged to        
-       * @return {promise}               A promise that resolves with the updated item or rejects with an error from the server       
+       * @param  {object} item             The original item object        
+       * @param  {object} list             The list the item originally belonged to        
+       * @param  {object} [itemUpdateInfo] An object describing the updates to make to the item        
+       * @return {promise}                 A promise that resolves with the updated item or rejects with an error from the server       
        */       
-      updateItem(itemUpdateInfo, item, list) {
+      updateItem(item, list, itemUpdateInfo) {
         if (__DEVONLY__) $log.debug('itemManager updateItem', itemUpdateInfo, item, list);
-        return apiRequest('put', `lists/${list._id}/items/${item._id}`, { data: itemUpdateInfo })
+        return apiRequest('put', `lists/${list._id}/items/${item._id}`, { data: itemUpdateInfo || item })
           .then((updatedItem) => {
             // if (__DEVONLY__) $log.log('itemManager updateItem then block, updatedItem: ', updatedItem);
             if (itemUpdateInfo.listId !== list._id) {
               $log.log('itemManager updateItem, moving item between lists');
               this.moveItemFromListToList(item, list, itemUpdateInfo.listId)
                 .then(() => {
-                  $log.debug('itemManager moveItemFromListToList sucess callback');
+                  $log.debug('itemManager moveItemFromListToList success callback');
                 });     
             }       
             assign(item, updatedItem);

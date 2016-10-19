@@ -7,15 +7,16 @@ const mongoose    = require('mongoose');
 
 const itemSchema  = new mongoose.Schema({
   name:           { type: String, required: true },
-  content:        String
+  content:        String, 
+  starred:        { type: Boolean, default: false }, 
   // list:           { type: mongoose.Schema.Types.ObjectId, ref: 'List', required: true }
   
 }, {
   timestamps: { createdAt: 'creationDate' }, 
   toObject:   { 
     getters:  true, 
-    minimize: false
-  }
+    minimize: false, 
+  },
 });
 
 module.exports    = mongoose.model('Item', itemSchema);

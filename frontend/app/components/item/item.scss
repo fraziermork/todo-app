@@ -1,10 +1,51 @@
+@import '~font-awesome/scss/font-awesome';
 @import '../../style/theme';
 
-.TodoItem-showItemActions {
+.TodoItem-buttonWrapper {
   float: right;
-  border: none; 
-  color: $lightBlue;
+}
+.TodoItem-starredForm-checkbox {
+  display: none;
+}
+
+
+.TodoItem-showItemActions {
+  @include no-border-button;
+  color:  $lightBlue;
+  
   &:hover {
     color: $darkBlue;
+  }
+}
+
+
+.TodoItem-starredForm-label {
+  @include no-border-button;
+  margin-bottom: 0;
+  
+  // ///////////////////////////////////////////////
+  // UNSTARRED STATE
+  // ///////////////////////////////////////////////
+  .TodoItem-starredForm-checkbox + & {
+    @debug "Selector for .TodoItem-starredForm-checkbox + &: #{&}";
+    color:   $starColor;
+    
+    &:hover {
+      color:  lighten($starColor, 30%);
+    }
+    
+    &::before {
+      @debug "Selector for nested &::before: #{&}";
+      @include fa-icon;
+      content: '\f006';
+      
+      // ///////////////////////////////////////////////
+      // STARRED STATE
+      // ///////////////////////////////////////////////
+      @at-root #{selector-replace(&, ".TodoItem-starredForm-checkbox", ".TodoItem-starredForm-checkbox.is-starred")} {
+        filter:  drop-shadow(0 0 5px $starColor);
+        content: '\f005';
+      }
+    }
   }
 }
