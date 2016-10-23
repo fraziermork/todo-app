@@ -1,4 +1,4 @@
-// /* global __DEVONLY__ */
+/* global __DEVONLY__ */
 
 // const defaults = require('lodash.defaults');
 
@@ -19,6 +19,7 @@
     vm.error                    = null;
     vm.lists                    = [];
     vm.addListVisible           = false;
+    vm.listManager              = listManager;
     
     // attach methods
     vm.initialize               = initialize;
@@ -31,11 +32,10 @@
      *      
      */     
     function initialize() {
-      // if (__DEVONLY__) $log.debug('BoardController initialize');
+      if (__DEVONLY__) $log.debug('BoardController initialize');
       userManager.rerouteCheck();
       userManager.fetchUserAndListDataFromStorageIfNecessary();
-      vm.lists = listManager.lists;
-      if (!vm.lists.length) vm.addListVisible = true;
+      if (!listManager.lists.length) listManager.addListVisible = true;
     }
     
     

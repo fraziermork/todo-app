@@ -104,19 +104,22 @@
        *                                            - TODO: add a backend route to allow them to fetch info if all they have is cookie? 
        */     
       fetchUserAndListDataFromStorageIfNecessary() {
-        // if (__DEVONLY__) $log.debug('userManager fetchUserAndListDataFromStorageIfNecessary');
+        if (__DEVONLY__) $log.debug('userManager fetchUserAndListDataFromStorageIfNecessary');
         if (!userManager.user) {
+          if (__DEVONLY__) $log.log('fetchUserAndListDataFromStorageIfNecessary, no user found in storage');
           let storedUser = angular.fromJson($window.sessionStorage.getItem('todo-user'));
           if (storedUser) {
-            // if (__DEVONLY__) $log.log('fetchUserAndListDataFromStorageIfNecessary: User loaded from sessionStorage');
+            if (__DEVONLY__) $log.log('fetchUserAndListDataFromStorageIfNecessary: User loaded from sessionStorage');
             userManager.user = storedUser;
           }
         }
         if (!listManager.lists.length) {
           let storedLists = angular.fromJson($window.sessionStorage.getItem('todo-user-lists'));
           if (storedLists) {
-            // if (__DEVONLY__) $log.log('fetchUserAndListDataFromStorageIfNecessary: Lists loaded from sessionStorage');
+            if (__DEVONLY__) $log.log('fetchUserAndListDataFromStorageIfNecessary: Lists loaded from sessionStorage');
             listManager.lists = storedLists;
+          } else {
+            listManager.getAllLists()
           }
         }
       }

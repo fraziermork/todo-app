@@ -137,13 +137,17 @@
      */     
     function itemMoved(index, event) {
       if (__DEVONLY__) $log.debug(`ListController itemMoved, index: ${index}`);
+      
+      // if (vm.list.items[index]._id ===)
+      
+      
       vm.list.items.splice(index, 1);
 
-      let debugString = 'Items are: \n';
-      vm.list.items.forEach((item, i) => {
-        debugString += `${i}: ${item.name} \n`;
-      });
-      $log.warn(debugString);
+      // let debugString = 'Items are: \n';
+      // vm.list.items.forEach((item, i) => {
+      //   debugString += `${i}: ${item.name} \n`;
+      // });
+      // $log.warn(debugString);
       
       listManager.updateList(vm.list)
         .then((updatedList) => {
@@ -166,20 +170,15 @@
      * @param  {string}  type     the type of what is being dropped in      
      * @param  {boolean} external Whether the item came from an external source or not     
      * @return {object}           The object to put into the list     
-     */     
+     */ 
     function itemDropped(dragEvent, index, item, type, external) {
-      $log.log('dnd-drop callback');
-      if (__DEVONLY__) $log.debug(`ListController (list: ${vm.list.name}) item (name: ${item.name}) dropped at ${index}`);
-            
-      // Break out and don't make the request to update the list unless the item was moved to a list it doesn't already belong to 
-      // This prevents this callback from duplicating the item
-      // for (let i = 0; i < vm.list.items.length; i++) {
-      //   if (vm.list.items[i]._id === item._id) {
-      //     $log.warn(`ListController itemDropped found duplicate ${vm.list.items[i].name}`);
-      //     return item;
-      //   }
-      // }
+      if (__DEVONLY__) $log.log(`ListController dnd-drop callback for item ${item.name} at ${index} in list ${vm.list.name}`);
       
+      // Break out and don't make the request to update the list unless the item was moved to a list it doesn't already belong to 
+      if (!vm.list.items[index] || vm.list.items[index]._id === item._id) return item;
+      
+      // Post updates to the list 
+      if (__DEVONLY__) $log.log(`Updating list ${vm.list.name} from item ${item.name} drop at ${index}`);
       listManager.updateList(vm.list)
         .then((updatedList) => {
           $log.log('ITEM DROP CALLBACK, updatedList: ', updatedList);
