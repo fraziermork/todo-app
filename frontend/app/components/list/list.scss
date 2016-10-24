@@ -92,6 +92,12 @@
 
 .TodoList-listOfItems {
   margin-bottom: 0;
+  min-height:    20px;
+  
+  // When an item is dragged over this list 
+  &.dndDragover {
+    // outline: 5px blue solid;
+  }
 }
 
 .TodoList-contentWrapper {
@@ -112,8 +118,22 @@
 
 .TodoList-itemWrapper {
   
-  // &:first-of-type {
-  //   border-top-left-radius:  $borderRadius;
-  //   border-top-right-radius: $borderRadius; 
-  // }
+  
+  // The item that is being dragged
+  &.dndDragging {
+    background-color: transparentize(white, .2);
+    border-radius:    $borderRadius;
+  }
+  
+  // Only the source object being dragged, not the one under the mouse pointer 
+  &.dndDraggingSource {
+    display: none;
+  }  
+}
+
+.dndPlaceholder {
+  height:           100px;
+  background-color: transparentize(lighten($brand-primary, 20%), .20);
+  // outline: 1px transparentize(lighten($brand-primary, 40%), 20%) solid;
+  border-radius:    $borderRadius;
 }

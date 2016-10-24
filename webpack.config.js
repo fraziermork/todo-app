@@ -96,7 +96,7 @@ module.exports = {
       }, 
       {
         test:     /\.scss$/, 
-        loader:   ExtractPlugin.extract('style', 'css!postcss!sass', { allChunks: true }),
+        loader:   ExtractPlugin.extract('style', 'css!postcss!resolve-url!sass?sourceMap', { allChunks: true }),
       }, 
       {
         test:     /\.(png|jpe?g|svg)$/, 
@@ -111,7 +111,7 @@ module.exports = {
         loader:   'file'
       }, 
       {
-        test:     /\.woff2?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
+        test:     /\.woff2?(\?v=\d+\.\d+\.\d+)?$/,
         loader:   'url?limit=10000'
       },
       {

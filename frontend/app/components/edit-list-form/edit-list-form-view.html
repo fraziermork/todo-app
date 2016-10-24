@@ -4,63 +4,57 @@
 
 <div class="container-fluid">
   <div class="row">
-    <section 
-    class="EditListForm-wrapper over-background-screen col-xs-10 col-xs-offset-1 col-md-6 col-md-offset-3"
-    data-ng-if="editListCtrl.checkIfEditListFormVisible()"
-    data-ng-init="editListCtrl.initialize()"
+    <section class="EditListForm-wrapper over-background-screen col-xs-10 col-xs-offset-1 col-md-6 col-md-offset-3"
+             data-ng-if="editListCtrl.checkIfEditListFormVisible()"
+             data-ng-init="editListCtrl.initialize()"
     >
-      <button 
-      type="reset" 
-      name="closeListActions"
-      class="EditListForm-closeEditListForm close"
-      aria-label="Close"
-      data-ng-click="editListCtrl.editListVis.hideEditListForm()"
-      aria-controls="{{ editListCtrl.list.name }}-editListForm"
+      <button type="reset" 
+              name="closeListActions"
+              class="EditListForm-closeEditListForm close"
+              aria-label="Close"
+              data-ng-click="editListCtrl.editListVis.hideEditListForm()"
+              aria-controls="{{ editListCtrl.list.name }}-editListForm"
       >
         <span aria-hidden="true">&times;</span>
       </button>  
   
-      <form 
-      id="EditListForm"
-      name="editListForm"
-      class="EditListForm todoForm"
-      action="javascript:void(0);"
-      aria-hidden="{{ editListCtrl.listActionsHidden }}"
-      novalidate
-      autocomplete="off"
+      <form id="EditListForm"
+            name="editListForm"
+            class="EditListForm todoForm"
+            action="javascript:void(0);"
+            aria-hidden="{{ editListCtrl.listActionsHidden }}"
+            novalidate
+            autocomplete="off"
       >
         <h4 class="EditListForm-name todoForm-header">Edit list:</h4>
         <div class="form-group">
           <label for="{{ editListCtrl.list.name }}-nameInput" class="todoForm-label">Name</label>
-          <input 
-          id="{{ editListCtrl.list.name }}-nameInput"
-          type="text" 
-          name="name" 
-          class="EditListForm-input form-control"
-          placeholder="{{ editListCtrl.list.name }}"
-          data-ng-model="editListCtrl.listEdits.name"
-          maxlength="40"
-          required
+          <input id="{{ editListCtrl.list.name }}-nameInput"
+                 type="text" 
+                 name="name" 
+                 class="EditListForm-input form-control"
+                 placeholder="{{ editListCtrl.list.name }}"
+                 data-ng-model="editListCtrl.listEdits.name"
+                 maxlength="40"
+                 required
           >
         </div>
       
         <div class="form-group">
           <label for="{{ editListCtrl.list.description }}-descriptionInput" class="todoForm-label">Description</label>
-          <textarea 
-          id="{{ editListCtrl.list.description }}-descriptionInput"
-          type="text" 
-          name="description" 
-          class="EditListForm-input form-control"
-          placeholder="{{ editListCtrl.list.description }}"
-          data-ng-model="editListCtrl.listEdits.description"
+          <textarea id="{{ editListCtrl.list.description }}-descriptionInput"
+                    type="text" 
+                    name="description" 
+                    class="EditListForm-input form-control"
+                    placeholder="{{ editListCtrl.list.description }}"
+                    data-ng-model="editListCtrl.listEdits.description"
           ></textarea>
         </div>
 
-        <button 
-        type="submit" 
-        name="submitListEdits"
-        class="EditListForm-submitListEdits EditListForm-button btn btn-primary pull-right"
-        data-ng-click="editListForm.$valid && editListCtrl.saveChangesToList()"
+        <button type="submit" 
+                name="submitListEdits"
+                class="EditListForm-submitListEdits EditListForm-button btn btn-primary pull-right"
+                data-ng-click="editListForm.$valid && editListCtrl.saveChangesToList()"
         >Save changes</button>
       </form>
     </section>

@@ -1,3 +1,7 @@
+@import '../assets/bootstrap-pre-customizations';
+@import '../assets/bootstrap-customizations';
+// @import '~bootstrap-sass/assets/stylesheets/bootstrap/mixins/_buttons';
+
 $nebula:                 #CEDAD8;
 $greyA:                  #aaa;
 $greyC:                  #ccc;
@@ -17,6 +21,7 @@ $darkBlue:               rgba(40, 96, 144, .7);
 $darkBlueBorder:         rgba(32, 77, 116, .7);
 $greyRed:                rgba(131, 66, 66, .5);
 $lightRed:               rgba(178, 34, 34, .5);
+$starColor:              rgba(255, 223, 72, 1);
 $bootstrap-md:           992px;
 $bootstrap-md-min:       $bootstrap-md;
 $bootstrap-md-max:       $bootstrap-md - 1;
@@ -29,3 +34,22 @@ $medSep:                 10px;
 $bigSep:                 15px;
 $padding:                $medSep $bigSep $bigSep $bigSep;
 $bigPadding:             20px 30px;
+
+
+@mixin no-border-button {
+  // @include button-variant();
+  border:           none; 
+  text-align:       center;
+  border-radius:    $border-radius-base;
+  padding:          $padding-base-vertical $padding-base-horizontal;
+  display:          block;
+  margin:           0;
+  text-decoration:  none;
+  background-color: transparent;
+  
+  &:hover {
+    background-color: #e6e6e6;
+    border-color:     #adadad;
+  }
+  
+}

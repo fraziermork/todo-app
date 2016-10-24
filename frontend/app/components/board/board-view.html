@@ -1,9 +1,8 @@
 <!-- TODO: figure out styling needed for mobile like list, desktop view with horizontal scroll -->
 <background-screen></background-screen>
-<section 
-class="Board" 
-data-ng-init="boardCtrl.initialize()"
-data-ng-class="{ 'current-list-exists': boardCtrl.shouldHideSomeLists() }"
+<section class="Board" 
+         data-ng-init="boardCtrl.initialize()"
+         data-ng-class="{ 'current-list-exists': boardCtrl.shouldHideSomeLists() }"
 >
   <todo-navbar toggle-visibility="boardCtrl.toggleListFormVisibility()"></todo-navbar>
   <edit-list-form></edit-list-form>
@@ -13,25 +12,22 @@ data-ng-class="{ 'current-list-exists': boardCtrl.shouldHideSomeLists() }"
       
       <!-- LIST FORM -->
       <!-- TODO: add this onto the navbar instead of here -->
-      <li 
-      class="Board-listFormWrapper Board-contentWrapper list-group-item is-hidden-while-current-list-exists clearfix"
-      data-ng-if="boardCtrl.addListVisible"
+      <li class="Board-listFormWrapper Board-contentWrapper list-group-item is-hidden-while-current-list-exists clearfix"
+          data-ng-if="boardCtrl.addListVisible"
       > 
         <new-list-form toggle-visibility="boardCtrl.toggleListFormVisibility()"></new-list-form>
       </li>
       
       
       <!-- LISTS -->
-      <li 
-      class="Board-listWrapper Board-contentWrapper list-group-item clearfix is-current-list" 
-      data-ng-repeat="list in boardCtrl.lists"
-      data-ng-class="{ 
-        'is-hidden-below-md': !boardCtrl.checkIfCurrentList(list),  
-        'is-current-list':     boardCtrl.checkIfCurrentList(list)  
-      }"
+      <li class="Board-listWrapper Board-contentWrapper list-group-item clearfix is-current-list" 
+          data-ng-repeat="list in boardCtrl.listManager.lists"
+          data-ng-class="{ 
+            'is-hidden-below-md': !boardCtrl.checkIfCurrentList(list),  
+            'is-current-list':     boardCtrl.checkIfCurrentList(list)  
+          }"
       >
-        <todo-list 
-        list="list"
+        <todo-list list="list"
         ></todo-list>
       </li>
       

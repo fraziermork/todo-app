@@ -1,27 +1,59 @@
 <article class="TodoItem" data-ng-init="itemCtrl.initialize()">
   
   <!-- preview -->
-  <div 
-  class="TodoItem-collapsedView"
-  aria-controls="{{ itemCtrl.item.name }}-editItemForm"
+  <div class="TodoItem-collapsedView"
+       aria-controls="{{ itemCtrl.item.name }}-editItemForm"
   >
-    <button 
-    type="button" 
-    name="TodoItem-showItemActions"
-    class="TodoItem-showItemActions TodoItem-button btn btn-default"
-    data-ng-click="itemCtrl.showEditItemForm()"
-    aria-controls="TodoItem-itemActions"
-    aria-label="Show item actions"
+    <div class="TodoItem-buttonWrapper">
+      <button type="button" 
+              name="TodoItem-showItemActions"
+              class="TodoItem-showItemActions TodoItem-button"
+              data-ng-click="itemCtrl.showEditItemForm()"
+              aria-controls="TodoItem-itemActions"
+              aria-label="Show item actions"
+      >
+        <span aria-hidden="true" class="glyphicon glyphicon-pencil"></span>
+      </button>
+      
+      <form class="TodoItem-starredForm" 
+            action="javascript:void(0);"
+      >
+        
+        <input id="TodoItem-{{ itemCtrl.item._id }}-checkbox"
+               class="TodoItem-starredForm-checkbox"
+               type="checkbox" 
+               name="starred"
+               data-ng-model="itemCtrl.item.starred"
+               data-ng-click="itemCtrl.updateItem()"
+               data-ng-class="{ 'is-starred': itemCtrl.item.starred }"
+               aria-label="Star item"
+        >
+        <label class="TodoItem-starredForm-label" 
+               for="TodoItem-{{ itemCtrl.item._id }}-checkbox">
+        </label>
+      </form>
+    </div>
+    
+    <!-- <button type="button" 
+            name="TodoItem-starred"
+            class="TodoItem-starred TodoItem-button btn btn-default"
+            data-ng-click="itemCtrl.toggleItemStarred()"
+            aria-label="Toggle starred"
+            data-ng-class="{ 'is-starred': itemCtrl.item.starred }"
     >
-      <span aria-hidden="true" class="glyphicon glyphicon-pencil"></span>
-    </button>
-    <h4 
-    class="TodoItem-name"
-    data-ng-bind="itemCtrl.item.name"
+      <span aria-hidden="true" 
+            class="fa"
+            data-ng-class="{ 'fa-star':   itemCtrl.item.starred, 
+                             'fa-star-o': !itemCtrl.item.starred
+                           }"
+      ></span>
+    </button> -->
+    
+    <h4 class="TodoItem-name"
+        data-ng-bind="itemCtrl.item.name"
     ></h4>
-    <p 
-    class="TodoItem-content"
-    data-ng-bind="itemCtrl.item.content"
+    <p class="TodoItem-content"
+       data-ng-bind="itemCtrl.item.content"
     ></p>
   </div>
   

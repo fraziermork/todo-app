@@ -28,7 +28,7 @@ const assign = require('lodash.assign');
     // Attach methods
     vm.initialize                  = initialize;
     vm.showEditItemForm            = showEditItemForm;
-    
+    vm.updateItem                  = updateItem;
     
     
     /**    
@@ -54,6 +54,24 @@ const assign = require('lodash.assign');
     }
     
     
+    
+    
+    
+    /**    
+     * updateItem - Updates an item with changes, mostly in case they star it
+     */     
+    function updateItem() {
+      if (__DEVONLY__) $log.debug('ItemController updateItem', vm.item);
+      // itemManager.updateItem(vm.item, vm.list)
+      //   .then((updatedItem) => {
+      //     if (__DEVONLY__) $log.debug('ItemController updateItem success callback');
+      //     $log.log('updatedItem', updatedItem);
+      //   })
+      //   .catch((err) => {
+      //     if (__DEVONLY__) $log.error('ERROR in ItemController updateItem', err);
+      //     vm.error = err;
+      //   });
+    }
     
       
   }
