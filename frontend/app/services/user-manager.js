@@ -102,6 +102,7 @@
        * fetchUserAndListDataFromStorageIfNecessary  - purpose of this is to check if there is a user in storage somewhere, if there is, set that as usermanager.user so that user data persists beyond a page load
        *                                            - always called after rerouteCheck, so doesnt need to check if auth cookie present 
        *                                            - TODO: add a backend route to allow them to fetch info if all they have is cookie? 
+       *                                            - TODO: write a method for an else block in case the user isn't found in session storage
        */     
       fetchUserAndListDataFromStorageIfNecessary() {
         if (__DEVONLY__) $log.debug('userManager fetchUserAndListDataFromStorageIfNecessary');
@@ -119,7 +120,7 @@
             if (__DEVONLY__) $log.log('fetchUserAndListDataFromStorageIfNecessary: Lists loaded from sessionStorage');
             listManager.lists = storedLists;
           } else {
-            listManager.getAllLists()
+            listManager.getAllLists();
           }
         }
       }
