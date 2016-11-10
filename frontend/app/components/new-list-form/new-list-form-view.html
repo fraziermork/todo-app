@@ -1,73 +1,66 @@
 <!-- TODO: make this prettier -->
 
 <section class="NewListForm clearfix">
-  <button 
-  class="NewListForm-closeButton close"
-  type="button"
-  name="NewListForm-closeButton"
-  aria-label="Close"
-  data-ng-click="newListCtrl.hideFormAndClearInputs()"
-  aria-controls="NewListForm-form"
+  <button class="NewListForm-closeButton close"
+          type="button"
+          name="NewListForm-closeButton"
+          aria-label="Close"
+          data-ng-click="newListCtrl.hideFormAndClearInputs()"
+          aria-controls="NewListForm-form"
   >
     <span aria-hidden="true">&times;</span>
   </button>
   
   
-  <form
-  id="NewListForm-form" 
-  class="NewListForm-form todoForm"
-  name="listForm"
-  aria-hidden="{{ !newListCtrl.visible }}"
-  action="javascript:void(0);"
-  novalidate
-  autocomplete="off"
+  <form id="NewListForm-form" 
+        class="NewListForm-form todoForm"
+        name="listForm"
+        aria-hidden="{{ !newListCtrl.visible }}"
+        action="javascript:void(0);"
+        novalidate
+        autocomplete="off"
   >
     
     <h2 class="todoForm">New list:</h2>
     
     <div class="form-group">
-      <label 
-      for="NewListForm-name" 
-      class="NewListForm-formLabel todoForm-label"
+      <label for="NewListForm-name" 
+             class="NewListForm-formLabel todoForm-label"
       >List name</label>
       
-      <input 
-      id="NewListForm-name"
-      required
-      autofocus
-      type="text" 
-      name="name" 
-      class="form-control"
-      placeholder="List name"
-      data-ng-model="newListCtrl.newList.name"
-      maxlength="40"
+      <input id="NewListForm-name"
+             required
+             autofocus
+             type="text" 
+             name="name" 
+             class="form-control"
+             placeholder="List name"
+             data-ng-model="newListCtrl.newList.name"
+             maxlength="40"
       >
     </div>
     
     
     <div class="form-group">
-      <label 
-      for="NewListForm-description" 
-      class="NewListForm-formLabel todoForm-label"
+      <label for="NewListForm-description" 
+             class="NewListForm-formLabel todoForm-label"
       >Description</label>
       
-      <textarea 
-      id="NewListForm-description"
-      type="text" 
-      name="description" 
-      class="form-control"
-      placeholder="Description"
-      data-ng-model="newListCtrl.newList.description"
+      <textarea id="NewListForm-description"
+                type="text" 
+                name="description" 
+                class="form-control"
+                placeholder="Description"
+                data-ng-model="newListCtrl.newList.description"
       ></textarea>
     </div>
     
     
-    <button 
-    id="NewListForm-createListButton"
-    type="submit"
-    name="NewListForm-createListButton"
-    class="NewListForm-button btn btn-primary pull-right"
-    data-ng-click="listForm.$valid && newListCtrl.createList()"
+    <button id="NewListForm-createListButton"
+            type="submit"
+            name="NewListForm-createListButton"
+            class="NewListForm-button btn btn-primary pull-right"
+            data-ng-click="listForm.$valid && newListCtrl.createList()"
     >Create</button>
     
   </form>

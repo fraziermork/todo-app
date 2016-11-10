@@ -35,7 +35,10 @@
       if (__DEVONLY__) $log.debug('BoardController initialize');
       userManager.rerouteCheck();
       userManager.fetchUserAndListDataFromStorageIfNecessary();
-      if (!listManager.lists.length) listManager.addListVisible = true;
+      if (!listManager.lists.length) {
+        if (__DEVONLY__) $log.debug('no lists visible, BoardController initialize setting listManager.addListVisible to true.');
+        vm.addListVisible = true;
+      }
     }
     
     
