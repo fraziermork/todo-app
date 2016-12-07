@@ -1,6 +1,4 @@
-(function() {
-  angular.module('todo-services', ['ngCookies']);
-})();
+angular.module('todo-services', ['ngCookies']);
 
 require('./http-config');
 require('./api-request.js');
