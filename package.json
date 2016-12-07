@@ -14,7 +14,7 @@
     "heroku-postbuild": "API_URL=/api ./node_modules/webpack/bin/webpack.js",
     "start": "node server.js",
     "start:devFrontend": "webpack-dev-server --inline --hot",
-    "start:devBackend": "DEBUG=todo* node ./backend/development-server.js",
+    "start:devBackend": "DEBUG=todo* nodemon ./backend/development-server.js",
     "start:db": "mongod -dbpath=./backend/data/db --smallfiles"
   },
   "repository": {
@@ -91,6 +91,7 @@
     "karma-chrome-launcher": "^1.0.1",
     "karma-jasmine": "^1.0.2",
     "karma-webpack": "^1.7.0",
-    "mocha": "^3.0.1"
+    "mocha": "^3.0.1",
+    "nodemon": "^1.11.0"
   }
 }
