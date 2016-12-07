@@ -33,13 +33,29 @@
     "key-spacing": [
       2, 
       {
-        "align": "value"
+        "singleLine": {
+          "beforeColon": false, 
+          "afterColon": true, 
+          "mode": "strict"
+        }, 
+        "multiLine": {
+          "beforeColon": false, 
+          "afterColon": true, 
+          "mode": "minimum"
+        },
+        "align": {
+          "beforeColon": false, 
+          "afterColon": true, 
+          "mode": "strict",
+          "on": "value"
+        }
       }
     ]
   },
   "env": {
     "es6": true,
-    "node": true
+    "commonjs": true,
+    "browser": true
   },
   "ecmaFeatures": {
     "modules": true,
