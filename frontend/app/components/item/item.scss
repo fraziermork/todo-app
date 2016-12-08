@@ -27,7 +27,6 @@
   // UNSTARRED STATE
   // ///////////////////////////////////////////////
   .TodoItem-starredForm-checkbox + & {
-    @debug "Selector for .TodoItem-starredForm-checkbox + &: #{&}";
     color:   $starColor;
     
     &:hover {
@@ -35,7 +34,6 @@
     }
     
     &::before {
-      @debug "Selector for nested &::before: #{&}";
       @include fa-icon;
       content: '\f006';
       

@@ -24,12 +24,12 @@ function todoRouter($routeProvider, $locationProvider) {
     .when('/login', {
       controller:   'EntryController', 
       controllerAs: 'entryCtrl',
-      template:     require('html!../components/entry/entry-view.html'),
+      template:     require('../components/entry/entry-view.html'),
     })
     .when('/board', {
       controller:   'BoardController', 
       controllerAs: 'boardCtrl',
-      template:     require('html!../components/board/board-view.html'),
+      template:     require('../components/board/board-view.html'),
     })
     .otherwise('/login');
 }

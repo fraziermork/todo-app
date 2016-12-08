@@ -10,7 +10,7 @@ angular.module('todo-services')
     
     
 function returnXsrfInterceptor($log, $cookies) {
-  let xsrfInterceptor = {
+  const xsrfInterceptor = {
     
     /**      
      * request - this attaches the value of the cookie named __COOKIE_NAME__ to requests as `X-${__COOKIE_NAME__}`

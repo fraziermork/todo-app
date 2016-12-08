@@ -10,7 +10,16 @@ const testsFilepath = `${__dirname}/frontend/**/*.spec.js`;
 
 const preprocessors = {};
 preprocessors[entryFilepath] = ['webpack'];
-preprocessors[testsFilepath] = ['babel'];
+preprocessors[testsFilepath] = ['webpack'];
+
+
+const browsers = [];
+if (process.env.TRAVIS) {
+  
+} else {
+  browsers.push('Chrome');
+}
+
 
 module.exports = function(config) {
   config.set({
@@ -70,7 +79,7 @@ module.exports = function(config) {
 
     // start these browsers
     // available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
-    browsers: ['Chrome'],
+    browsers: browsers,
 
 
     // Continuous Integration mode
@@ -80,5 +89,16 @@ module.exports = function(config) {
     // Concurrency level
     // how many browser should be started simultaneous
     concurrency: Infinity,
+    
+    // Custom stuff for running tests with chrome on travis 
+    // https://swizec.com/blog/how-to-run-javascript-tests-in-chrome-on-travis/swizec/6647
+    customLaunchers: {
+      Chrome_travis_ci: {
+        base: 'Chrome', 
+        flags: ['--no-sandbox'],
+      },
+      
+    },
+    
   })
 };
