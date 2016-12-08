@@ -15,9 +15,7 @@ const requestConfig = {
 describe('apiRequest', function() {
   
   beforeEach(function() {
-    angular.mock.module('todo-services', ($httpProvider) => {
-      this.$httpProvider = $httpProvider;
-    });
+    angular.mock.module('todo-services');
   });
   
   beforeEach(inject(function($injector) {
@@ -25,7 +23,6 @@ describe('apiRequest', function() {
     this.$httpBackend    = $injector.get('$httpBackend');
     this.$cookies        = $injector.get('$cookies');
     this.apiRequest      = $injector.get('apiRequest');
-    this.xsrfInterceptor = $injector.get('xsrfInterceptor');
   }));
   
   
@@ -100,30 +97,7 @@ describe('apiRequest', function() {
     
   });
   
-  describe('configuration', function() {
-    
-    it('should provide the correct xsrfInterceptor', function() {
-      expect(this.xsrfInterceptor).toBeDefined();
-    });
-    
-    it('should not attach a header if no cookie is present', function() {
-      expect(this.xsrfInterceptor.request({ headers: {} })).toEqual({ headers: {} });
-    });
-    
-    it('should attach a header if a cookie is present', function() {
-      const cookieAuthToken = 'helloWorld';
-      this.$cookies.put(__COOKIE_NAME__, cookieAuthToken);
-      expect(this.xsrfInterceptor.request({ headers: {} })).toEqual({ 
-        headers: {
-          [`X-${__COOKIE_NAME__}`]: cookieAuthToken,
-        }, 
-      });
-    });
-    
-    it('should include xsrfInterceptor as an interceptor for $http', function() {
-      expect(this.$httpProvider.interceptors).toContain('xsrfInterceptor');
-    });
-    
+  describe('configuration', function() {  
     it('should attach header to requests', function(done) {
       const authHeaderName         = `X-${__COOKIE_NAME__}`;
       const cookieAuthToken        = 'helloWorld';
@@ -137,7 +111,7 @@ describe('apiRequest', function() {
         .respond(200, {
           foo: 'bar',
         });
-        
+
       this.apiRequest(requestConfig.method, requestConfig.endpoint)
         .then((data) => {
           expect(data.foo).toEqual('bar');
@@ -147,21 +121,6 @@ describe('apiRequest', function() {
       
       this.$httpBackend.flush(); 
     });
-    
   });
-  
-  
-  
-  
-  
-  
-  
-  // it('should be able to handle options passed in', function() {
-  //   
-  // });
-  
-  // it('should handle errors correctly', function() {
-  //   
-  // });
   
 });

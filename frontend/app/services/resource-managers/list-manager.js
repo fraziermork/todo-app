@@ -91,11 +91,11 @@ function returnListManager($log, $window, apiRequest) {
     updateList(list, listUpdateInfo) {
       if (__DEVONLY__) $log.debug(`listManager updateList for ${list.name}`);
       if (!listUpdateInfo) listUpdateInfo = list;
-      return apiRequest('put', `lists/${list._id}`, { data: listUpdateInfo || list })
+      return apiRequest('put', `lists/${list._id}`, { data: listUpdateInfo })
         .then((updatedList) => {
-          if (__DEVONLY__) $log.log('listManager updateList SUCCESS', updatedList);
+          // if (__DEVONLY__) $log.log('listManager updateList SUCCESS', updatedList);
           assign(list, updatedList);
-          if (__DEVONLY__) $log.log('listManager updateList AFTER ASSIGN: ', list);
+          // if (__DEVONLY__) $log.log('listManager updateList AFTER ASSIGN: ', list);
           return list;
         });
     },
@@ -105,15 +105,17 @@ function returnListManager($log, $window, apiRequest) {
      * deleteList - a helper method to delete lists
      *            - TODO: if the list's id is the same as currentList, set currentList to null
      *        
-     * @param  {type} originalListObj description       
-     * @return {type}                 description       
+     * @param  {type} listToDelete description       
+     * @return {type}              description       
      */       
-    deleteList(originalListObj) {
+    deleteList(listToDelete) {
       if (__DEVONLY__) $log.debug('listManager deleteList');
-      return new Promise((resolve, reject) => {
-        
-        
-      });
+      return apiRequest('delete', `lists/${listToDelete._id}`)
+        .then(() => {
+          listManager.lists = listManager.lists.filter((list) => {
+            return list._id !== listToDelete._id;
+          });
+        });
     },
     
     
