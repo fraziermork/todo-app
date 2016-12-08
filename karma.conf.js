@@ -6,7 +6,7 @@ delete webpackConfig.entry;
 
 
 const entryFilepath = `${__dirname}/frontend/app/entry.js`;
-const testsFilepath = `${__dirname}/frontend/**/*.spec.js`;
+const testsFilepath = `${__dirname}/frontend/**/*.test.js`;
 
 const preprocessors = {};
 preprocessors[entryFilepath] = ['webpack'];
@@ -15,7 +15,7 @@ preprocessors[testsFilepath] = ['webpack'];
 
 const browsers = [];
 if (process.env.TRAVIS) {
-  
+  browsers.push('Chrome_travis_ci');
 } else {
   browsers.push('Chrome');
 }
