@@ -8,7 +8,7 @@ angular.module('todo-services')
     '$q', 
     'apiRequest', 
     'listManager', 
-    returnItemManager
+    returnItemManager,
   ]);
   
 function returnItemManager($log, $q, apiRequest, listManager) {

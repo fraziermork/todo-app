@@ -7,7 +7,7 @@ angular.module('todo-services')
     '$rootScope',
     'listManager',
     'backgroundScreenVis',
-    returnEditItemVis
+    returnEditItemVis,
   ]);
 
 function returnEditItemVis($log, $rootScope, listManager, backgroundScreenVis) {

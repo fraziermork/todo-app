@@ -11,32 +11,32 @@ const API_URL       = process.env.API_URL || process.env.npm_config_dev_url;
 
 const PATHS = {
   entry: `${__dirname}/frontend/app/entry`, 
-  build: `${__dirname}/frontend/build`
+  build: `${__dirname}/frontend/build`,
 };
 
 let plugins = [
   new ExtractPlugin('bundle.css'),
   new webpack.optimize.CommonsChunkPlugin({
-    name:       'vendor', 
-    children:   true,
-    minChunks:  2
+    name:      'vendor', 
+    children:  true,
+    minChunks: 2,
   }),
   new webpack.optimize.OccurenceOrderPlugin(),
   new CleanPlugin('build'),
   new webpack.DefinePlugin({
     // Deployment url of the backend or localhost for testing
-    __API_URL__:            JSON.stringify(API_URL), 
+    __API_URL__: JSON.stringify(API_URL), 
     
     // Controls whether console logs and other dev features take place
     // TODO: switch from boolean to regex? Not sure if webpack smart enough for that
-    __DEVONLY__:            !production, 
+    __DEVONLY__: !production, 
     
     // The name of the cookie to attach as X-`${__COOKIE_NAME__}` as a header for authentication
-    __COOKIE_NAME__:        JSON.stringify(process.env.npm_config_auth_cookie_name), 
+    __COOKIE_NAME__: JSON.stringify(process.env.npm_config_auth_cookie_name), 
     
     // The break point from mobile to fullscreen, currently defined as 992 px, the bootstrap md breakpoint
-    __MOBILE_BREAK_POINT__: process.env.npm_config_mobile_break_point
-  })
+    __MOBILE_BREAK_POINT__: process.env.npm_config_mobile_break_point,
+  }),
 ];
 
 if (production) {
@@ -44,28 +44,27 @@ if (production) {
     new webpack.optimize.UglifyJsPlugin({
       mangle:   true, 
       compress: {
-        warnings: false
-      }
-    })
-    
+        warnings: false,
+      },
+    }),
   ]);
 }
 
 module.exports = {
-  debug:  !production, 
-  entry:  {
-    bundle:     [
+  debug: !production, 
+  entry: {
+    bundle: [
       'bootstrap-loader/extractStyles', 
-      PATHS.entry
+      PATHS.entry,
     ],
     
     // unlike loaders, this goes left to right, top to bottom
-    vendor:     [
+    vendor: [
       'angular', 
       'angular-route', 
       'angular-cookies', 
-      'angular-drag-and-drop-lists'
-    ]
+      'angular-drag-and-drop-lists',
+    ],
   },
   output: {
     path:     PATHS.build,
@@ -81,55 +80,55 @@ module.exports = {
       {
         test:   /index\.js$/,
         // load the styles into all of the entry files, should be pulled out by the text extract into bundle.css
-        loader: 'baggage?[dir].scss'
-      }
+        loader: 'baggage?[dir].scss',
+      },
     ], 
     loaders: [
       {
-        test:     /\.js$/, 
+        test:    /\.js$/, 
         loaders: ['babel'],
-        include: `${__dirname}/app`
+        include: `${__dirname}/app`,
       }, 
       {
-        test:     /\.css$/, 
-        loader:   ExtractPlugin.extract('style', 'css!postcss', { allChunks: true }),
+        test:   /\.css$/, 
+        loader: ExtractPlugin.extract('style', 'css!postcss', { allChunks: true }),
       }, 
       {
-        test:     /\.scss$/, 
-        loader:   ExtractPlugin.extract('style', 'css!postcss!resolve-url!sass?sourceMap', { allChunks: true }),
+        test:   /\.scss$/, 
+        loader: ExtractPlugin.extract('style', 'css!postcss!resolve-url!sass?sourceMap', { allChunks: true }),
       }, 
       {
-        test:     /\.(png|jpe?g|svg)$/, 
-        loaders:   ['url?limit=10000', 'image-webpack?bypassOnDebug']
+        test:    /\.(png|jpe?g|svg)$/, 
+        loaders: ['url?limit=10000', 'image-webpack?bypassOnDebug'],
       }, 
       {
-        test:     /\.html$/, 
-        loaders:  ['html']
+        test:    /\.html$/, 
+        loaders: ['html'],
       }, 
       {
-        test:     /\.(ttf|eot)$/, 
-        loader:   'file'
+        test:   /\.(ttf|eot)$/, 
+        loader: 'file',
       }, 
       {
-        test:     /\.woff2?(\?v=\d+\.\d+\.\d+)?$/,
-        loader:   'url?limit=10000'
+        test:   /\.woff2?(\?v=\d+\.\d+\.\d+)?$/,
+        loader: 'url?limit=10000',
       },
       {
-        test:     /\.json$/,
-        loader:   'json'
-      }
-    ]
+        test:   /\.json$/,
+        loader: 'json',
+      },
+    ],
   }, 
   devServer: {
     devtool:            'eval-source-map',
     contentBase:        PATHS.build, 
     historyApiFallback: true,
     progress:           true,
-    stats:              'errors-only'
+    stats:              'errors-only',
   }, 
   stats: {
-    reasons:            true,
-    errorDetails:       true
+    reasons:      true,
+    errorDetails: true,
   },
   plugins: plugins,
   
@@ -145,8 +144,8 @@ module.exports = {
         'Explorer >= 8',
         'iOS >= 6',
         'Opera >= 12',
-        'Safari >= 6'
-      ]
+        'Safari >= 6',
+      ],
     })];
-  }
+  },
 };

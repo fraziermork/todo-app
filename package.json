@@ -10,7 +10,9 @@
     "node": "6.1.0"
   },
   "scripts": {
-    "test": "mocha backend/**/*.test.js",
+    "test": "npm run test:backend & npm run test:unit",
+    "test:backend": "mocha backend/**/*.test.js",
+    "test:unit": "karma start", 
     "heroku-postbuild": "API_URL=/api ./node_modules/webpack/bin/webpack.js",
     "start": "node server.js",
     "start:devFrontend": "webpack-dev-server --inline --hot",

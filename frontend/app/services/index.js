@@ -1,10 +1,10 @@
 angular.module('todo-services', ['ngCookies']);
 
-require('./http-config');
-require('./api-request.js');
-require('./background-screen-vis');
-require('./edit-item-vis');
-require('./edit-list-vis');
-require('./list-manager.js');
-require('./item-manager.js');
-require('./user-manager.js');
+require('./config/http-config');
+require('./lib/api-request');
+require('./visibility-managers/background-screen-vis');
+require('./visibility-managers/edit-item-vis');
+require('./visibility-managers/edit-list-vis');
+require('./resource-managers/list-manager');
+require('./resource-managers/item-manager');
+require('./resource-managers/user-manager');

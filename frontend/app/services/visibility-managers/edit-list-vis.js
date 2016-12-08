@@ -6,7 +6,7 @@ angular.module('todo-services')
     '$log', 
     '$rootScope', 
     'backgroundScreenVis',
-    returnEditListVis
+    returnEditListVis,
   ]);
 
 function returnEditListVis($log, $rootScope, backgroundScreenVis) {

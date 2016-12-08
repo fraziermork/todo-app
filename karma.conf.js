@@ -2,7 +2,7 @@
 // Generated on Wed Jul 13 2016 19:31:18 GMT-0700 (PDT)
 
 const webpackConfig = require('./webpack.config');
-webpackConfig.entry = {};
+delete webpackConfig.entry;
 
 module.exports = function(config) {
   config.set({
@@ -19,7 +19,7 @@ module.exports = function(config) {
     // list of files / patterns to load in the browser
     files: [
       'app/entry.js',
-      'test/**/*-test.js'
+      'frontend/**/*.test.js',
     ],
 
 
@@ -27,12 +27,12 @@ module.exports = function(config) {
     exclude: [
     ],
 
-    webpack: webpackConfig
+    webpack: webpackConfig,
     // preprocess matching files before serving them to the browser
     // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
     preprocessors: {
       'app/entry.js': ['webpack'],
-      'test/**/*-test.js': ['babel']
+      'frontend/**/*.test.js': ['babel'],
     },
 
 
@@ -70,6 +70,6 @@ module.exports = function(config) {
 
     // Concurrency level
     // how many browser should be started simultaneous
-    concurrency: Infinity
+    concurrency: Infinity,
   })
-}
+};

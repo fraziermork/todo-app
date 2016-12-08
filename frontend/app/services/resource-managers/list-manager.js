@@ -1,7 +1,6 @@
 /* global __DEVONLY__ */
 // TODO: figure out what to do with errors
 
-// const defaults = require('lodash.defaults');
 const assign = require('lodash.assign');
 
 angular.module('todo-services')
@@ -9,15 +8,13 @@ angular.module('todo-services')
     '$log', 
     '$window',
     'apiRequest', 
-    returnListManager
+    returnListManager,
   ]);
   
 function returnListManager($log, $window, apiRequest) {
   const listManager = {
     lists:       [],
     currentList: null,
-    
-    
     
     
     /**      
@@ -54,8 +51,6 @@ function returnListManager($log, $window, apiRequest) {
     },
     
     
-    
-    
     /**      
      * postNewList  - a helper method to post a new method 
      *              - constructs a placeholder list object in memory, posts it to the database, then updates the local one in memory upon success
@@ -86,7 +81,6 @@ function returnListManager($log, $window, apiRequest) {
     },
     
     
-    
     /**      
      * updateList - a helper method to update a list      
      *        
@@ -107,7 +101,6 @@ function returnListManager($log, $window, apiRequest) {
     },
     
     
-    
     /**      
      * deleteList - a helper method to delete lists
      *            - TODO: if the list's id is the same as currentList, set currentList to null
@@ -124,11 +117,6 @@ function returnListManager($log, $window, apiRequest) {
     },
     
     
-    
-    
-    
-    
-     
     /**       
      * setCurrentList - sets the value of listManager.currentList to the id of the input list
      *        
@@ -141,7 +129,6 @@ function returnListManager($log, $window, apiRequest) {
     },
     
     
-     
   };
   return listManager;
 }

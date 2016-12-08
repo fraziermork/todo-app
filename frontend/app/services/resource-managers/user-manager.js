@@ -10,7 +10,7 @@ angular.module('todo-services')
     'apiRequest', 
     'listManager', 
     'itemManager', 
-    returnUserManager
+    returnUserManager,
   ]);
 
 function returnUserManager($log, $route, $window, $cookies, $location, apiRequest, listManager, itemManager) {
@@ -58,9 +58,6 @@ function returnUserManager($log, $route, $window, $cookies, $location, apiReques
         $route.reload();
       }
     }, 
-    
-    
-    
     
         
     /**          
@@ -117,8 +114,9 @@ function returnUserManager($log, $route, $window, $cookies, $location, apiReques
           listManager.getAllLists();
         }
       }
-    }
+    },
   };
+  
   
   return userManager;
 }

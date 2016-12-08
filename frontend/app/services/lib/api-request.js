@@ -8,7 +8,7 @@ angular.module('todo-services')
     '$http', 
     '$window', 
     '$q',
-    returnApiRequest
+    returnApiRequest,
   ]);
 
 function returnApiRequest($log, $http, $window, $q) {
@@ -24,7 +24,7 @@ function returnApiRequest($log, $http, $window, $q) {
   return function apiRequest(method, endpoint, options = {}) {
     const defaultApiRequestOptions = {
       method: method.toUpperCase(), 
-      url:    `${__API_URL__}/${endpoint}`
+      url:    `${__API_URL__}/${endpoint}`,
     };
     defaults(options, defaultApiRequestOptions);
     if (__DEVONLY__) $log.warn(`MAKING ${method} REQUEST TO /${endpoint}`); 
