@@ -1,10 +1,14 @@
+/* eslint-env mocha */
+
 'use strict';
 
-// set up env variable to only use a particular test database
-const mongoose              = require('mongoose');
+// env variables 
 process.env.MONGOLAB_URI    = 'mongodb://localhost/todo_app_test';
-const server                = require(`${__dirname}/../development-server`);
 const port                  = process.env.API_PORT || 3000;
+
+// Set up env variable to only use a particular test database
+const mongoose              = require('mongoose');
+const server                = require(`${__dirname}/../development-server`);
 
 // Set up chai and require other npm modules
 const debug                 = require('debug')('todo:listsRouterTest'); 
@@ -27,19 +31,19 @@ const authenticatedRequest  = require(`${__dirname}/test-lib/authenticated-reque
 let currentUser     = {
   username: 'HonestAbe',
   password: 'FourScoreAndSeven',
-  email:    'lincoln@whitehouse.gov'
+  email:    'lincoln@whitehouse.gov',
 };
-let request         = null;
-let authToken       = null;
+let request   = null;
+let authToken = null;
 
 
 let otherUser       = {
   username: 'DishonestAbe',
   password: 'FourScoreAndSix',
-  email:    'lincoln@lighthouse.gov'
+  email:    'lincoln@lighthouse.gov',
 };
-let otherRequest    = null;
-let otherAuthToken  = null;
+let otherRequest   = null;
+let otherAuthToken = null;
 
 
 describe('ENDPOINT: /lists/:id', () => {
@@ -64,9 +68,9 @@ describe('ENDPOINT: /lists/:id', () => {
         debug('ERROR SAVING OTHERUSER: ', err);
         return done();
       }
-      otherUser       = user;
-      otherAuthToken  = user.generateToken();
-      otherRequest    = authenticatedRequest('/lists', otherAuthToken);
+      otherUser      = user;
+      otherAuthToken = user.generateToken();
+      otherRequest   = authenticatedRequest('/lists', otherAuthToken);
       return done();
     });
   });
@@ -94,8 +98,8 @@ describe('ENDPOINT: /lists/:id', () => {
     
     before('posting list beforehand', (done) => {
       testList = {
-        name:         'Confederate victories', 
-        description:  'Civil war battles that the Union lost.'
+        name:        'Confederate victories', 
+        description: 'Civil war battles that the Union lost.',
       };
       request('post', done, { data: testList })
         .end((err, res) => {
@@ -244,9 +248,9 @@ describe('ENDPOINT: /lists/:id', () => {
     let testList = null;
     before('post a list beforehand', (done) => {
       testList = {
-        name:         'Bills passed', 
-        description:  'Legislation ushered through.', 
-        owner:        currentUser._id.toString()
+        name:        'Bills passed', 
+        description: 'Legislation ushered through.', 
+        owner:       currentUser._id.toString(),
       };
       request('post', done, { data: testList })
         .end((err, res) => {
@@ -258,7 +262,7 @@ describe('ENDPOINT: /lists/:id', () => {
     describe('PUT success', () => {
       before('make PUT request beforehand', (done) => {
         this.changes = {
-          description: 'Legislation ushered through, not dudes named William.'
+          description: 'Legislation ushered through, not dudes named William.',
         };
         request('put', done, { id: testList._id.toString(), data: this.changes })
           .end((err, res) => {
@@ -303,13 +307,13 @@ describe('ENDPOINT: /lists/:id', () => {
       });
       describe('it should error out without an XSRF-TOKEN cookie header', () => {
         this.changes = {
-          description: 'No XSRF-TOKEN cookie header.'
+          description: 'No XSRF-TOKEN cookie header.',
         };
         before('make flawed PUT request beforehand', (done) => {
           request('put', done, { 
             id:     testList._id.toString(), 
             data:   this.changes, 
-            cookie: false 
+            cookie: false,
           })
             .end((err, res) => {
               this.err = err;
@@ -325,13 +329,13 @@ describe('ENDPOINT: /lists/:id', () => {
       });
       describe('it should error out without an X-XSRF-TOKEN header', () => {
         this.changes = {
-          description: 'No X-XSRF-TOKEN header.'
+          description: 'No X-XSRF-TOKEN header.',
         };
         before('make flawed PUT request beforehand', (done) => {
           request('put', done, { 
             id:             testList._id.toString(), 
             data:           this.changes, 
-            'X-XSRF-TOKEN': false 
+            'X-XSRF-TOKEN': false,
           })
             .end((err, res) => {
               this.err = err;
@@ -348,13 +352,13 @@ describe('ENDPOINT: /lists/:id', () => {
       
       describe('it should error out when the XSRF-TOKEN cookie belongs to another user', () => {
         this.changes = {
-          description: 'Someone elses XSRF-TOKEN cookie header.'
+          description: 'Someone elses XSRF-TOKEN cookie header.',
         };
         before('make flawed PUT request beforehand', (done) => {
           request('put', done, { 
             id:     testList._id.toString(), 
             data:   this.changes, 
-            cookie: `XSRF-TOKEN=${otherAuthToken}` 
+            cookie: `XSRF-TOKEN=${otherAuthToken}`, 
           })
             .end((err, res) => {
               this.err = err;
@@ -371,13 +375,13 @@ describe('ENDPOINT: /lists/:id', () => {
       
       describe('it should error out when the X-XSRF-TOKEN belongs to another user', () => {
         this.changes = {
-          description: 'Someone elses X-XSRF-TOKEN header.'
+          description: 'Someone elses X-XSRF-TOKEN header.',
         };
         before('make flawed PUT request beforehand', (done) => {
           request('put', done, { 
             id:             testList._id.toString(), 
             data:           this.changes, 
-            'X-XSRF-TOKEN': otherAuthToken 
+            'X-XSRF-TOKEN': otherAuthToken, 
           })
             .end((err, res) => {
               this.err = err;
@@ -394,12 +398,12 @@ describe('ENDPOINT: /lists/:id', () => {
       
       describe('it should error out when both the X-XSRF-TOKEN and XSRF-TOKEN cookie belong to another user', () => {
         this.changes = {
-          description: 'Authenticated user does not own specified list .'
+          description: 'Authenticated user does not own specified list .',
         };
         before('make flawed PUT request beforehand', (done) => {
           otherRequest('put', done, { 
-            id:             testList._id.toString(), 
-            data:           this.changes
+            id:   testList._id.toString(), 
+            data: this.changes,
           })
             .end((err, res) => {
               this.err = err;
@@ -433,8 +437,8 @@ describe('ENDPOINT: /lists/:id', () => {
     let testList = null;
     before('post a list before each delete test', (done) => {
       testList = {
-        name:         'Bills rejected', 
-        description:  'Legislation vetoed.' 
+        name:        'Bills rejected', 
+        description: 'Legislation vetoed.', 
       };
       request('post', done, { data: testList })
         .end((err, res) => {
@@ -456,8 +460,8 @@ describe('ENDPOINT: /lists/:id', () => {
       });
       after('post a list after a sucessful deletion', (done) => {
         testList = {
-          name:         'Bills rejected', 
-          description:  'Legislation vetoed.'
+          name:        'Bills rejected', 
+          description: 'Legislation vetoed.',
           
         };
         request('post', done, { data: testList })
@@ -496,7 +500,7 @@ describe('ENDPOINT: /lists/:id', () => {
         before('make the DELETE request beforehand', (done) => {
           request('put', done, { 
             id:     testList._id.toString(), 
-            cookie: false 
+            cookie: false, 
           })
             .end((err, res) => {
               this.err = err;
@@ -515,7 +519,7 @@ describe('ENDPOINT: /lists/:id', () => {
         before('make the DELETE request beforehand', (done) => {
           request('delete', done, { 
             id:             testList._id.toString(), 
-            'X-XSRF-TOKEN': false 
+            'X-XSRF-TOKEN': false, 
           })
             .end((err, res) => {
               this.err = err;
@@ -533,7 +537,7 @@ describe('ENDPOINT: /lists/:id', () => {
         before('make the DELETE request beforehand', (done) => {
           request('put', done, { 
             id:     testList._id.toString(), 
-            cookie: `XSRF-TOKEN=${otherAuthToken}` 
+            cookie: `XSRF-TOKEN=${otherAuthToken}`, 
           })
             .end((err, res) => {
               this.err = err;
@@ -551,7 +555,7 @@ describe('ENDPOINT: /lists/:id', () => {
         before('make the DELETE request beforehand', (done) => {
           request('delete', done, { 
             id:             testList._id.toString(), 
-            'X-XSRF-TOKEN': otherAuthToken 
+            'X-XSRF-TOKEN': otherAuthToken, 
           })
             .end((err, res) => {
               this.err = err;

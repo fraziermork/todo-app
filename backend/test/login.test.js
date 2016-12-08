@@ -1,31 +1,35 @@
+/* eslint-env mocha */
+
 'use strict';
 
-// set up env variable to only use a particular test database
-const mongoose      = require('mongoose');
-process.env.MONGOLAB_URI = 'mongodb://localhost/todo_app_test';
-const server        = require(`${__dirname}/../development-server`);
-const port          = process.env.API_PORT || 3000;
+// env variables 
+process.env.MONGOLAB_URI    = 'mongodb://localhost/todo_app_test';
+const port                  = process.env.API_PORT || 3000;
+
+// Set up env variable to only use a particular test database
+const mongoose              = require('mongoose');
+const server                = require(`${__dirname}/../development-server`);
 
 // Set up chai and require other npm modules
-const debug         = require('debug')('todo:loginRouterTest'); 
-const btoa          = require('btoa');
-const chai          = require('chai');
-const chaiHttp      = require('chai-http');
+const debug                 = require('debug')('todo:loginRouterTest'); 
+const btoa                  = require('btoa');
+const chai                  = require('chai');
+const chaiHttp              = require('chai-http');
 chai.use(chaiHttp);
-const request       = chai.request(`localhost:${port}`);
-const expect        = chai.expect; 
+const request               = chai.request(`localhost:${port}`);
+const expect                = chai.expect; 
 
 // Require in my modules
-const User          = require(`${__dirname}/../resources/user/user-model`);
+const User                  = require(`${__dirname}/../resources/user/user-model`);
 
 // Require in testing utilites
-const manageServer  = require(`${__dirname}/test-lib/manage-server`)(mongoose, server, port);
+const manageServer          = require(`${__dirname}/test-lib/manage-server`)(mongoose, server, port);
 
 // Variables to use in requests 
 let originalUser  = { 
   username: 'EffDeeArr', 
   password: 'LetsMakeANewDeal', 
-  email:    'fdr@whitehouse.gov'
+  email:    'fdr@whitehouse.gov',
 };
 let savedUser     = null;
 

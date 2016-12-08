@@ -28,18 +28,18 @@ function authenticatedRequestTakesRequest(requestFunction, baseUrl) {
     // method is the method on the superagent request object
     // twoArgs is whether it should be called as method(key, options[key]) or just method(options[key])
     const defaultKeyToReqMethod = {
-      data:           {
-        method:   'send', 
-        twoArgs:  false 
+      data: {
+        method:  'send', 
+        twoArgs: false, 
       }, 
-      cookie:         {
-        method:   'set',
-        twoArgs:  true
+      cookie: {
+        method:  'set',
+        twoArgs: true,
       }, 
       'X-XSRF-TOKEN': {
-        method:   'set',
-        twoArgs:  true
-      }
+        method:  'set',
+        twoArgs: true,
+      },
     };
     
     // defines the default values for superagent requests 
@@ -48,7 +48,7 @@ function authenticatedRequestTakesRequest(requestFunction, baseUrl) {
       id:             null, 
       data:           null,
       cookie:         `XSRF-TOKEN=${jwtCookieValue}`,
-      'X-XSRF-TOKEN': jwtCookieValue
+      'X-XSRF-TOKEN': jwtCookieValue,
     };
     const keys      = Object.keys(defaults);
     

@@ -27,7 +27,7 @@ function returnUserCreate(request, User) {
           this.res = res;
           return done();
         });
-    }
+    },
   };
   
   return userCreate;

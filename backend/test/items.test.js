@@ -1,10 +1,14 @@
+/* eslint-env mocha */
+
 'use strict';
 
-// set up env variable to only use a particular test database
-const mongoose              = require('mongoose');
+// env variables 
 process.env.MONGOLAB_URI    = 'mongodb://localhost/todo_app_test';
-const server                = require(`${__dirname}/../development-server`);
 const port                  = process.env.API_PORT || 3000;
+
+// Set up env variable to only use a particular test database
+const mongoose              = require('mongoose');
+const server                = require(`${__dirname}/../development-server`);
 
 // Set up chai nd require other npm modules
 const debug                 = require('debug')('todo:itemsRouterTest'); 
@@ -27,16 +31,16 @@ const authenticatedRequest  = require(`${__dirname}/test-lib/authenticated-reque
 
 // Variables to use in requests 
 let currentUser     = {
-  username:     'RickSanchez',
-  password:     'MeeseeksUnity',
-  email:        'WubbaLubbaDubDub@C137.com'
+  username: 'RickSanchez',
+  password: 'MeeseeksUnity',
+  email:    'WubbaLubbaDubDub@C137.com',
 };
-let request         = null;
-let authToken       = null;
+let request   = null;
+let authToken = null;
 
 let currentList     = {
-  name:         'Enemies',
-  description:  'they messed up.'
+  name:        'Enemies',
+  description: 'they messed up.',
 };
 
 describe('ENDPOINT: /lists/:listId/items', () => {
@@ -73,8 +77,8 @@ describe('ENDPOINT: /lists/:listId/items', () => {
   // ////////////////////////////////////////
   describe('testing POST success', () => {
     this.postedItem = {
-      name:     'Tammy', 
-      content:  'Remember Bird Person'
+      name:    'Tammy', 
+      content: 'Remember Bird Person',
     };
     before('make the POST beforehand', (done) => {
       request('post', done, { id: `${currentList._id}/items`, data: this.postedItem })
@@ -136,7 +140,7 @@ describe('ENDPOINT: /lists/:listId/items', () => {
     describe('it should error without a name included', () => {
       before('making POST request without auth token', (done) => {
         this.postedItem  = {
-          content:     'Hah.'
+          content: 'Hah.',
         };
         request('post', done, { id: `${currentList._id}/items`, data: this.postedItem })
           .end((err, res) => {
@@ -159,8 +163,8 @@ describe('ENDPOINT: /lists/:listId/items', () => {
   describe('testing GET all item success', () => {
     before('making item POST request beforehand', (done) => {
       this.postedItem = {
-        name:         'Prince Nebulon',
-        content:      'Hah.'
+        name:    'Prince Nebulon',
+        content: 'Hah.',
       };
       request('post', done, { id: `${currentList._id}/items`, data: this.postedItem })
         .end((err, res) => {
@@ -187,8 +191,8 @@ describe('ENDPOINT: /lists/:listId/items', () => {
     let postedItem = null;
     before('making item POST request beforehand', (done) => {
       postedItem = {
-        name:         'Beta 7',
-        content:      'Unity picks losers...wait'
+        name:    'Beta 7',
+        content: 'Unity picks losers...wait',
       };
       request('post', done, { id: `${currentList._id}/items`, data: postedItem })
         .end((err, res) => {

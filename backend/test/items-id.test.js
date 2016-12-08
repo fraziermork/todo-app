@@ -1,48 +1,52 @@
+/* eslint-env mocha */
+
 'use strict';
 
+// env variables 
+process.env.MONGOLAB_URI    = 'mongodb://localhost/todo_app_test';
+const port                  = process.env.API_PORT || 3000;
+
 // set up env variable to only use a particular test database
-const mongoose      = require('mongoose');
-process.env.MONGOLAB_URI = 'mongodb://localhost/todo_app_test';
-const server        = require(`${__dirname}/../development-server`);
-const port          = process.env.API_PORT || 3000;
+const mongoose              = require('mongoose');
+const server                = require(`${__dirname}/../development-server`);
 
 // Set up chai and require other npm modules
-const debug         = require('debug')('todo:itemsRouterTest'); 
-const chai          = require('chai');
-const chaiHttp      = require('chai-http');
-const expect        = chai.expect; 
+const debug                 = require('debug')('todo:itemsRouterTest'); 
+const chai                  = require('chai');
+const chaiHttp              = require('chai-http');
+const expect                = chai.expect; 
 chai.use(chaiHttp);
 
 // Require in my modules
-const Item          = require(`${__dirname}/../resources/item/item-model`);
-const List          = require(`${__dirname}/../resources/list/list-model`);
-const User          = require(`${__dirname}/../resources/user/user-model`);
+const Item                  = require(`${__dirname}/../resources/item/item-model`);
+const List                  = require(`${__dirname}/../resources/list/list-model`);
+const User                  = require(`${__dirname}/../resources/user/user-model`);
 
 // Require in testing utilites
-const manageServer  = require(`${__dirname}/test-lib/manage-server`)(mongoose, server, port);
+const manageServer          = require(`${__dirname}/test-lib/manage-server`)(mongoose, server, port);
 const authenticatedRequest  = require(`${__dirname}/test-lib/authenticated-request`)(chai.request, `localhost:${port}`);
 
 // Variables to use in requests 
 let currentUser     = {
-  username:     'RickSanchez',
-  password:     'MeeseeksUnity',
-  email:        'WubbaLubbaDubDub@C137.com'
+  username: 'RickSanchez',
+  password: 'MeeseeksUnity',
+  email:    'WubbaLubbaDubDub@C137.com',
 };
 let authToken       = null;
 let request         = null;
 
 let otherUser       = {
-  username:     'PrinceNebulon',
-  password:     'concentratedDarkMatter',
-  email:        'scam@zigeria.com'
+  username: 'PrinceNebulon',
+  password: 'concentratedDarkMatter',
+  email:    'scam@zigeria.com',
 };
 let otherAuthToken  = null;
 let otherRequest    = null;
 
 
 let currentList     = {
-  name:         'Enemies',
-  description:  'they messed up.'
+  name:        'Enemies',
+  description: 'they messed up.',
 };
 
 
@@ -100,8 +104,8 @@ describe('ENDPOINT: /lists/:listId/items/:itemId', () => {
   // ////////////////////////////////////////////////////////////////////////////////
   describe('testing GET item by id success', () => {
     let testItem = {
-      name:     'Tammy', 
-      content:  'Remember Bird Person'
+      name:    'Tammy', 
+      content: 'Remember Bird Person',
     };
     before('make the POST beforehand', (done) => {
       request('post', done, { data: testItem })
@@ -131,8 +135,8 @@ describe('ENDPOINT: /lists/:listId/items/:itemId', () => {
   });
   describe('testing GET item by id errors', () => {
     let testItem = {
-      name:     'Gearhead', 
-      content:  'Revenge isnt taste as sweet for you'
+      name:    'Gearhead', 
+      content: 'Revenge isnt taste as sweet for you',
     };
     before('make the POST beforehand', (done) => {
       request('post', done, { data: testItem })
@@ -178,7 +182,7 @@ describe('ENDPOINT: /lists/:listId/items/:itemId', () => {
       before('making GET request beforehand', (done) => {
         // have to go back to authenticatedRequest to reset the endpoint
         authenticatedRequest('/lists', authToken)('get', done, { 
-          id: `notARealId/items/${testItem._id}`
+          id: `notARealId/items/${testItem._id}`,
         })
           .end((err, res) => {
             this.err = err;
@@ -226,11 +230,11 @@ describe('ENDPOINT: /lists/:listId/items/:itemId', () => {
   // ////////////////////////////////////////////////////////////////////////////////
   describe('testing PUT item by id success', () => {
     let testItem = {
-      name:     'Tammy', 
-      content:  'Remember Bird Person'
+      name:    'Tammy', 
+      content: 'Remember Bird Person',
     };
     let updates = {
-      content:  'Remember Bird Person. RIP.'
+      content: 'Remember Bird Person. RIP.',
     };
     before('make the POST beforehand', (done) => {
       request('post', done, { data: testItem })
@@ -265,11 +269,11 @@ describe('ENDPOINT: /lists/:listId/items/:itemId', () => {
   
   describe('testing PUT item by id errors', () => {
     let testItem = {
-      name:     'Zeep Xanflorp', 
-      content:  'dance dance'
+      name:    'Zeep Xanflorp', 
+      content: 'dance dance',
     };
     let updates = {
-      content:  'dance dance, no revolution.'
+      content: 'dance dance, no revolution.',
     };
     before('make the POST beforehand', (done) => {
       request('post', done, { data: testItem })
@@ -298,7 +302,7 @@ describe('ENDPOINT: /lists/:listId/items/:itemId', () => {
       before('make the flawed PUT beforehand', (done) => {
         authenticatedRequest('/lists', authToken)('get', done, { 
           id:   `notARealId/items/${testItem._id}`, 
-          data: updates
+          data: updates,
         })
           .end((err, res) => {
             this.err = err;
@@ -377,8 +381,8 @@ describe('ENDPOINT: /lists/:listId/items/:itemId', () => {
   // ////////////////////////////////////////////////////////////////////////////////
   describe('testing DELETE item by id success', () => {
     let testItem = {
-      name:     'Tammy', 
-      content:  'Remember Bird Person'
+      name:    'Tammy', 
+      content: 'Remember Bird Person',
     };
     before('make the POST beforehand', (done) => {
       request('post', done, { data: testItem })
@@ -413,8 +417,8 @@ describe('ENDPOINT: /lists/:listId/items/:itemId', () => {
   
   describe('testing DELETE item by id errors', () => {
     let testItem = {
-      name:     'Tammy', 
-      content:  'Remember Bird Person'
+      name:    'Tammy', 
+      content: 'Remember Bird Person',
     };
     before('make the POST beforehand', (done) => {
       request('post', done, { data: testItem })
@@ -427,7 +431,7 @@ describe('ENDPOINT: /lists/:listId/items/:itemId', () => {
     describe('failure if list is wrong', () => {
       before('making GET request beforehand', (done) => {
         authenticatedRequest('/lists', authToken)('delete', done, { 
-          id:   `notARealId/items/${testItem._id}`
+          id: `notARealId/items/${testItem._id}`,
         })
           .end((err, res) => {
             this.err = err;
