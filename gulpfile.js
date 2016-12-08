@@ -6,7 +6,7 @@ const mocha   = require('gulp-mocha');
 
 const PATHS   = {
   js:    [`${__dirname}/backend/**/*.js`], 
-  tests: [`${__dirname}/backend/test/*-test.js`]
+  tests: [`${__dirname}/backend/**/*.test.js`],
 };
 
 gulp.task('eslint', () => {

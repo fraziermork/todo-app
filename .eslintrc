@@ -21,7 +21,13 @@
     ],
     "import/no-extraneous-dependencies": [
       2, 
-      { "devDependencies": [ "**/*.test.js" ] }
+      { 
+        "devDependencies": [ 
+          "**/*.test.js", 
+          "**/gulpfile.js", 
+          "**/backend/development-server.js" 
+        ] 
+      }
     ],
     "space-before-function-paren": [
       2, 
