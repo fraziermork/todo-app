@@ -4,12 +4,20 @@
 const webpackConfig = require('./webpack.config');
 delete webpackConfig.entry;
 
+
+const entryFilepath = `${__dirname}/frontend/app/entry.js`;
+const testsFilepath = `${__dirname}/frontend/**/*.spec.js`;
+
+const preprocessors = {};
+preprocessors[entryFilepath] = ['webpack'];
+preprocessors[testsFilepath] = ['babel'];
+
 module.exports = function(config) {
   config.set({
 
     // base path that will be used to resolve all patterns (eg. files, exclude)
     basePath: '',
-
+    
 
     // frameworks to use
     // available frameworks: https://npmjs.org/browse/keyword/karma-adapter
@@ -18,23 +26,24 @@ module.exports = function(config) {
 
     // list of files / patterns to load in the browser
     files: [
-      'app/entry.js',
-      'frontend/**/*.test.js',
+      'node_modules/angular/angular.js', 
+      'node_modules/angular-route/angular-route.js', 
+      'node_modules/angular-cookies/angular-cookies.js', 
+      'node_modules/angular-drag-and-drop-lists/angular-drag-and-drop-lists.js',
+      'node_modules/angular-mocks/angular-mocks.js',
+      // 'node_modules/bootstrap-loader/extractStyles.js',
+      entryFilepath,
+      testsFilepath,
     ],
 
 
     // list of files to exclude
     exclude: [
     ],
-
+    
     webpack: webpackConfig,
-    // preprocess matching files before serving them to the browser
-    // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
-    preprocessors: {
-      'app/entry.js': ['webpack'],
-      'frontend/**/*.test.js': ['babel'],
-    },
 
+    preprocessors: preprocessors,
 
     // test results reporter to use
     // possible values: 'dots', 'progress'
@@ -52,7 +61,7 @@ module.exports = function(config) {
 
     // level of logging
     // possible values: config.LOG_DISABLE || config.LOG_ERROR || config.LOG_WARN || config.LOG_INFO || config.LOG_DEBUG
-    logLevel: config.LOG_INFO,
+    logLevel: config.LOG_DEBUG,
 
 
     // enable / disable watching file and executing tests whenever any file changes

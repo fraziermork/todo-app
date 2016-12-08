@@ -1,5 +1,3 @@
-/* global __DEVONLY__ */
-
 const assign = require('lodash.assign');
 
 angular.module('todo-services')

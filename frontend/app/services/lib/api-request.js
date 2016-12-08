@@ -5,13 +5,12 @@ const defaults = require('lodash.defaults');
 angular.module('todo-services')
   .factory('apiRequest', [
     '$log', 
-    '$http', 
-    '$window', 
+    '$http',  
     '$q',
     returnApiRequest,
   ]);
 
-function returnApiRequest($log, $http, $window, $q) {
+function returnApiRequest($log, $http, $q) {
   
   /**
    * apiRequest - a service to make requests to the backend api 

@@ -4,7 +4,8 @@ const ExtractPlugin = require('extract-text-webpack-plugin');
 const CleanPlugin   = require('clean-webpack-plugin');
 
 // set by the npm script that was run
-const production    = process.env.NODE_ENV === 'production' || process.npm_lifecycle_event === 'build:production';
+const scriptName    = process.env.npm_lifecycle_event;
+const production    = process.env.NODE_ENV === 'production' || scriptName === 'build:production';
 
 // set in the .npmrc file
 const API_URL       = process.env.API_URL || process.env.npm_config_dev_url;
@@ -16,11 +17,6 @@ const PATHS = {
 
 let plugins = [
   new ExtractPlugin('bundle.css'),
-  new webpack.optimize.CommonsChunkPlugin({
-    name:      'vendor', 
-    children:  true,
-    minChunks: 2,
-  }),
   new webpack.optimize.OccurenceOrderPlugin(),
   new CleanPlugin('build'),
   new webpack.DefinePlugin({
@@ -39,6 +35,16 @@ let plugins = [
   }),
 ];
 
+
+// CommonsChunkPlugin incompatible w/ karma-webpack, so prevent it from being included for those tests
+if (!scriptName || scriptName !== 'test:unit') {
+  plugins.push(new webpack.optimize.CommonsChunkPlugin({
+    name:      'vendor', 
+    children:  true,
+    minChunks: 2,
+  }));
+}
+
 if (production) {
   plugins = plugins.concat([
     new webpack.optimize.UglifyJsPlugin({
@@ -52,6 +58,8 @@ if (production) {
 
 module.exports = {
   debug: !production, 
+  // context: `${__dirname}/frontend/app`,
+  
   entry: {
     bundle: [
       'bootstrap-loader/extractStyles', 
@@ -87,7 +95,7 @@ module.exports = {
       {
         test:    /\.js$/, 
         loaders: ['babel'],
-        include: `${__dirname}/app`,
+        include: `${__dirname}/frontend/app`,
       }, 
       {
         test:   /\.css$/, 
