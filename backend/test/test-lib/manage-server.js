@@ -53,7 +53,7 @@ function returnManageServer(mongoose, server, port) {
         debug('dropped test db');
         return done();
       });
-    }
+    },
   };
   
   return manageServer;

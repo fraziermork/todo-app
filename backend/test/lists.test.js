@@ -1,10 +1,14 @@
+/* eslint-env mocha */
+
 'use strict';
 
-// set up env variable to only use a particular test database
-const mongoose              = require('mongoose');
+// env variables 
 process.env.MONGOLAB_URI    = 'mongodb://localhost/todo_app_test';
-const server                = require(`${__dirname}/../development-server`);
 const port                  = process.env.API_PORT || 3000;
+
+// Set up env variable to only use a particular test database
+const mongoose              = require('mongoose');
+const server                = require(`${__dirname}/../development-server`);
 
 // Set up chai and require other npm modules
 const debug                 = require('debug')('todo:listsRouterTest'); 
@@ -25,10 +29,10 @@ const authenticatedRequest  = require(`${__dirname}/test-lib/authenticated-reque
 let currentUser     = {
   username: 'HonestAbe',
   password: 'FourScoreAndSeven',
-  email:    'lincoln@whitehouse.gov'
+  email:    'lincoln@whitehouse.gov',
 };
-let request         = null;
-let authToken       = null;
+let request   = null;
+let authToken = null;
 
 describe('ENDPOINT: /lists', () => {
   before('open server before block', (done) => {
@@ -57,8 +61,8 @@ describe('ENDPOINT: /lists', () => {
   describe('testing POST success', () => {
     before('make POST request beforehand', (done) => {
       this.postedList = {
-        name:         'Speeches', 
-        description:  'Speeches I have given or plan to give.'
+        name:        'Speeches', 
+        description: 'Speeches I have given or plan to give.',
       };
             
       request('post', done, { data: this.postedList })
@@ -99,8 +103,8 @@ describe('ENDPOINT: /lists', () => {
     describe('it should error out without an XSRF-TOKEN cookie header', () => {
       before('making POST request without auth token', (done) => {
         this.postedList = {
-          name:         'Speeches', 
-          description:  'Speeches I have given or plan to give.'
+          name:        'Speeches', 
+          description: 'Speeches I have given or plan to give.',
         };
         request('post', done, { data: this.postedList, cookie: false })
           .end((err, res) => {
@@ -118,8 +122,8 @@ describe('ENDPOINT: /lists', () => {
     describe('it should error out without an X-XSRF-TOKEN header', () => {
       before('making POST request without auth token', (done) => {
         this.postedList = {
-          name:         'Speeches', 
-          description:  'Speeches I have given or plan to give.'
+          name:        'Speeches', 
+          description: 'Speeches I have given or plan to give.',
         };
         request('post', done, { data: this.postedList, 'X-XSRF-TOKEN': false })
           .end((err, res) => {
@@ -138,7 +142,7 @@ describe('ENDPOINT: /lists', () => {
     describe('it should error without a name included', () => {
       before('make POST request beforehand', (done) => {
         this.postedList = {
-          description:  'Speeches I have given or plan to give.'
+          description: 'Speeches I have given or plan to give.',
         };
         request('post', done, { data: this.postedList })
           .end((err, res) => {
@@ -167,9 +171,9 @@ describe('ENDPOINT: /lists', () => {
   describe('testing GET all success', () => {
     before('adding lists to find beforehand', (done) => {
       this.testList = {
-        name:         'Union victories', 
-        description:  'Civil war battles that the Union won.', 
-        owner:        currentUser._id.toString()
+        name:        'Union victories', 
+        description: 'Civil war battles that the Union won.', 
+        owner:       currentUser._id.toString(),
       };
       request('post', done, { data: this.testList })
         .end((err, res) => {
