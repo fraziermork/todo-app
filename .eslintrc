@@ -24,7 +24,6 @@
       { 
         "devDependencies": [ 
           "**/*.test.js", 
-          "**/gulpfile.js", 
           "**/backend/development-server.js" 
         ] 
       }
