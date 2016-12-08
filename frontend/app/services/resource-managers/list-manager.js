@@ -90,8 +90,8 @@ function returnListManager($log, $window, apiRequest) {
      */       
     updateList(list, listUpdateInfo) {
       if (__DEVONLY__) $log.debug(`listManager updateList for ${list.name}`);
-      if (!listUpdateInfo) listUpdateInfo = list;
-      return apiRequest('put', `lists/${list._id}`, { data: listUpdateInfo })
+      
+      return apiRequest('put', `lists/${list._id}`, { data: listUpdateInfo || list })
         .then((updatedList) => {
           // if (__DEVONLY__) $log.log('listManager updateList SUCCESS', updatedList);
           assign(list, updatedList);
