@@ -3,7 +3,7 @@
 
 const assign = require('lodash.assign'); 
 
-describe('Item manager service', function() {
+describe('itemManager', function() {
   beforeEach(function() {
     angular.mock.module('todo-services');
   });
