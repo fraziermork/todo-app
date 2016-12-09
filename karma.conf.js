@@ -2,14 +2,31 @@
 // Generated on Wed Jul 13 2016 19:31:18 GMT-0700 (PDT)
 
 const webpackConfig = require('./webpack.config');
-webpackConfig.entry = {};
+delete webpackConfig.entry;
+
+
+const entryFilepath = `${__dirname}/frontend/app/entry.js`;
+const testsFilepath = `${__dirname}/frontend/**/*.test.js`;
+
+const preprocessors = {};
+preprocessors[entryFilepath] = ['webpack'];
+preprocessors[testsFilepath] = ['webpack'];
+
+
+const browsers = [];
+if (process.env.TRAVIS) {
+  browsers.push('Chrome_travis_ci');
+} else {
+  browsers.push('Chrome');
+}
+
 
 module.exports = function(config) {
   config.set({
 
     // base path that will be used to resolve all patterns (eg. files, exclude)
     basePath: '',
-
+    
 
     // frameworks to use
     // available frameworks: https://npmjs.org/browse/keyword/karma-adapter
@@ -18,23 +35,24 @@ module.exports = function(config) {
 
     // list of files / patterns to load in the browser
     files: [
-      'app/entry.js',
-      'test/**/*-test.js'
+      'node_modules/angular/angular.js', 
+      'node_modules/angular-route/angular-route.js', 
+      'node_modules/angular-cookies/angular-cookies.js', 
+      'node_modules/angular-drag-and-drop-lists/angular-drag-and-drop-lists.js',
+      'node_modules/angular-mocks/angular-mocks.js',
+      // 'node_modules/bootstrap-loader/extractStyles.js',
+      entryFilepath,
+      testsFilepath,
     ],
 
 
     // list of files to exclude
     exclude: [
     ],
+    
+    webpack: webpackConfig,
 
-    webpack: webpackConfig
-    // preprocess matching files before serving them to the browser
-    // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
-    preprocessors: {
-      'app/entry.js': ['webpack'],
-      'test/**/*-test.js': ['babel']
-    },
-
+    preprocessors: preprocessors,
 
     // test results reporter to use
     // possible values: 'dots', 'progress'
@@ -61,7 +79,7 @@ module.exports = function(config) {
 
     // start these browsers
     // available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
-    browsers: ['Chrome'],
+    browsers: browsers,
 
 
     // Continuous Integration mode
@@ -70,6 +88,17 @@ module.exports = function(config) {
 
     // Concurrency level
     // how many browser should be started simultaneous
-    concurrency: Infinity
+    concurrency: Infinity,
+    
+    // Custom stuff for running tests with chrome on travis 
+    // https://swizec.com/blog/how-to-run-javascript-tests-in-chrome-on-travis/swizec/6647
+    customLaunchers: {
+      Chrome_travis_ci: {
+        base: 'Chrome', 
+        flags: ['--no-sandbox'],
+      },
+      
+    },
+    
   })
-}
+};

@@ -5,7 +5,7 @@ angular.module('todo-services')
   .factory('backgroundScreenVis', [
     '$log', 
     '$rootScope',
-    returnBackgroundScreenVis
+    returnBackgroundScreenVis,
   ]);
 
 function returnBackgroundScreenVis($log, $rootScope) {
@@ -38,7 +38,7 @@ function returnBackgroundScreenVis($log, $rootScope) {
       $rootScope.$evalAsync(() => {
         backgroundScreenVis.visible            = false;
       });
-    }
+    },
     
   };
   

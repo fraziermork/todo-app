@@ -1,5 +1,3 @@
-/* global __DEVONLY__ */
-
 const assign = require('lodash.assign');
 
 angular.module('todo-services')
@@ -8,7 +6,7 @@ angular.module('todo-services')
     '$q', 
     'apiRequest', 
     'listManager', 
-    returnItemManager
+    returnItemManager,
   ]);
   
 function returnItemManager($log, $q, apiRequest, listManager) {
@@ -70,16 +68,16 @@ function returnItemManager($log, $q, apiRequest, listManager) {
     moveItemFromListToList(item, sourceList, destinationListId) {
       if (__DEVONLY__) $log.debug(`itemManager moveItemFromListToList for ${item.name}`);
       
-      if (__DEVONLY__) $log.log('sourceList: \n', sourceList);
-      if (__DEVONLY__) $log.log('destinationListId: \n', destinationListId);
+      // if (__DEVONLY__) $log.log('sourceList: \n', sourceList);
+      // if (__DEVONLY__) $log.log('destinationListId: \n', destinationListId);
       
       // Find the destination list
       let destinationList = listManager.lists.filter((list) => {
         return list._id === destinationListId;
       })[0];
       
-      if (__DEVONLY__) $log.log(`moveItemFromListToList for ${item.name}, source list: ${sourceList.name}, destination list: ${destinationList.name}`);
-      if (__DEVONLY__) $log.log('destination list: ', destinationList);
+      // if (__DEVONLY__) $log.log(`moveItemFromListToList for ${item.name}, source list: ${sourceList.name}, destination list: ${destinationList.name}`);
+      // if (__DEVONLY__) $log.log('destination list: ', destinationList);
       
       // Move the item from one list to the other 
       sourceList.items = sourceList.items.filter((itemInSourceList) => {
@@ -87,7 +85,8 @@ function returnItemManager($log, $q, apiRequest, listManager) {
       });
       destinationList.items.push(item);
       
-      return $q.all(listManager.updateList(sourceList), listManager.updateList(destinationList));
+      
+      return $q.all([listManager.updateList(sourceList), listManager.updateList(destinationList)]);
     }, 
     
     

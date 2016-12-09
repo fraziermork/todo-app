@@ -52,6 +52,13 @@
       }
     ]
   },
+  "globals": {
+    "angular": true, 
+    "__DEVONLY__": true, 
+    "__API_URL__": true, 
+    "__COOKIE_NAME__": true, 
+    "__MOBILE_BREAK_POINT__": true
+  },
   "env": {
     "es6": true,
     "commonjs": true,

@@ -4,13 +4,13 @@ angular.module('todo-services')
   .factory('xsrfInterceptor', [
     '$log', 
     '$cookies', 
-    returnXsrfInterceptor
+    returnXsrfInterceptor,
   ])
   .config(['$httpProvider', configHttpProvider]);
     
     
 function returnXsrfInterceptor($log, $cookies) {
-  let xsrfInterceptor = {
+  const xsrfInterceptor = {
     
     /**      
      * request - this attaches the value of the cookie named __COOKIE_NAME__ to requests as `X-${__COOKIE_NAME__}`
@@ -27,7 +27,7 @@ function returnXsrfInterceptor($log, $cookies) {
         config.headers[headerName] = cookie;
       }
       return config;
-    }
+    },
     
   };
   return xsrfInterceptor;

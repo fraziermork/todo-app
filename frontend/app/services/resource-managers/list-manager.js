@@ -1,7 +1,6 @@
 /* global __DEVONLY__ */
 // TODO: figure out what to do with errors
 
-// const defaults = require('lodash.defaults');
 const assign = require('lodash.assign');
 
 angular.module('todo-services')
@@ -9,15 +8,13 @@ angular.module('todo-services')
     '$log', 
     '$window',
     'apiRequest', 
-    returnListManager
+    returnListManager,
   ]);
   
 function returnListManager($log, $window, apiRequest) {
   const listManager = {
     lists:       [],
     currentList: null,
-    
-    
     
     
     /**      
@@ -54,8 +51,6 @@ function returnListManager($log, $window, apiRequest) {
     },
     
     
-    
-    
     /**      
      * postNewList  - a helper method to post a new method 
      *              - constructs a placeholder list object in memory, posts it to the database, then updates the local one in memory upon success
@@ -86,7 +81,6 @@ function returnListManager($log, $window, apiRequest) {
     },
     
     
-    
     /**      
      * updateList - a helper method to update a list      
      *        
@@ -96,39 +90,35 @@ function returnListManager($log, $window, apiRequest) {
      */       
     updateList(list, listUpdateInfo) {
       if (__DEVONLY__) $log.debug(`listManager updateList for ${list.name}`);
-      if (!listUpdateInfo) listUpdateInfo = list;
+      
       return apiRequest('put', `lists/${list._id}`, { data: listUpdateInfo || list })
         .then((updatedList) => {
-          if (__DEVONLY__) $log.log('listManager updateList SUCCESS', updatedList);
+          // if (__DEVONLY__) $log.log('listManager updateList SUCCESS', updatedList);
           assign(list, updatedList);
-          if (__DEVONLY__) $log.log('listManager updateList AFTER ASSIGN: ', list);
+          // if (__DEVONLY__) $log.log('listManager updateList AFTER ASSIGN: ', list);
           return list;
         });
     },
-    
     
     
     /**      
      * deleteList - a helper method to delete lists
      *            - TODO: if the list's id is the same as currentList, set currentList to null
      *        
-     * @param  {type} originalListObj description       
-     * @return {type}                 description       
+     * @param  {type} listToDelete description       
+     * @return {type}              description       
      */       
-    deleteList(originalListObj) {
+    deleteList(listToDelete) {
       if (__DEVONLY__) $log.debug('listManager deleteList');
-      return new Promise((resolve, reject) => {
-        
-        
-      });
+      return apiRequest('delete', `lists/${listToDelete._id}`)
+        .then(() => {
+          listManager.lists = listManager.lists.filter((list) => {
+            return list._id !== listToDelete._id;
+          });
+        });
     },
     
     
-    
-    
-    
-    
-     
     /**       
      * setCurrentList - sets the value of listManager.currentList to the id of the input list
      *        
@@ -141,7 +131,6 @@ function returnListManager($log, $window, apiRequest) {
     },
     
     
-     
   };
   return listManager;
 }

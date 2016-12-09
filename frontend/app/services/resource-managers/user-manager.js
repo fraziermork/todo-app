@@ -10,7 +10,7 @@ angular.module('todo-services')
     'apiRequest', 
     'listManager', 
     'itemManager', 
-    returnUserManager
+    returnUserManager,
   ]);
 
 function returnUserManager($log, $route, $window, $cookies, $location, apiRequest, listManager, itemManager) {
@@ -59,9 +59,6 @@ function returnUserManager($log, $route, $window, $cookies, $location, apiReques
       }
     }, 
     
-    
-    
-    
         
     /**          
      * handleLogin - stores data from a login or new account request as cookies, then reroutes to /board
@@ -93,7 +90,7 @@ function returnUserManager($log, $route, $window, $cookies, $location, apiReques
     
     
     /**    
-     * fetchUserAndListDataFromStorageIfNecessary  - purpose of this is to check if there is a user in storage somewhere, if there is, set that as usermanager.user so that user data persists beyond a page load
+     * fetchUserAndListDataFromStorageIfNecessary - purpose of this is to check if there is a user in storage somewhere, if there is, set that as usermanager.user so that user data persists beyond a page load
      *                                            - always called after rerouteCheck, so doesnt need to check if auth cookie present 
      *                                            - TODO: add a backend route to allow them to fetch info if all they have is cookie? 
      *                                            - TODO: write a method for an else block in case the user isn't found in session storage
@@ -117,8 +114,9 @@ function returnUserManager($log, $route, $window, $cookies, $location, apiReques
           listManager.getAllLists();
         }
       }
-    }
+    },
   };
+  
   
   return userManager;
 }
